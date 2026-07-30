@@ -1,0 +1,16 @@
+# Generated media assets (large binaries stay out of git)
+channels/*/episodes/*/assets/frames/
+channels/*/episodes/*/assets/voice/
+channels/*/episodes/*/assets/*.mp4
+channels/*/episodes/*/assets/*.mov
+channels/*/episodes/*/assets/*.wav
+channels/*/episodes/*/assets/*.mp3
+
+# Secrets
+.env
+.env.*
+*.key
+
+# OS / editor noise
+.DS_Store
+Thumbs.db

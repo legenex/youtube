@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Channel configuration",
+  "description": "Everything channel-specific for the shared pipeline. The pipeline is channel-agnostic; adding a channel is a config file, not a build.",
+  "type": "object",
+  "required": [
+    "channel_name",
+    "central_question",
+    "format",
+    "episode_structure",
+    "visual_style",
+    "voice",
+    "thumbnails",
+    "playlists",
+    "disclaimer_block",
+    "shorts",
+    "gates",
+    "cadence"
+  ],
+  "properties": {
+    "channel_name": { "type": "string" },
+    "channel_id": { "type": "string", "description": "YouTube channel ID. Separate Google account per channel." },
+    "central_question": { "type": "string" },
+    "role_in_network": { "type": "string" },
+    "audience": { "type": "string" },
+    "format": {
+      "type": "object",
+      "required": ["person", "length_minutes", "word_count"],
+      "properties": {
+        "person": { "type": "string" },
+        "length_minutes": { "type": "string" },
+        "word_count": { "type": "string" },
+        "tone": { "type": "string" }
+      }
+    },
+    "episode_structure": {
+      "type": "array",
+      "items": { "type": "object", "required": ["beat", "purpose"], "properties": { "beat": { "type": "string" }, "purpose": { "type": "string" } } }
+    },
+    "sign_off": { "type": "string" },
+    "visual_style": {
+      "type": "object",
+      "required": ["style_string", "accent_rule", "frames_per_episode"],
+      "properties": {
+        "style_string": {
+          "type": "string",
+          "description": "LOCKED. Injected verbatim into every image prompt by the scene-breakdown step. Never written or paraphrased by a model."
+        },
+        "ground": { "type": "string" },
+        "linework": { "type": "string" },
+        "accent": { "type": "string" },
+        "accent_rule": { "type": "string" },
+        "frame_vocabulary": { "type": "array", "items": { "type": "string" } },
+        "must_not_look_like": { "type": "array", "items": { "type": "string" } },
+        "frames_per_episode": { "type": "string" },
+        "motion": { "type": "string" }
+      }
+    },
+    "voice": {
+      "type": "object",
+      "required": ["provider", "voice_id", "character"],
+      "properties": {
+        "provider": { "type": "string" },
+        "voice_id": { "type": "string", "description": "Locked ElevenLabs voice ID. Distinct across the three channels, non-negotiable." },
+        "character": { "type": "string" }
+      }
+    },
+    "thumbnails": {
+      "type": "object",
+      "required": ["template_id", "word_cap"],
+      "properties": {
+        "template_id": { "type": "string", "description": "Canva template ID" },
+        "word_cap": { "type": "integer" },
+        "formula": { "type": "string" },
+        "example_phrases": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "playlists": { "type": "array", "items": { "type": "string" } },
+    "disclaimer_block": { "type": "string", "description": "Fixed description block appended to every upload." },
+    "shorts": {
+      "type": "object",
+      "required": ["per_episode", "source_beat"],
+      "properties": {
+        "per_episode": { "type": "integer" },
+        "source_beat": { "type": "string", "description": "The designated beat Shorts are cut from." }
+      }
+    },
+    "gates": {
+      "type": "object",
+      "required": ["fact_check_human_signoff", "legal_review_required"],
+      "properties": {
+        "fact_check_human_signoff": { "type": "boolean" },
+        "legal_review_required": { "type": "boolean" },
+        "source_url_required": { "type": "boolean", "description": "Hard gate: no claim ships without a live official URL in the script file." }
+      }
+    },
+    "cadence": {
+      "type": "object",
+      "properties": {
+        "long_form_per_week": { "type": "string" },
+        "shorts_per_week": { "type": "string" }
+      }
+    },
+    "rpm_estimate_usd": { "type": "string" },
+    "music": { "type": "string", "description": "Locked track family." }
+  }
+}
