@@ -1,0 +1,65 @@
+{
+  "channel_name": "Behavior by Design",
+  "channel_id": "TODO-separate-google-account",
+  "central_question": "Internal: why do people naturally do this? Crossover: what human tendency is being activated, and how was the system designed around it?",
+  "role_in_network": "Audience growth engine",
+  "audience": "18-44. Psychology and science viewers, business and design viewers, productivity audiences, technology users, explainer and curiosity channel viewers. High international potential.",
+  "format": {
+    "person": "second person",
+    "length_minutes": "9-13",
+    "word_count": "1600-2100",
+    "tone": "Calm, mechanical, curious, dry, non-moralising. No outrage narrator. No 'companies are evil' simplification. No fake certainty about contested psychology. The narrator sounds like a person with a marker explaining a machine."
+  },
+  "episode_structure": [
+    { "beat": "Recognition", "purpose": "State something the viewer does." },
+    { "beat": "The obvious explanation", "purpose": "What people normally assume, dismissed quickly." },
+    { "beat": "The mechanism", "purpose": "What is actually happening in attention, memory, social processing or perception." },
+    { "beat": "The original function", "purpose": "What the mechanism helped people do." },
+    { "beat": "The modern trade-off", "purpose": "Where it misfires now." },
+    { "beat": "The designed layer", "purpose": "Crossover episodes only: how an app, shop, interface or institution uses that tendency." },
+    { "beat": "The red mark", "purpose": "The exact point where natural behaviour becomes directed behaviour." },
+    { "beat": "The tell", "purpose": "How to notice it next time." },
+    { "beat": "Sign-off", "purpose": "Locked closing line, variant by family." }
+  ],
+  "sign_off": "Crossover: 'Your reaction was human. The setup was by design.' Pure psychology: 'You are not malfunctioning. You are behaving by design.'",
+  "editorial_split": "Family A 'Built into you' (psychology, evolution, attention, memory, social behaviour, perception) and Family B 'Built around you' (retail design, pricing, software, interfaces, offices, airports, subscriptions, institutions). Long-term balance 50/50 — this split is also a revenue decision.",
+  "visual_style": {
+    "style_string": "Diagram-first sketch animation on faint graph paper: a light grid ground, always visible, never dominant. Monochrome hand-drawn linework with hand-drawn boxes and arrows. Simplified stick figures: large circular head, dot eyes, thick brow lines, minimal bodies. Chunky flat single-colour objects. Interface mock-ups, isometric physical spaces, flowcharts and behaviour loops drawn as tidy marker diagrams. Exactly one controlled red (#D62828) highlight per frame marking only the behavioural trigger, design choice, moment of manipulation, hidden incentive, or mechanism — never decorative. No shading, no gradients, no photorealism, no cartoon exaggeration.",
+    "ground": "Faint graph paper grid, always visible, never dominant",
+    "linework": "Monochrome hand-drawn sketch",
+    "accent": "Red, one controlled highlight per frame",
+    "accent_rule": "Red marks only the behavioural trigger, the design choice, the moment of manipulation, the hidden incentive, or the mechanism itself. Never decorative. This single rule is the channel's whole visual identity.",
+    "frame_vocabulary": ["behaviour loops", "interface mock-ups", "isometric physical spaces", "flowcharts", "stick figures (large circular head, dot eyes, thick brows)", "hand-drawn boxes and arrows"],
+    "must_not_look_like": ["generic psychology facts channel", "dark-pattern outrage channel", "business breakdown clone", "conspiracy channel"],
+    "frames_per_episode": "110-150",
+    "motion": "Progressive drawing. Elements appear in sequence as the narrator reaches them, then the red mark lands — that beat is the payoff of every segment. Only a handful of genuinely moving sequences per episode."
+  },
+  "voice": {
+    "provider": "elevenlabs",
+    "voice_id": "TODO-locked-voice-id-bbd",
+    "character": "Dry, mechanical"
+  },
+  "thumbnails": {
+    "template_id": "TODO-canva-template-bbd",
+    "word_cap": 4,
+    "formula": "One object or figure, one red mark, one short phrase, large negative space. No collages, no exaggerated faces.",
+    "example_phrases": ["WHY YOU FREEZE", "THE MISSING BOTTOM", "YOU NEVER CHOSE", "THE THIRD OPTION", "BUILT TO DISTRACT", "YOUR BRAIN NOTICED"]
+  },
+  "playlists": ["Attention", "Memory", "Social Behaviour", "Consumer Design", "Interfaces", "Spaces"],
+  "disclaimer_block": "This video is educational. It describes research on human behaviour and how products and environments are designed around it. Findings noted as contested are contested. Nothing here is medical or psychological advice.",
+  "shorts": {
+    "per_episode": 3,
+    "source_beat": "The recognition beat and the red-mark beat — where this format's viral potential lives"
+  },
+  "gates": {
+    "fact_check_human_signoff": false,
+    "legal_review_required": false,
+    "source_url_required": true
+  },
+  "cadence": {
+    "long_form_per_week": "3 (4 only if quality holds after day 46)",
+    "shorts_per_week": "9"
+  },
+  "rpm_estimate_usd": "RPM $5-13, CPM $10-26. Higher on the Built Around You half (money, software, business, consumer decisions); lower on broad psychology.",
+  "music": "Envato, one locked track family. Minimal, no build-and-drop. TODO: lock track family."
+}
