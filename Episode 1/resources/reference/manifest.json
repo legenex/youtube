@@ -1,0 +1,98 @@
+{
+  "episode": "Episode 1",
+  "channel": "unclaimed",
+  "source_of_inputs": "chat upload 0d9e6051-Resources.zip",
+  "files": [
+    {
+      "original_filename": "01-channel-bible.md",
+      "staged_path": "Episode 1/resources/reference/01-channel-bible.md",
+      "bytes": 11462,
+      "sha256": "fb0333b63f26174a0ec79034804e41450d6f6c8b9765019ff89cd3d93486fd27"
+    },
+    {
+      "original_filename": "02-style-contracts (1).md",
+      "staged_path": "Episode 1/resources/reference/02-style-contracts.md",
+      "bytes": 13748,
+      "sha256": "b4c4fd613d86d14cb4ba43734c1b4f63e9de6a7b69b851951ba03b84a56fefca"
+    },
+    {
+      "original_filename": "03-research-standard.md",
+      "staged_path": "Episode 1/resources/reference/03-research-standard.md",
+      "bytes": 9743,
+      "sha256": "0fc843156e0e312535e33c9dce7baae67f52971e3774537efcc6a439d1cb725d"
+    },
+    {
+      "original_filename": "04-pipeline-and-prompts.md",
+      "staged_path": "Episode 1/resources/reference/04-pipeline-and-prompts.md",
+      "bytes": 22623,
+      "sha256": "c3dd79cd2f37eb254acb3dad8b1296eaf40d4d9a72189b9606be7306b121f47e"
+    },
+    {
+      "original_filename": "05-reference-episodes.md",
+      "staged_path": "Episode 1/resources/reference/05-reference-episodes.md",
+      "bytes": 15801,
+      "sha256": "cf9a98a98563b865e7f66cb471b695fa59ec9e438e082e681210bfa5754e680e"
+    },
+    {
+      "original_filename": "UNCLAIMED \u00b7 EPISODE 1_What Happens to Gift Card Balances Nobody Spends.docx",
+      "staged_path": "Episode 1/resources/reference/source/episode-01-original.docx",
+      "bytes": 218901,
+      "sha256": "acf0892d0a6cea20978597e3488490ec0e3d2861337630cfd7079b5140a410c7"
+    },
+    {
+      "original_filename": "Scene 1 _ 1_1.jpg",
+      "staged_path": "Episode 1/resources/reference/frames/scene-01.jpg",
+      "bytes": 510479,
+      "sha256": "d5d853dca407aeb71c134ee27700076b00f5e936b9feb631e354253a38365a07",
+      "width": 1024,
+      "height": 1024,
+      "aspect_ratio": "1:1"
+    },
+    {
+      "original_filename": "Scene 2 _ 1_1.jpg",
+      "staged_path": "Episode 1/resources/reference/frames/scene-02.jpg",
+      "bytes": 460246,
+      "sha256": "c2d1443907eac3c9de4b79e18bd623937e1ec713fb267dcb261f724223893722",
+      "width": 1024,
+      "height": 1024,
+      "aspect_ratio": "1:1"
+    },
+    {
+      "original_filename": "Scene 3 _ 1_1.jpg",
+      "staged_path": "Episode 1/resources/reference/frames/scene-03.jpg",
+      "bytes": 515231,
+      "sha256": "db48d111c3595e8e8c20812f97c41c705236b9dae9be47f38ba0234380c103b8",
+      "width": 1024,
+      "height": 1024,
+      "aspect_ratio": "1:1"
+    },
+    {
+      "original_filename": "Scene 4 _ 1_1.jpg",
+      "staged_path": "Episode 1/resources/reference/frames/scene-04.jpg",
+      "bytes": 483124,
+      "sha256": "3ec873264a3b68abb355ddef02a38c92be17696ba8b93fdd15168789711a52ee",
+      "width": 1024,
+      "height": 1024,
+      "aspect_ratio": "1:1"
+    },
+    {
+      "original_filename": "Scene 5 _ 1_1.jpg",
+      "staged_path": "Episode 1/resources/reference/frames/scene-05.jpg",
+      "bytes": 497141,
+      "sha256": "1e032d078c232f3c849bad555068f755d1ff4e056366d44eb12b7160770a2c82",
+      "width": 1024,
+      "height": 1024,
+      "aspect_ratio": "1:1"
+    },
+    {
+      "original_filename": "Gift_card_strip_depleting_and_202607291507.mp4",
+      "staged_path": "Episode 1/resources/reference/clips/gift-card-strip-depleting.mp4",
+      "bytes": 2657193,
+      "sha256": "5c025286ad9c43a4e4c9016fbcf8ff093b867b545a21e7d6b4fbf23a1843a7fa",
+      "duration_ms": 10006,
+      "width": 1280,
+      "height": 720,
+      "fps": 24.0
+    }
+  ]
+}

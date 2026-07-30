@@ -14,3 +14,10 @@ channels/*/episodes/*/assets/*.mp3
 # OS / editor noise
 .DS_Store
 Thumbs.db
+
+# Episode 1 generated output (a later build run writes here; staging stays clean)
+Episode 1/resources/frames/
+Episode 1/resources/clips/
+Episode 1/resources/voice/
+Episode 1/resources/music/
+Episode 1/*.mp4
