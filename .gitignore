@@ -6,6 +6,13 @@ channels/*/episodes/*/assets/*.mov
 channels/*/episodes/*/assets/*.wav
 channels/*/episodes/*/assets/*.mp3
 
+# Unclaimed episode working output (reference inputs stay tracked)
+channels/unclaimed/episodes/*/resources/frames/
+channels/unclaimed/episodes/*/resources/clips/
+channels/unclaimed/episodes/*/resources/voice/
+channels/unclaimed/episodes/*/resources/music/
+channels/unclaimed/episodes/*/*.mp4
+
 # Secrets
 .env
 .env.*
