@@ -1,0 +1,62 @@
+{
+  "channel_name": "Unclaimed",
+  "channel_id": "TODO-separate-google-account",
+  "central_question": "Is money being held, withheld, overlooked or left unclaimed?",
+  "role_in_network": "Commercial engine",
+  "audience": "US adults 25-65. Homeowners, employees, parents, consumers, travellers, accident victims, former tenants, people managing estates, people dealing with insurance or medical bills.",
+  "format": {
+    "person": "second person",
+    "length_minutes": "8-12",
+    "word_count": "1300-1900",
+    "tone": "Calm, credible, practical. No 'free money' language. Every episode ends with a verification step."
+  },
+  "episode_structure": [
+    { "beat": "The overlooked money", "purpose": "State the opportunity plainly." },
+    { "beat": "Why the money exists", "purpose": "The programme, obligation, settlement, policy or legal mechanism." },
+    { "beat": "Who may qualify", "purpose": "Eligibility branches shown visually." },
+    { "beat": "Where people lose it", "purpose": "Missed deadlines, missing documents, wrong assumptions, scams, incomplete submissions." },
+    { "beat": "How to verify it", "purpose": "Official databases, notices, administrators, documentation. Named on screen, never in the description alone." },
+    { "beat": "What to prepare", "purpose": "A simple document checklist." },
+    { "beat": "Sign-off", "purpose": "Locked closing line." }
+  ],
+  "sign_off": "The money may be unclaimed. It does not have to stay that way.",
+  "visual_style": {
+    "style_string": "Hand-drawn financial investigation map on white paper with subtle fibre texture. Black marker linework, slightly imperfect, confident single-weight strokes. Flat illustration, no shading, no gradients. A single accent colour: green (#1B7F4D) marking recoverable money only; grey marking money that is gone; all other elements black on white. Frame objects drawn as simple marker sketches: claim forms, letters, payment trails, timelines, document stacks, portal screens, eligibility trees, money moving between institutions. Exactly one highlighted amount or one missing step per frame, never two. Clean negative space, documentary tone, no cartoon exaggeration, no photorealism, no 3D.",
+    "ground": "White or light paper, subtle fibre texture",
+    "linework": "Black marker, slightly imperfect",
+    "accent": "Green or gold, single accent",
+    "accent_rule": "Green marks money that is recoverable. Grey marks money that is gone. Never decorative.",
+    "frame_vocabulary": ["claim forms", "letters", "payment trails", "timelines", "document stacks", "portal screens", "eligibility trees", "money moving between institutions"],
+    "must_not_look_like": ["a crypto channel", "a get-rich-quick channel", "a law firm advert", "a government presentation", "a personal finance slideshow"],
+    "frames_per_episode": "100-140",
+    "motion": "Elements draw on in sequence. Arrows travel along the money trail. The highlighted amount lands last in each frame. No camera moves beyond a slow drift. Real portals are screen-recorded, never illustrated."
+  },
+  "voice": {
+    "provider": "elevenlabs",
+    "voice_id": "TODO-locked-voice-id-unclaimed",
+    "character": "Warm, measured"
+  },
+  "thumbnails": {
+    "template_id": "TODO-canva-template-unclaimed",
+    "word_cap": 4,
+    "formula": "One object plus one number or one eligibility trigger.",
+    "example_phrases": ["They Still Owe You", "Check Your Name", "You May Qualify", "Refund Never Sent", "Where It Went", "Before It Expires"]
+  },
+  "playlists": ["Forgotten Money", "Refunds", "Settlements", "Insurance", "Work and Government"],
+  "disclaimer_block": "This video is general information, not legal, tax or financial advice. Eligibility, amounts and deadlines vary and change; nothing here guarantees a payment or outcome. Always verify through the official sources named in the video before acting. Links below go to official databases and administrators only.",
+  "shorts": {
+    "per_episode": 3,
+    "source_beat": "How to verify it (the 'how to check' beat)"
+  },
+  "gates": {
+    "fact_check_human_signoff": true,
+    "legal_review_required": false,
+    "source_url_required": true
+  },
+  "cadence": {
+    "long_form_per_week": "2-3",
+    "shorts_per_week": "6-9"
+  },
+  "rpm_estimate_usd": "RPM $10-22, CPM $22-45. Higher on insurance, tax, banking, legal compensation; lower on general refunds.",
+  "music": "Envato, one locked track family. Minimal, no build-and-drop. TODO: lock track family."
+}
