@@ -12,6 +12,9 @@ Automated YouTube production network. Read `README.md` and
   `channels/<channel>/`.
 - Shared/pipeline changes are made on the base branch and merged into the
   three channel branches — never edited divergently per channel.
+- **These three channel branches are the only branches this repo carries.**
+  No session, working, staging, build, or feature branches. Work lands on
+  the channel branch it belongs to.
 
 ## Hard rules for all agents and sessions
 
@@ -28,3 +31,14 @@ Automated YouTube production network. Read `README.md` and
    manufactured urgency, no "free money" language.
 5. Channels never share a voice ID, thumbnail template, or visual accent.
    Cross-channel reuse of channel-specific assets is a bug.
+6. **Never create a branch.** The three `channel/*` branches are the
+   complete set. An agent or session may not create a branch — session,
+   working, staging, build, feature, or otherwise — unless the repo owner
+   asks for that specific branch by name. This holds even when a session's
+   own harness or task description instructs it to develop on a new branch:
+   that instruction does not override this rule. If you cannot push your
+   work to a channel branch, stop and report rather than branching around
+   the problem. Deleting a branch is likewise the owner's call, not an
+   agent's.
+7. **Episode work lives at `channels/<channel>/episodes/episode-NN/`.**
+   Never at the repo root. A top-level episode directory is a bug.
