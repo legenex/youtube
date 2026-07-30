@@ -1,0 +1,63 @@
+{
+  "channel_name": "Law, Actually",
+  "channel_id": "TODO-separate-google-account",
+  "central_question": "What happens legally when a situation occurs? People think the law works one way. Here is how it actually works.",
+  "role_in_network": "Authority and evergreen library",
+  "audience": "US adults 20-60. True crime viewers, documentary audiences, people interested in courts and justice, people experiencing divorce, arrest, eviction, disputes or employment problems. Must be understandable with zero legal background.",
+  "format": {
+    "person": "second person or scenario-led",
+    "length_minutes": "8-12",
+    "word_count": "1300-1900",
+    "tone": "Calm, precise, slightly dry, non-partisan. Not sensational. No courtroom gravitas performance. No pretending the law is always fair. No claiming one rule applies identically in every state."
+  },
+  "episode_structure": [
+    { "beat": "The situation", "purpose": "A concrete scenario, stated plainly." },
+    { "beat": "What people assume", "purpose": "The common assumption, stated fairly." },
+    { "beat": "What the law asks", "purpose": "The issue broken into tests: duty, knowledge, intent, reasonableness, evidence, causation, damages, procedure." },
+    { "beat": "The fact that changes everything", "purpose": "The detail that determines direction." },
+    { "beat": "What happens next", "purpose": "The practical process, drawn." },
+    { "beat": "Why the outcome may feel wrong", "purpose": "The gap between factual guilt, legal proof, procedure and enforceable rights — the channel's whole reason for existing." },
+    { "beat": "What remains in the person's control", "purpose": "Documents, deadlines, questions, when to get professional advice." },
+    { "beat": "Sign-off", "purpose": "Locked closing line." }
+  ],
+  "sign_off": "That is not what people expect the law to do. It is what the law actually does.",
+  "visual_style": {
+    "style_string": "Whiteboard legal explanation: clean white ground with black marker linework, hand-drawn but tidy. Flat illustration, no shading, no gradients, no photorealism. A single accent colour, blue (#1D5FBF) or amber (#E8A013), used only for the one decisive fact per scene. Frame objects drawn as simple marker sketches: timelines, evidence boards, courtroom layouts, decision trees, property diagrams, family structures, contracts, police encounter flowcharts. Scales of justice used sparingly and only where they mean something. Exactly one decisive fact highlighted per scene. No gavels, no wigs, no generic courthouse stock imagery, no dramatic lighting.",
+    "ground": "Whiteboard, white ground",
+    "linework": "Black marker",
+    "accent": "Blue or amber, decisive fact only",
+    "accent_rule": "The accent marks only the decisive fact in each scene. One per scene. Never decorative.",
+    "frame_vocabulary": ["timelines", "evidence boards", "courtroom layouts", "decision trees", "property diagrams", "family structures", "contracts", "police encounter flowcharts"],
+    "must_not_look_like": ["gavels, wigs, courthouse stock imagery", "dramatic lighting", "slick animation (reads as advertising and triggers scepticism in legal)", "a law firm advert"],
+    "frames_per_episode": "100-140",
+    "motion": "Draw-on as the narrator reaches each element. Retention holds because the viewer waits to see which branch of the decision tree gets drawn next."
+  },
+  "voice": {
+    "provider": "elevenlabs",
+    "voice_id": "TODO-locked-voice-id-law-actually",
+    "character": "Precise, slightly cold"
+  },
+  "thumbnails": {
+    "template_id": "TODO-canva-template-law-actually",
+    "word_cap": 5,
+    "formula": "One legal situation, one contradiction. Restrained on violent or sensitive cases.",
+    "example_phrases": ["GUILTY BUT FREE", "THE SHOP KNEW", "POLICE GOT IT WRONG", "WHO GETS THE HOUSE?", "YOU ALREADY AGREED", "THE EVIDENCE VANISHED", "WHY HE WALKED", "CAN THEY SEARCH IT?"]
+  },
+  "playlists": ["Crime and Police", "Divorce and Family", "Property", "Work", "Courts", "Everyday Law"],
+  "disclaimer_block": "This video is general legal information, not legal advice, and does not create an attorney-client relationship. Laws differ by state and change over time; state differences noted in the video are illustrative, not exhaustive. For advice about your situation, consult a licensed attorney in your state. Sources are listed below.",
+  "shorts": {
+    "per_episode": 3,
+    "source_beat": "The counterintuitive rule — this channel's most shareable beat"
+  },
+  "gates": {
+    "fact_check_human_signoff": true,
+    "legal_review_required": true,
+    "source_url_required": true
+  },
+  "cadence": {
+    "long_form_per_week": "2, rising to 3 only when legal review capacity is stable",
+    "shorts_per_week": "6"
+  },
+  "rpm_estimate_usd": "RPM $8-22, CPM $18-45. Higher on employment, contracts, insurance, consumer law ($12-30 band); lower on broad crime and court stories.",
+  "music": "Envato, one locked track family. Minimal, no build-and-drop. TODO: lock track family."
+}
