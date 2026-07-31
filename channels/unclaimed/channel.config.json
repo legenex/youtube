@@ -23,14 +23,44 @@
   "visual_style": {
     "style_contract": "ISO",
     "style_string": "Soft matte low-poly isometric 3D illustration, clean thirty degree isometric projection, pale sage green background, objects modelled in warm bone cream and pale putty with soft long diffuse shadows, cornflower periwinkle blue used for hands handles and human elements, one saturated emerald green accent used only to mark money that is recoverable, simple faceless rounded figures at consistent small scale, matte non-reflective surfaces, soft even ambient light with no harsh highlights, generous negative space around the subject, subtle film grain, no photorealism, no gloss, no textures, 16:9",
-    "ground": "White or light paper, subtle fibre texture",
-    "linework": "Black marker, slightly imperfect",
-    "accent": "Green or gold, single accent",
-    "accent_rule": "Green marks money that is recoverable. Grey marks money that is gone. Never decorative.",
-    "frame_vocabulary": ["claim forms", "letters", "payment trails", "timelines", "document stacks", "portal screens", "eligibility trees", "money moving between institutions"],
-    "must_not_look_like": ["a crypto channel", "a get-rich-quick channel", "a law firm advert", "a government presentation", "a personal finance slideshow"],
-    "frames_per_episode": "100-140",
-    "motion": "Elements draw on in sequence. Arrows travel along the money trail. The highlighted amount lands last in each frame. No camera moves beyond a slow drift. Real portals are screen-recorded, never illustrated."
+    "palette": {
+      "ground": "#D8E0D6",
+      "object": "#F2EDDF",
+      "recess": "#E0D9C8",
+      "human": "#8FA8DC",
+      "recoverable": "#3AAE5C",
+      "gone": "#B5B2A8",
+      "type": [
+        "#F2EDDF",
+        "#C9B48A"
+      ]
+    },
+    "ground": "Plain pale sage #D8E0D6. Objects float on plain sage with no floor plane, no room, no horizon unless the scene requires ground.",
+    "accent": "One saturated emerald green #3AAE5C, the single accent.",
+    "accent_rule": "Emerald marks money that is recoverable. Warm grey marks money that is gone. Emerald appears on exactly one object per frame. If the frame contains no recoverable money, it contains no emerald.",
+    "must_not_look_like": ["Glossy product render", "Corporate clip art isometric", "Crypto or fintech illustration", "Game asset", "Gradients, reflections, neon, or a second accent colour"],
+    "motion": {
+      "rule": "One action, one shot, roughly five seconds. If a beat needs two things to happen, it needs two clips or it needs a simpler idea.",
+      "permitted": [
+        "An object depletes, empties, fills or drains",
+        "A single element draws on or is revealed",
+        "One item is lifted, placed, opened or closed",
+        "A shadow lengthens",
+        "A slow drift or a very slow push, no more than a few percent of frame",
+        "A shutter, drawer, lid or door moves once"
+      ],
+      "forbidden": [
+        "camera orbits",
+        "whip pans",
+        "cuts inside a clip",
+        "morphs",
+        "particle effects",
+        "text animating in",
+        "more than one thing moving",
+        "anything that breaks the locked-off isometric"
+      ],
+      "composed_not_generated": "Draw-on reveals, the accent landing last, arrows travelling along a money trail and any type animation are Hyperframes GSAP work, not clip prompts."
+    }
   },
   "voice": {
     "provider": "elevenlabs",

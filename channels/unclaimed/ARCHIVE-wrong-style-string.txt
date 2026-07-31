@@ -1,3 +1,82 @@
 Replaced because the produced Episode 1 frames are isometric, not hand-drawn marker.
 
 Hand-drawn financial investigation map on white paper with subtle fibre texture. Black marker linework, slightly imperfect, confident single-weight strokes. Flat illustration, no shading, no gradients. A single accent colour: green (#1B7F4D) marking recoverable money only; grey marking money that is gone; all other elements black on white. Frame objects drawn as simple marker sketches: claim forms, letters, payment trails, timelines, document stacks, portal screens, eligibility trees, money moving between institutions. Exactly one highlighted amount or one missing step per frame, never two. Clean negative space, documentary tone, no cartoon exaggeration, no photorealism, no 3D.
+
+
+========================================================================
+2026-07-31: remaining visual_style fields aligned to the ISO contract
+========================================================================
+
+The style string was corrected on 2026-07-31 but its sibling fields still
+described the archived hand-drawn marker contract. Every value below was
+removed from channels/unclaimed/channel.config.json on that date and
+replaced with, or superseded by, the Contract A values in
+channels/unclaimed/brand/02-style-contracts.md. Nothing here is in use.
+
+REPLACED
+........................................................................
+
+ground:
+    White or light paper, subtle fibre texture
+
+linework:
+    Black marker, slightly imperfect
+
+accent:
+    Green or gold, single accent
+
+accent_rule:
+    Green marks money that is recoverable. Grey marks money that is gone. Never decorative.
+
+must_not_look_like:
+    a crypto channel
+    a get-rich-quick channel
+    a law firm advert
+    a government presentation
+    a personal finance slideshow
+
+motion:
+    Elements draw on in sequence. Arrows travel along the money trail. The highlighted amount lands last in each frame. No camera moves beyond a slow drift. Real portals are screen-recorded, never illustrated.
+
+frame_vocabulary:
+    claim forms
+    letters
+    payment trails
+    timelines
+    document stacks
+    portal screens
+    eligibility trees
+    money moving between institutions
+
+frames_per_episode:
+    100-140
+
+
+DELETED, NOT REPLACED
+........................................................................
+
+These three had no Contract A equivalent, so they were deleted rather than
+guessed at:
+
+linework
+    was: Black marker, slightly imperfect
+    why deleted: Contract A is soft matte low-poly 3D with rounded edges and no linework. The field has no Contract A equivalent.
+
+frame_vocabulary
+    was: claim forms; letters; payment trails; timelines; document stacks; portal screens; eligibility trees; money moving between institutions
+    why deleted: Contract A defines no frame vocabulary. The archived list described marker sketch objects.
+
+frames_per_episode
+    was: 100-140
+    why deleted: Contract A defines no frame count. The archived value also contradicts the delivered episode, which has 40 beats.
+
+
+WHERE THE NEW VALUES CAME FROM
+........................................................................
+
+ground, accent, palette   Contract A CLOSED PALETTE and COMPOSITION
+accent_rule              Contract A ACCENT RULE, verbatim
+must_not_look_like       Contract A NEVER
+motion                   the CLIP PROMPTS section of file 02, not Contract A,
+                         since the motion vocabulary is defined there
+
