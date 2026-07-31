@@ -20,7 +20,10 @@ Automated YouTube production network. Read `README.md` and
 
 1. **Never write or paraphrase a channel's style string.** It lives in
    `channels/<channel>/channel.config.json` → `visual_style.style_string`
-   and is injected into prompts programmatically, verbatim.
+   and is injected into prompts programmatically, verbatim. That value must
+   equal, byte for byte, the Contract A string in the channel's
+   `brand/02-style-contracts.md`. Copy it programmatically, never retype it,
+   and assert the two are equal before any generation call.
 2. **Human gates are real.** Fact-check sign-off (Unclaimed, Law Actually),
    legal review (Law Actually), thumbnail pick, and publish approval are
    human actions. No agent marks them done.

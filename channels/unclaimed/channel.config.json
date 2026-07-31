@@ -21,7 +21,8 @@
   ],
   "sign_off": "The money may be unclaimed. It does not have to stay that way.",
   "visual_style": {
-    "style_string": "Hand-drawn financial investigation map on white paper with subtle fibre texture. Black marker linework, slightly imperfect, confident single-weight strokes. Flat illustration, no shading, no gradients. A single accent colour: green (#1B7F4D) marking recoverable money only; grey marking money that is gone; all other elements black on white. Frame objects drawn as simple marker sketches: claim forms, letters, payment trails, timelines, document stacks, portal screens, eligibility trees, money moving between institutions. Exactly one highlighted amount or one missing step per frame, never two. Clean negative space, documentary tone, no cartoon exaggeration, no photorealism, no 3D.",
+    "style_contract": "ISO",
+    "style_string": "Soft matte low-poly isometric 3D illustration, clean thirty degree isometric projection, pale sage green background, objects modelled in warm bone cream and pale putty with soft long diffuse shadows, cornflower periwinkle blue used for hands handles and human elements, one saturated emerald green accent used only to mark money that is recoverable, simple faceless rounded figures at consistent small scale, matte non-reflective surfaces, soft even ambient light with no harsh highlights, generous negative space around the subject, subtle film grain, no photorealism, no gloss, no textures, 16:9",
     "ground": "White or light paper, subtle fibre texture",
     "linework": "Black marker, slightly imperfect",
     "accent": "Green or gold, single accent",
@@ -34,7 +35,7 @@
   "voice": {
     "provider": "elevenlabs",
     "voice_id": "SAz9YHcvj6GT2YYXdXww",
-    "voice_id_status": "provisional, set automatically on Episode 1, confirm before Episode 2",
+    "voice_id_status": "confirmed on Episode 1",
     "voice_name": "River - Relaxed, Neutral, Informative",
     "engine": "elevenlabs_rest",
     "model_id": "eleven_multilingual_v2",
