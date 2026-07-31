@@ -1,33 +1,89 @@
 {
-  "loop_c_frames": "NOT_RUN",
-  "loop_d_clips": "NOT_RUN",
-  "blocking_reason": "HIGGSFIELD_MCP_UNREACHABLE",
-  "detail": "No MCP servers are reachable in this session. Tool discovery returns no Higgsfield tools, and the only MCP server configured for this project in ~/.claude.json is 'elevenlabs', whose tools are also not discoverable. models_explore, generate_image and generate_video could not be called, so no image model or image-to-video model was chosen and no frame or clip was generated. The brief specifies no fallback generator for Loops C and D, and no other image generation backend is available in this environment.",
-  "frames_generated": 0,
-  "frames_expected": 40,
-  "clips_generated": 0,
-  "clips_expected": 40,
-  "fallbacks_used": [],
-  "engine_switches": [],
-  "style_string_asserted": true,
-  "style_string_length": 597,
-  "style_string_sha256": "16bab4b1d7b03765d32a2265b7eb1cd3ae8e0fefb9074494e0e4013a2b0fa675",
-  "style_string_source": "channels/unclaimed/brand/02-style-contracts.md Contract A",
-  "note": "Every prompt is fully prepared and reproducible: scenes.json carries the numeral-stripped VISUAL line, the motion verb and the type layer for all 40 beats. Prepending the asserted 597 character ISO string and the no-lettering line reproduces each prompt exactly, with no re-authoring needed.",
-  "reference_assets_excluded": [
-    {
-      "asset": "channels/unclaimed/reference/frames/scene-01.jpg to scene-05.jpg",
-      "reason": "style reference only, 1:1, never enters a 16:9 timeline"
-    },
-    {
-      "asset": "channels/unclaimed/reference/clips/gift-card-strip-depleting.mp4",
-      "reason": "on contract but explicitly not reused; ignored for timeline purposes"
-    }
-  ],
-  "reference_defect_handled": {
-    "asset": "scene-03.jpg",
-    "defect": "raised/recessed states are inverted against the narration",
-    "handling": "Beat 26 VISUAL specifies raised bone cream blocks for states that hold the balance for the owner and recessed pale putty for states that let the issuer keep it, matching the narration rather than the reference."
+ "run_date": "2026-07-31",
+ "mode": "RESUME. Loops A, B, E carried forward unchanged from commit 1c2e082. Loops C, D, F, G, H, I re-run.",
+ "loop_c_frames": "COMPLETE",
+ "loop_d_clips": "COMPLETE",
+ "style_string_asserted": true,
+ "style_string_length": 597,
+ "style_string_sha256": "16bab4b1d7b03765d32a2265b7eb1cd3ae8e0fefb9074494e0e4013a2b0fa675",
+ "style_string_source": "channels/unclaimed/brand/02-style-contracts.md Contract A",
+ "style_string_now_matches_config": true,
+ "style_string_note": "channel.config.json was corrected to the ISO contract this run. The asserted string, the config value and the scenes.json hash from the previous run are all byte-identical, which independently confirms the correction.",
+ "prompt_injection": {
+  "method": "Prompts were built programmatically from config + scenes.json into frame_prompts.json / clip_prompts.json before any generation call.",
+  "transport_caveat": "Higgsfield is reachable only over MCP in this environment (no HIGGSFIELD_API_KEY), so each prompt necessarily passed through a tool-call argument rather than an HTTP body written by a script.",
+  "mitigation": "Every generation echoes back the prompt the API actually received. All 40 frame prompts and all 40 clip prompts were diffed byte-for-byte against the programmatically built files.",
+  "frame_prompts_audited": 40,
+  "frame_prompt_mismatches": 0,
+  "clip_prompts_audited": 40,
+  "clip_prompt_mismatches": 0,
+  "verbatim_iso_prefix_on_every_prompt": true
+ },
+ "stills_engine": "higgsfield nano_banana_pro (nano_banana_2), 16:9, 1k, upscaled to 1920x1080",
+ "clips_engine": "higgsfield kling3_0, mode=pro, sound=off, 5s, image-to-video from the approved frame job id",
+ "clips_engine_note": "mode=std returned 1280x720, which would not have matched the 1920x1080 still holds. mode=pro returns native 1920x1080 and was used for all 40 clips.",
+ "frames_generated": 40,
+ "frames_expected": 40,
+ "clips_generated": 40,
+ "clips_expected": 40,
+ "frame_retries": [
+  {
+   "beat": 8,
+   "reason": "OCR detected glyph-like artefacts on the calendar grid",
+   "attempts": 3,
+   "resolved": true
   },
-  "off_contract_reference_assets": "none found; no flat vector, gradient background, outline stroke or large expressive hand in the reference set"
+  {
+   "beat": 26,
+   "reason": "OCR detected a glyph-like artefact on the state map",
+   "attempts": 2,
+   "resolved": true
+  },
+  {
+   "beat": 38,
+   "reason": "OCR detected glyph-like artefacts on the ruled utility bill",
+   "attempts": 2,
+   "resolved": true
+  }
+ ],
+ "clip_retries": [
+  {
+   "beat": 21,
+   "reason": "ACCENT_RULE_VIOLATION: the clip introduced emerald at t=4.9s on a non-green beat; the source frame carries none",
+   "attempts": 2,
+   "resolved": true
+  }
+ ],
+ "fallbacks_used": [],
+ "engine_switches": [],
+ "pending_flow": [],
+ "contract_checks": {
+  "style_string_present_verbatim": "PASS, 80/80 generations audited",
+  "emerald_on_exactly_one_beat": "PASS. Beat 17 carries 8.86% emerald; the other 39 frames peak at 0.20% (noise floor). Beat 21's clip violation was regenerated and now reads 0.000 throughout.",
+  "no_lettering_in_generated_frames": "PASS by OCR (tesseract psm 11, confidence >=70). 0 of 40 frames carry a confident glyph run after retries.",
+  "true_isometric_no_convergence": "NOT MACHINE-VERIFIED. Requires a human eye; see limitations.",
+  "matte_no_gloss_no_specular": "NOT MACHINE-VERIFIED. Requires a human eye; see limitations.",
+  "shadow_soft_long_down_and_right": "NOT MACHINE-VERIFIED. Requires a human eye; see limitations.",
+  "figures_faceless_consistent_scale": "NOT MACHINE-VERIFIED. Requires a human eye; see limitations.",
+  "closed_palette": "93.6% of sampled pixels sit within tolerance of a palette entry; the remainder is shading interpolation between palette entries plus the contract's own film grain. Contract A applies the literal palette to composed elements, which are 100% palette-bound via palette.css."
+ },
+ "clip_checks": {
+  "one_action_per_clip": "PASS by frame-delta. All 40 clips show motion (mean frame delta 1.29 to 24.76); none are static.",
+  "accent_does_not_change_mid_clip": "PASS after the beat 21 regeneration. Beat 17 holds emerald 0.081 to 0.125 across the clip; no other clip exceeds 0.005.",
+  "locked_off_camera": "INCONCLUSIVE BY MACHINE. Border-ring drift stays low on 35 of 40 clips and a whole-frame alignment test found no global translation on the 5 with higher drift, but on a flat sage ground these proxies cannot separate a camera move from a large object moving near frame edge. Needs a human eye.",
+  "no_lettering_in_clips": "NOT MACHINE-VERIFIED per frame. Source frames are clean and no clip prompt requests text.",
+  "audio": "All 40 clips carry no audio stream, as required."
+ },
+ "per_frame_visual_review": "OUTSTANDING. The Read tool's image path became unreachable partway through this run, so only the beat 1 pilot frame was inspected by eye. Everything else was verified programmatically. A human pass over the 40 frames and 40 clips is still required.",
+ "limitations": [
+  "Image-based visual inspection was unavailable after the pilot frame; the checks marked NOT MACHINE-VERIFIED above were not performed.",
+  "OCR is a proxy for the no-lettering rule. It cleared all 40 frames but cannot prove the absence of non-glyph marks.",
+  "Camera-lock verification on a flat background is not reliably automatable; see clip_checks."
+ ],
+ "credits": {
+  "images": "46 x 2 = 92",
+  "clips": "41 x 8.75 = 358.75",
+  "thumbnails": "6 x 2 = 12",
+  "total_approx": 463
+ }
 }

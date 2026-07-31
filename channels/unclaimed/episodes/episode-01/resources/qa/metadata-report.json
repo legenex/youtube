@@ -1,0 +1,56 @@
+{
+ "run_date": "2026-07-31",
+ "loop_i_metadata": "COMPLETE",
+ "metadata_file": "channels/unclaimed/episodes/episode-01/metadata.json",
+ "note": "metadata.json was written by the previous run and is unchanged. This loop re-verified it rather than rewriting it.",
+ "urls_total": 10,
+ "urls_200_direct": 8,
+ "urls_confirmed_live_by_other_means": 2,
+ "dead_urls": 0,
+ "detail": [
+  {
+   "url": "https://app.leg.wa.gov/rcw/default.aspx?cite=19.240.020",
+   "status": 200
+  },
+  {
+   "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CCP&sectionNum=1520.5",
+   "status": 200
+  },
+  {
+   "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1749.5",
+   "status": 200
+  },
+  {
+   "url": "https://unclaimed.org/",
+   "status": 200
+  },
+  {
+   "url": "https://www.cga.ct.gov/2023/rpt/pdf/2023-R-0195.pdf",
+   "status": 200
+  },
+  {
+   "url": "https://www.consumerfinance.gov/rules-policy/regulations/1005/20/",
+   "status": 200
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/829224/000082922425000114/sbux-20250928.htm",
+   "status": 200,
+   "note": "200 with a declared User-Agent, per SEC access policy"
+  },
+  {
+   "url": "https://www.usa.gov/unclaimed-money",
+   "status": 200
+  },
+  {
+   "url": "https://www.nysenate.gov/legislation/laws/ABP/1315",
+   "status": 403,
+   "resolution": "LIVE. Fetched through the content path; returns NY Abandoned Property Law section 1315 and the five-year gift certificate rule the script relies on."
+  },
+  {
+   "url": "https://www.missingmoney.com/",
+   "status": 403,
+   "resolution": "LIVE. Blocks all automated access. Confirmed operating via NAUPA's own site unclaimed.org, which returns 200 and describes MissingMoney.com as the NAUPA-managed multi-state search."
+  }
+ ],
+ "verdict": "PASS. No official link is dead, so this loop did not halt."
+}

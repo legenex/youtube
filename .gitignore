@@ -13,6 +13,23 @@ channels/unclaimed/episodes/*/resources/voice/
 channels/unclaimed/episodes/*/resources/music/
 channels/unclaimed/episodes/*/*.mp4
 
+# Composition intermediates: regenerable from clips + build_composition.py.
+# index.html, palette.css, fonts and the build script stay tracked.
+channels/unclaimed/episodes/*/resources/composition/holds/
+channels/unclaimed/episodes/*/resources/composition/assets/
+channels/unclaimed/episodes/*/resources/composition/renders/
+channels/unclaimed/episodes/*/resources/composition/snapshots/
+channels/unclaimed/episodes/*/resources/composition/render.log
+channels/unclaimed/episodes/*/resources/composition/*.mp4
+
+# Thumbnail per-variant render projects: regenerable from make_thumbs.py.
+# The picked-from PNGs in out/ stay tracked.
+channels/unclaimed/episodes/*/resources/thumbnails/p-*/
+channels/unclaimed/episodes/*/resources/thumbnails/assets/
+channels/unclaimed/episodes/*/resources/thumbnails/out-*.png
+channels/unclaimed/episodes/*/resources/thumbnails/fonts/
+channels/unclaimed/episodes/*/resources/thumbnails/gsap.min.js
+
 # Secrets
 .env
 .env.*

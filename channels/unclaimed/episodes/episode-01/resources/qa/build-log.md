@@ -1,11 +1,18 @@
 # Episode 1 Build Log
 
-Run date: 2026-07-30
+Run date: 2026-07-30, resumed 2026-07-31
 Branch: `channel/unclaimed`
-Status: **PARTIAL**. Script, research, scenes, narration, music, programme
-audio and metadata are complete. Frames, clips, the video master and the
-thumbnails were not produced, because no image generation backend is reachable
-in this environment. Detail under "Blocking failure" below.
+Status: **SUPERSEDED BY THE RESUME RUN.** See section 11 at the end of this
+file. The 2026-07-30 run below is kept intact as the record of loops A, B, E
+and the decisions taken then. Its two blockers are now both resolved: the style
+conflict was reconciled by the repo owner in favour of the ISO contract, and an
+image generation backend became reachable, so loops C, D, G and H have now run.
+
+Original 2026-07-30 status: **PARTIAL**. Script, research, scenes, narration,
+music, programme audio and metadata are complete. Frames, clips, the video
+master and the thumbnails were not produced, because no image generation
+backend is reachable in this environment. Detail under "Blocking failure"
+below.
 
 This log supersedes the previous halted run recorded in this file. That run
 halted at the environment check having made no generation calls; its blockers
@@ -245,6 +252,8 @@ Total 24 sourced claims.
 
 ## 7. Loop results
 
+Result of the 2026-07-30 run. Superseded by the table in section 11.
+
 | Loop | Result |
 |---|---|
 | A · script and research | COMPLETE. 40 beats, 1,309 words, all self-checks pass |
@@ -346,3 +355,124 @@ Plus two blockers this run could not decide:
 6. **Image generation backend.** Frames, clips, the video master and the
    thumbnails cannot be produced until a Higgsfield MCP connection, or an
    agreed substitute, is available in the execution environment.
+
+---
+
+## 11. Resume run, 2026-07-31
+
+Loops A, B and E were **not** re-run. Research, `episode.md`, `claim-log.md`,
+`scenes.json` and all 40 narration takes are carried forward unchanged from
+commit `1c2e082`. Loops C, D, F, G, H and I were run.
+
+### 11.1 Pre-flight
+
+All 40 wav files in `resources/voice/` were verified present before anything
+else, as instructed. None is missing and none is truncated; measured duration
+matches `voice_ms` in `scenes.json` to within 60 ms on every beat, so nothing
+was regenerated and no timing changed.
+
+The composition timing grid was then derived from the audio rather than
+assumed. Cross-correlating each beat's take against `master.wav` puts every
+one of the 40 takes at exactly **400.0 ms** into its window, with zero
+deviation. The grid is therefore: beat *i* occupies `[(i-1)*15s, +15s)`, beat
+40 occupies `[585s, +20s)`, narration starts 400 ms in.
+
+### 11.2 Style contract, now reconciled
+
+The `CONFIG_STYLE_MISMATCH` this log raised on 2026-07-30 has been resolved by
+the repo owner in favour of the ISO contract. `channel.config.json` now carries
+`"style_contract": "ISO"` and the 597-character Contract A string, copied
+programmatically. The displaced hand-drawn marker string was moved to
+`channels/unclaimed/ARCHIVE-wrong-style-string.txt`.
+
+The correction is independently confirmed: the sha256 of the string now in
+config is `16bab4b1…0fa675`, byte-identical to the value this log recorded on
+2026-07-30 and to `style_string_sha256` in `scenes.json`. The previous run's
+judgement that the brand file was authoritative was correct.
+
+**Sibling fields still describe the old look.** `visual_style.ground`,
+`linework`, `accent`, `frame_vocabulary` and `motion` in `channel.config.json`
+still describe white paper, black marker and a green/gold accent. They were out
+of scope for the correction and were left alone. Any prompt builder that reads
+them will reintroduce the wrong style. This needs a human decision.
+
+### 11.3 How the style string reached the generator
+
+The pipeline requires the style string to be inserted programmatically and
+asserted equal before every generation call. It was built into
+`frame_prompts.json` and `clip_prompts.json` from config before any call fired,
+and asserted equal to the brand file at 597 characters.
+
+One honest caveat: there is no `HIGGSFIELD_API_KEY` in this environment, so
+Higgsfield is reachable only over MCP, and every prompt necessarily passed
+through a tool-call argument rather than an HTTP body written by a script. That
+is weaker than the pipeline intends. It was mitigated by verification rather
+than trust: every generation echoes back the prompt the API actually received,
+and **all 80 prompts (40 frames, 40 clips) were diffed byte-for-byte against
+the programmatically built files. Zero mismatches.** Every one carries the
+597-character ISO string verbatim as its prefix.
+
+### 11.4 Loop C, frames
+
+40 of 40 generated, text-free, via `nano_banana_pro` at 16:9, normalised to
+1920x1080.
+
+- **Accent rule holds exactly.** Beat 17 carries 8.86% emerald. The other 39
+  frames peak at 0.20%, which is the noise floor. Exactly one beat is green.
+- **No lettering.** Checked by OCR (tesseract, psm 11, confidence >= 70).
+  Three frames failed on the first pass, all texture-heavy: beat 8 (calendar
+  grid), beat 26 (state map), beat 38 (ruled utility bill). Each was
+  regenerated with the failed check restated verbatim, per the contract loop.
+  Beat 8 needed three attempts, beats 26 and 38 two. **0 of 40 frames carry a
+  confident glyph run now.**
+
+### 11.5 Loop D, clips
+
+40 of 40 generated, `kling3_0`, image-to-video from the approved frame, one
+action, locked-off, 5 s, silent.
+
+- `mode=std` returned 1280x720, which would have shown a visible quality drop
+  against the 1920x1080 still holds. `mode=pro` returns native 1920x1080 and
+  was used for all 40.
+- Two beats (2 and 7) came back as a preset recommendation ("IN THE DARK")
+  instead of a generation. That preset would have overridden the style
+  contract, so it was declined and both were generated literally.
+- **One real defect, caught and fixed.** Beat 21's clip introduced emerald at
+  t=4.9 s on a non-green beat, although its source frame carries none. That
+  breaks the accent rule. It was regenerated with the failed check restated and
+  now reads 0.000 emerald throughout.
+- First frame of each clip matches its approved still, so the cut into the clip
+  is seamless. Each beat then holds the clip's **last** frame for the remainder
+  of its window, so there is no jump back to the pre-motion state.
+
+### 11.6 Loop F, music
+
+Not regenerated. `bed.wav` (630 s) and `episode-audio-master.wav` (605.00 s)
+already exist and are in spec, and the composition is fitted to that exact
+audio. Re-measured this run: **-14.6 LUFS integrated, -1.5 dBTP true peak**,
+both inside target. Regenerating would have cost credits and shifted the mix
+the voice timing is fitted to, so it was verified rather than rebuilt.
+
+### 11.7 Loop H, thumbnails
+
+Three variants, each at 16:9 and 1:1. Object frames generated with no
+lettering; type composed in HyperFrames over the top, which is what makes the
+four-word cap and the palette enforceable.
+
+| Variant | Text | Words | Emerald |
+|---|---|---|---|
+| a | They Still Owe You | 4 | yes, promises recoverable money |
+| b | Check Your Name | 3 | no |
+| c | Nobody Claimed It | 3 | no |
+
+OCR reads back each headline exactly. The warm-tan headline exception recorded
+on 2026-07-30 was applied. Thumbnail choice remains a human action.
+
+### 11.8 Loop I, metadata
+
+`metadata.json` was verified, not rewritten. All 10 URLs checked: 8 return 200
+directly; `nysenate.gov` and `missingmoney.com` return 403 to scripted requests
+but are both confirmed live (the NY statute text was retrieved through the
+content path and returns the five-year gift certificate rule the script relies
+on; MissingMoney is confirmed operating through NAUPA's own site, which returns
+200). **No official link is dead**, so this loop did not halt.

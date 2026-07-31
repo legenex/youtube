@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>UNCLAIMED Episode 1</title>
+    <script src="gsap.min.js"></script>
+    <link rel="stylesheet" href="palette.css" />
+    <style>
+      @font-face {
+        font-family: "Ep Didone";
+        src: url("fonts/playfair.ttf") format("truetype");
+        font-weight: 400 900;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Ep Condensed";
+        src: url("fonts/archivonarrow.ttf") format("truetype");
+        font-weight: 400 700;
+        font-display: block;
+      }
+      body { margin: 0; background: var(--ground); }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; }
+      /* full-bleed child, never the root itself: the producer can drop a root background */
+      #stage { position: absolute; inset: 0; background: var(--ground); }
+      video.clip, img.clip {
+        position: absolute; inset: 0;
+        width: 1920px; height: 1080px;
+        object-fit: cover; display: block;
+      }
+      /* type occupies the upper third; the subject keeps the lower two thirds */
+      .type-slot {
+        position: absolute; left: 0; top: 0;
+        width: 1920px; height: 360px;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        gap: 18px;
+      }
+      .wordmark {
+        display: block;
+        font-family: "Ep Didone", serif;
+        font-weight: 500;
+        font-size: 92px;
+        letter-spacing: 0.135em;
+        text-transform: uppercase;
+        color: var(--type-cream);
+        line-height: 1;
+      }
+      .label {
+        display: block;
+        font-family: "Ep Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 104px;
+        letter-spacing: -0.005em;
+        text-transform: uppercase;
+        color: var(--type-warm);
+        line-height: 1;
+      }
+      .accent-rule {
+        display: block;
+        width: 340px; height: 10px;
+        background: var(--recoverable);
+        transform-origin: center center;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="unclaimed-ep01"
+      data-start="0"
+      data-width="1920"
+      data-height="1080"
+      data-duration="605"
+    >
+      <div id="stage"></div>
+      <video id="clip-01" class="clip" src="assets/clips/01.mp4"
+             data-start="0" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-01" class="clip" src="holds/01.png"
+           data-start="5" data-duration="10" data-track-index="0" alt="" />
+      <div id="type-01" class="clip type-slot"
+           data-start="1.5" data-duration="13.5" data-track-index="5">
+        <span class="wordmark">UNCLAIMED</span>
+      </div>
+      <video id="clip-02" class="clip" src="assets/clips/02.mp4"
+             data-start="15" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-02" class="clip" src="holds/02.png"
+           data-start="20" data-duration="10" data-track-index="0" alt="" />
+      <video id="clip-03" class="clip" src="assets/clips/03.mp4"
+             data-start="30" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-03" class="clip" src="holds/03.png"
+           data-start="35" data-duration="10" data-track-index="0" alt="" />
+      <video id="clip-04" class="clip" src="assets/clips/04.mp4"
+             data-start="45" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-04" class="clip" src="holds/04.png"
+           data-start="50" data-duration="10" data-track-index="0" alt="" />
+      <div id="type-04" class="clip type-slot"
+           data-start="46.5" data-duration="13.5" data-track-index="5">
+        <span class="label">BREAKAGE</span>
+      </div>
+      <video id="clip-05" class="clip" src="assets/clips/05.mp4"
+             data-start="60" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-05" class="clip" src="holds/05.png"
+           data-start="65" data-duration="10" data-track-index="0" alt="" />
+      <div id="type-05" class="clip type-slot"
+           data-start="61.5" data-duration="13.5" data-track-index="5">
+        <span class="label">50</span>
+      </div>
+      <video id="clip-06" class="clip" src="assets/clips/06.mp4"
+             data-start="75" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-06" class="clip" src="holds/06.png"
+           data-start="80" data-duration="10" data-track-index="0" alt="" />
+      <video id="clip-07" class="clip" src="assets/clips/07.mp4"
+             data-start="90" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-07" class="clip" src="holds/07.png"
+           data-start="95" data-duration="10" data-track-index="0" alt="" />
+      <video id="clip-08" class="clip" src="assets/clips/08.mp4"
+             data-start="105" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-08" class="clip" src="holds/08.png"
+           data-start="110" data-duration="10" data-track-index="0" alt="" />
+      <video id="clip-09" class="clip" src="assets/clips/09.mp4"
+             data-start="120" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-09" class="clip" src="holds/09.png"
+           data-start="125" data-duration="10" data-track-index="0" alt="" />
+      <video id="clip-10" class="clip" src="assets/clips/10.mp4"
+             data-start="135" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-10" class="clip" src="holds/10.png"
+           data-start="140" data-duration="10" data-track-index="0" alt="" />
+      <div id="type-10" class="clip type-slot"
+           data-start="136.5" data-duration="13.5" data-track-index="5">
+        <span class="label">37</span>
+      </div>
+      <video id="clip-11" class="clip" src="assets/clips/11.mp4"
+             data-start="150" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-11" class="clip" src="holds/11.png"
+           data-start="155" data-duration="10" data-track-index="0" alt="" />
+      <video id="clip-12" class="clip" src="assets/clips/12.mp4"
+             data-start="165" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-12" class="clip" src="holds/12.png"
+           data-start="170" data-duration="10" data-track-index="0" alt="" />
+      <video id="clip-13" class="clip" src="assets/clips/13.mp4"
+             data-start="180" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-13" class="clip" src="holds/13.png"
+           data-start="185" data-duration="10" data-track-index="0" alt="" />
+      <div id="type-13" class="clip type-slot"
+           data-start="181.5" data-duration="13.5" data-track-index="5">
+        <span class="label">5 YEARS</span>
+      </div>
+      <video id="clip-14" class="clip" src="assets/clips/14.mp4"
+             data-start="195" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-14" class="clip" src="holds/14.png"
+           data-start="200" data-duration="10" data-track-index="0" alt="" />
+      <div id="type-14" class="clip type-slot"
+           data-start="196.5" data-duration="13.5" data-track-index="5">
+        <span class="label">12 MONTHS</span>
+      </div>
+      <video id="clip-15" class="clip" src="assets/clips/15.mp4"
+             data-start="210" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-15" class="clip" src="holds/15.png"
+           data-start="215" data-duration="10" data-track-index="0" alt="" />
+      <video id="clip-16" class="clip" src="assets/clips/16.mp4"
+             data-start="225" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-16" class="clip" src="holds/16.png"
+           data-start="230" data-duration="10" data-track-index="0" alt="" />
+      <video id="clip-17" class="clip" src="assets/clips/17.mp4"
+             data-start="240" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-17" class="clip" src="holds/17.png"
+           data-start="245" data-duration="10" data-track-index="0" alt="" />
+      <div id="type-17" class="clip type-slot"
+           data-start="241.5" data-duration="13.5" data-track-index="5">
+        <span class="label">27,000,000,000</span>
+        <span id="accent-17" class="accent-rule"></span>
+      </div>
+      <video id="clip-18" class="clip" src="assets/clips/18.mp4"
+             data-start="255" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-18" class="clip" src="holds/18.png"
+           data-start="260" data-duration="10" data-track-index="0" alt="" />
+      <div id="type-18" class="clip type-slot"
+           data-start="256.5" data-duration="13.5" data-track-index="5">
+        <span class="label">222,000,000</span>
+      </div>
+      <video id="clip-19" class="clip" src="assets/clips/19.mp4"
+             data-start="270" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-19" class="clip" src="holds/19.png"
+           data-start="275" data-duration="10" data-track-index="0" alt="" />
+      <video id="clip-20" class="clip" src="assets/clips/20.mp4"
+             data-start="285" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-20" class="clip" src="holds/20.png"
+           data-start="290" data-duration="10" data-track-index="0" alt="" />
+      <video id="clip-21" class="clip" src="assets/clips/21.mp4"
+             data-start="300" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-21" class="clip" src="holds/21.png"
+           data-start="305" data-duration="10" data-track-index="0" alt="" />
+      <video id="clip-22" class="clip" src="assets/clips/22.mp4"
+             data-start="315" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-22" class="clip" src="holds/22.png"
+           data-start="320" data-duration="10" data-track-index="0" alt="" />
+      <div id="type-22" class="clip type-slot"
+           data-start="316.5" data-duration="13.5" data-track-index="5">
+        <span class="label">UNCLAIMED PROPERTY</span>
+      </div>
+      <video id="clip-23" class="clip" src="assets/clips/23.mp4"
+             data-start="330" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-23" class="clip" src="holds/23.png"
+           data-start="335" data-duration="10" data-track-index="0" alt="" />
+      <div id="type-23" class="clip type-slot"
+           data-start="331.5" data-duration="13.5" data-track-index="5">
+        <span class="label">ESCHEAT</span>
+      </div>
+      <video id="clip-24" class="clip" src="assets/clips/24.mp4"
+             data-start="345" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-24" class="clip" src="holds/24.png"
+           data-start="350" data-duration="10" data-track-index="0" alt="" />
+      <video id="clip-25" class="clip" src="assets/clips/25.mp4"
+             data-start="360" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-25" class="clip" src="holds/25.png"
+           data-start="365" data-duration="10" data-track-index="0" alt="" />
+      <video id="clip-26" class="clip" src="assets/clips/26.mp4"
+             data-start="375" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-26" class="clip" src="holds/26.png"
+           data-start="380" data-duration="10" data-track-index="0" alt="" />
+      <video id="clip-27" class="clip" src="assets/clips/27.mp4"
+             data-start="390" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-27" class="clip" src="holds/27.png"
+           data-start="395" data-duration="10" data-track-index="0" alt="" />
+      <video id="clip-28" class="clip" src="assets/clips/28.mp4"
+             data-start="405" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-28" class="clip" src="holds/28.png"
+           data-start="410" data-duration="10" data-track-index="0" alt="" />
+      <video id="clip-29" class="clip" src="assets/clips/29.mp4"
+             data-start="420" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-29" class="clip" src="holds/29.png"
+           data-start="425" data-duration="10" data-track-index="0" alt="" />
+      <video id="clip-30" class="clip" src="assets/clips/30.mp4"
+             data-start="435" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-30" class="clip" src="holds/30.png"
+           data-start="440" data-duration="10" data-track-index="0" alt="" />
+      <div id="type-30" class="clip type-slot"
+           data-start="436.5" data-duration="13.5" data-track-index="5">
+        <span class="label">MISSINGMONEY.COM</span>
+      </div>
+      <video id="clip-31" class="clip" src="assets/clips/31.mp4"
+             data-start="450" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-31" class="clip" src="holds/31.png"
+           data-start="455" data-duration="10" data-track-index="0" alt="" />
+      <div id="type-31" class="clip type-slot"
+           data-start="451.5" data-duration="13.5" data-track-index="5">
+        <span class="label">UNCLAIMED.ORG</span>
+      </div>
+      <video id="clip-32" class="clip" src="assets/clips/32.mp4"
+             data-start="465" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-32" class="clip" src="holds/32.png"
+           data-start="470" data-duration="10" data-track-index="0" alt="" />
+      <video id="clip-33" class="clip" src="assets/clips/33.mp4"
+             data-start="480" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-33" class="clip" src="holds/33.png"
+           data-start="485" data-duration="10" data-track-index="0" alt="" />
+      <video id="clip-34" class="clip" src="assets/clips/34.mp4"
+             data-start="495" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-34" class="clip" src="holds/34.png"
+           data-start="500" data-duration="10" data-track-index="0" alt="" />
+      <video id="clip-35" class="clip" src="assets/clips/35.mp4"
+             data-start="510" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-35" class="clip" src="holds/35.png"
+           data-start="515" data-duration="10" data-track-index="0" alt="" />
+      <div id="type-35" class="clip type-slot"
+           data-start="511.5" data-duration="13.5" data-track-index="5">
+        <span class="label">14 STATES</span>
+      </div>
+      <video id="clip-36" class="clip" src="assets/clips/36.mp4"
+             data-start="525" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-36" class="clip" src="holds/36.png"
+           data-start="530" data-duration="10" data-track-index="0" alt="" />
+      <div id="type-36" class="clip type-slot"
+           data-start="526.5" data-duration="13.5" data-track-index="5">
+        <span class="label">5 AND 15</span>
+      </div>
+      <video id="clip-37" class="clip" src="assets/clips/37.mp4"
+             data-start="540" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-37" class="clip" src="holds/37.png"
+           data-start="545" data-duration="10" data-track-index="0" alt="" />
+      <video id="clip-38" class="clip" src="assets/clips/38.mp4"
+             data-start="555" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-38" class="clip" src="holds/38.png"
+           data-start="560" data-duration="10" data-track-index="0" alt="" />
+      <video id="clip-39" class="clip" src="assets/clips/39.mp4"
+             data-start="570" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-39" class="clip" src="holds/39.png"
+           data-start="575" data-duration="10" data-track-index="0" alt="" />
+      <video id="clip-40" class="clip" src="assets/clips/40.mp4"
+             data-start="585" data-duration="5" data-track-index="0"
+             muted playsinline></video>
+      <img id="hold-40" class="clip" src="holds/40.png"
+           data-start="590" data-duration="15" data-track-index="0" alt="" />
+      <div id="type-40" class="clip type-slot"
+           data-start="586.5" data-duration="18.5" data-track-index="5">
+        <span class="wordmark">UNCLAIMED</span>
+      </div>
+      <audio id="programme" src="assets/voice/episode-audio-master.wav"
+             data-start="0" data-duration="605" data-track-index="10" data-volume="1"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#type-01 .wordmark", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 1.5);
+      tl.fromTo("#type-04 .label", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 46.5);
+      tl.fromTo("#type-05 .label", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 61.5);
+      tl.fromTo("#type-10 .label", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 136.5);
+      tl.fromTo("#type-13 .label", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 181.5);
+      tl.fromTo("#type-14 .label", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 196.5);
+      tl.fromTo("#type-17 .label", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 241.5);
+      tl.fromTo("#accent-17", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.out" }, 242.4);
+      tl.fromTo("#type-18 .label", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 256.5);
+      tl.fromTo("#type-22 .label", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 316.5);
+      tl.fromTo("#type-23 .label", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 331.5);
+      tl.fromTo("#type-30 .label", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 436.5);
+      tl.fromTo("#type-31 .label", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 451.5);
+      tl.fromTo("#type-35 .label", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 511.5);
+      tl.fromTo("#type-36 .label", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 526.5);
+      tl.fromTo("#type-40 .wordmark", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 586.5);
+      window.__timelines["unclaimed-ep01"] = tl;
+    </script>
+  </body>
+</html>
