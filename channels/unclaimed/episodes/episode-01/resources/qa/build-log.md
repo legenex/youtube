@@ -476,3 +476,78 @@ but are both confirmed live (the NY statute text was retrieved through the
 content path and returns the five-year gift certificate rule the script relies
 on; MissingMoney is confirmed operating through NAUPA's own site, which returns
 200). **No official link is dead**, so this loop did not halt.
+
+---
+
+## 12. Master render, 2026-07-31, FFmpeg fallback
+
+### 12.1 FALLBACK_COMPOSITOR
+
+The Hyperframes browser compositor was abandoned for this episode. Two attempts
+were made at 1080p. The first stalled at frame 16400 of 18150 with
+`no frame progress for 60000ms` and wrote no output. The second was restarted on
+the safe capture path and was still only in the low thousands of frames when it
+was stopped. On this machine, two cores and roughly three gigabytes free, a
+605 second 1080p browser render is not viable.
+
+The master was assembled with **FFmpeg directly**, which the spec permits as a
+recorded fallback. `FALLBACK_COMPOSITOR` is recorded in `render-report.json`.
+The Hyperframes composition (`resources/composition/index.html`) is kept and
+still validates; it is the reference for the type layout and timing, and it
+remains the right path on a machine that can render it.
+
+### 12.2 What changed with the fallback
+
+- Output is **1280x720**, not 1080p. Every intermediate step ran at 720p; no
+  stage processed 1080p.
+- Per beat: the clip is scaled to 720p and extended to the beat's full duration
+  by freezing its final frame with `tpad` in clone mode, then the type layer is
+  overlaid.
+- **Slow drift was dropped, not applied.** A one percent drift needs per frame
+  expression evaluation across the held portion, which roughly doubles encode
+  cost on two cores. It is a nicety and not a contract requirement, so it was
+  dropped and is recorded here.
+- Type is composed as fifteen transparent PNGs and overlaid, faded up over
+  0.4 s as the narration reaches it. `drawtext` was not used, because it cannot
+  do the tracking the contract specifies and it renders differently per build.
+
+### 12.3 Fonts
+
+- Didone serif for the wordmark: **Playfair Display**, tracking 135, inside the
+  contract's 120 to 150 band.
+- Bold condensed grotesque for labels and numerals: **Archivo Narrow**.
+
+Both were already vendored under `resources/composition/fonts/` from the earlier
+composition work, so no `apt` install was needed.
+
+### 12.4 Audio
+
+Not rebuilt. `resources/voice/episode-audio-master.wav` already existed from the
+2026-07-30 run, carries the 40 narration takes at the 400 ms offsets on the
+15 second grid with the music bed ducked underneath, and re-measured this run at
+**-14.6 LUFS integrated, -1.5 dBTP true peak**, both inside target. It was
+reused rather than rebuilt, as instructed.
+
+### 12.5 Thumbnail contrast, considered amendment
+
+Thumbnail type is now **`#1F3A6E` navy**, the Contract B ink colour, admitted to
+the ISO palette as a **type only, thumbnails only** role. Measured:
+
+| Type colour on pale sage `#D8E0D6` | Contrast |
+|---|---|
+| Bone cream `#F2EDDF` | 1.15 to 1 |
+| Warm tan `#C9B48A` | 1.50 to 1 |
+| Navy `#1F3A6E` | **8.24 to 1** |
+
+Measured against the actual thumbnail frames rather than flat sage, navy lands
+at 5.66 to 1, 5.96 to 1 and 6.12 to 1 for variants b, c and a.
+
+The episode body keeps cream and tan. That type is redundant against the spoken
+narration and is not being read at feed size, so the low contrast is tolerable
+there in a way it is not on a thumbnail. `brand/02-style-contracts.md` has been
+amended with the new role and the reasoning, and the restriction that navy may
+never appear on an object, a ground or any element inside an episode frame.
+
+This supersedes the warm tan thumbnail exception recorded on 2026-07-30, which
+raised contrast from 1.15 to 1 only as far as 1.50 to 1 and did not solve the
+problem.

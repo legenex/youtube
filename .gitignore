@@ -20,6 +20,7 @@ channels/unclaimed/episodes/*/resources/composition/assets/
 channels/unclaimed/episodes/*/resources/composition/renders/
 channels/unclaimed/episodes/*/resources/composition/snapshots/
 channels/unclaimed/episodes/*/resources/composition/render.log
+channels/unclaimed/episodes/*/resources/composition/render-attempt*.log
 channels/unclaimed/episodes/*/resources/composition/*.mp4
 
 # Thumbnail per-variant render projects: regenerable from make_thumbs.py.
@@ -29,6 +30,12 @@ channels/unclaimed/episodes/*/resources/thumbnails/assets/
 channels/unclaimed/episodes/*/resources/thumbnails/out-*.png
 channels/unclaimed/episodes/*/resources/thumbnails/fonts/
 channels/unclaimed/episodes/*/resources/thumbnails/gsap.min.js
+
+# FFmpeg assembly intermediates: rebuild from committed sources in minutes
+channels/unclaimed/episodes/*/resources/seg/
+channels/unclaimed/episodes/*/resources/typepng/
+channels/unclaimed/episodes/*/resources/concat.txt
+channels/unclaimed/episodes/*/resources/finish.log
 
 # Secrets
 .env

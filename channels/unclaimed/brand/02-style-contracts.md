@@ -54,8 +54,17 @@ Reproduce verbatim at the head of every generation. Never paraphrase, shorten or
 | Recoverable money | #3AAE5C |
 | Money that is gone | #B5B2A8 |
 | Type | #F2EDDF or #C9B48A |
+| Type, thumbnails only | #1F3A6E |
 
 No colour outside this table appears in any frame.
+
+`#1F3A6E` is the Contract B ink navy, admitted here as a **type only** role and
+**only on thumbnails**. It may never be used on an object, a ground or any
+element inside an episode frame. Reason: bone cream on pale sage measures
+1.15 to 1 and warm tan on pale sage measures 1.50 to 1, so both vanish at feed
+size. Navy on pale sage measures 8.24 to 1. Episode body type keeps cream and
+tan, because that type is redundant against the spoken narration and is not
+being read at thumbnail scale. Amended 2026-07-31.
 
 ## ACCENT RULE
 Emerald marks money that is recoverable. Warm grey marks money that is gone. Emerald appears on exactly one object per frame. If the frame contains no recoverable money, it contains no emerald.

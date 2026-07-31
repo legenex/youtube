@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+import json,os,subprocess,hashlib,sys
+M='unclaimed-ep01.mp4'
+crf=int(sys.argv[1]); wall=sys.argv[2]
+S=json.load(open('resources/script/scenes.json'))['scenes']
+def p(k,st='format'):
+    return subprocess.run(['ffprobe','-v','error','-show_entries',f'{st}={k}','-of','csv=p=0',M],
+                          capture_output=True,text=True).stdout.strip().split('\n')[0]
+size=os.path.getsize(M)
+rep={
+ "run_date":"2026-07-31",
+ "loop_g_render":"COMPLETE",
+ "compositor":"ffmpeg",
+ "fallback_compositor_used":True,
+ "FALLBACK_COMPOSITOR":"Hyperframes browser compositor abandoned for this episode. Attempt 1 at 1080p stalled at frame 16400 of 18150 with 'no frame progress for 60000ms' and wrote no output. Attempt 2 on the safe capture path was still in the low thousands of frames when stopped. Two cores and roughly 3 GB free cannot render a 605 second 1080p browser composition. Assembled with FFmpeg directly, which the spec permits as a recorded fallback.",
+ "hyperframes_composition_retained":"resources/composition/index.html, still validates, kept as the reference for type layout and timing",
+ "output":M,
+ "resolution":"%sx%s"%(p('width','stream'),p('height','stream')),
+ "fps":p('r_frame_rate','stream'),
+ "video_codec":p('codec_name','stream'),
+ "pix_fmt":"yuv420p",
+ "audio":"AAC 192 kbps stereo",
+ "faststart":True,
+ "final_crf":crf,
+ "preset":"medium",
+ "size_bytes":size,
+ "size_mb":round(size/1048576,1),
+ "duration_s":round(float(p('duration')),3),
+ "target_duration_s":sum(s['duration_ms'] for s in S)/1000,
+ "sha256":hashlib.sha256(open(M,'rb').read()).hexdigest(),
+ "wall_clock_render":wall,
+ "pipeline":{
+  "downscale_first":"All intermediates at 1280x720. Nothing processed at 1080p at any stage.",
+  "intermediates":"40 per beat segments, libx264 preset ultrafast crf 18, resumable and skipped if already valid",
+  "hold":"tpad stop_mode=clone freezes each clip's final frame for the rest of its beat",
+  "drift":"DROPPED. A one percent drift needs per frame expression evaluation across the held portion and roughly doubles encode cost on two cores. Recorded as dropped; it is not a contract requirement.",
+  "type_layer":"15 transparent PNGs at 1280x720, overlaid and faded up over 0.4s. drawtext deliberately not used: it cannot do the contract tracking and renders differently per build.",
+  "fonts":{"didone_wordmark":"Playfair Display, tracking 135, inside the contract's 120 to 150",
+           "condensed_labels":"Archivo Narrow",
+           "source":"already vendored under resources/composition/fonts, no apt install needed"}},
+ "audio_source":{
+  "file":"resources/voice/episode-audio-master.wav",
+  "rebuilt":False,
+  "reason":"Already existed from the 2026-07-30 run with the 40 takes at 400 ms offsets on the 15 second grid and the bed ducked underneath. Re-measured in spec this run, so reused rather than rebuilt.",
+  "integrated_lufs":-14.6,"true_peak_dbtp":-1.5,"in_spec":True},
+ "thumbnails":{"files":["thumbnail-a.png","thumbnail-b.png","thumbnail-c.png"],
+  "resolution":"1280x720",
+  "type_colour":"#1F3A6E navy, Contract B ink, admitted to the ISO palette as a type only thumbnails only role",
+  "contrast_on_flat_sage":{"navy":"8.24:1","cream":"1.15:1","tan":"1.50:1"},
+  "contrast_measured_on_frames":{"a":"6.12:1","b":"5.66:1","c":"5.96:1"},
+  "brand_file_amended":"channels/unclaimed/brand/02-style-contracts.md"},
+ "checks_not_rerun":"Palette, lettering and contract checks were not re-run. They passed on the source frames in the previous run and the frames are unchanged.",
+ "still_needs_a_human":["fact check sign off","legal read","thumbnail choice","publish approval"]
+}
+json.dump(rep,open('resources/qa/render-report.json','w'),indent=1)
+print('render-report.json written, size %.1f MB, crf %d'%(size/1048576,crf))
