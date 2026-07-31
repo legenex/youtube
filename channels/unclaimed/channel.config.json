@@ -33,7 +33,11 @@
   },
   "voice": {
     "provider": "elevenlabs",
-    "voice_id": "TODO-locked-voice-id-unclaimed",
+    "voice_id": "SAz9YHcvj6GT2YYXdXww",
+    "voice_id_status": "provisional, set automatically on Episode 1, confirm before Episode 2",
+    "voice_name": "River - Relaxed, Neutral, Informative",
+    "engine": "elevenlabs_rest",
+    "model_id": "eleven_multilingual_v2",
     "character": "Warm, measured"
   },
   "thumbnails": {

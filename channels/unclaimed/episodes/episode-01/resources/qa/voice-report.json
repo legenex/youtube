@@ -1,0 +1,423 @@
+{
+  "engine": "elevenlabs_rest",
+  "voice_id": "SAz9YHcvj6GT2YYXdXww",
+  "voice_name": "River - Relaxed, Neutral, Informative",
+  "model": "eleven_multilingual_v2",
+  "base_speed": 0.7,
+  "lead_in_ms": 400,
+  "takes_generated": 40,
+  "tts_failures": 0,
+  "beats_regenerated_for_fit": 28,
+  "narration_edits": 0,
+  "note": "Durations are the measured length of the take that shipped. Where a take overran its window the delivery speed was recomputed and the beat regenerated; no narration was trimmed, since the script already satisfies the word budget.",
+  "master_wav_s": 605.0,
+  "programme_audio": {
+    "path": "resources/voice/episode-audio-master.wav",
+    "duration_s": 605.0,
+    "integrated_lufs": -14.6,
+    "true_peak_dbtp": -1.5,
+    "in_spec": true
+  },
+  "beats": [
+    {
+      "beat": 1,
+      "timecode": "[00:00]",
+      "voice_ms": 12446,
+      "window_ms": 15000,
+      "speed": 0.7,
+      "headroom_ms": 2554,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 2,
+      "timecode": "[00:15]",
+      "voice_ms": 12307,
+      "window_ms": 15000,
+      "speed": 0.7,
+      "headroom_ms": 2693,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 3,
+      "timecode": "[00:30]",
+      "voice_ms": 13189,
+      "window_ms": 15000,
+      "speed": 0.771,
+      "headroom_ms": 1811,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 4,
+      "timecode": "[00:45]",
+      "voice_ms": 13096,
+      "window_ms": 15000,
+      "speed": 0.749,
+      "headroom_ms": 1904,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 5,
+      "timecode": "[01:00]",
+      "voice_ms": 12074,
+      "window_ms": 15000,
+      "speed": 0.804,
+      "headroom_ms": 2926,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 6,
+      "timecode": "[01:15]",
+      "voice_ms": 13607,
+      "window_ms": 15000,
+      "speed": 0.7,
+      "headroom_ms": 1393,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 7,
+      "timecode": "[01:30]",
+      "voice_ms": 13560,
+      "window_ms": 15000,
+      "speed": 0.874,
+      "headroom_ms": 1440,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 8,
+      "timecode": "[01:45]",
+      "voice_ms": 13746,
+      "window_ms": 15000,
+      "speed": 0.814,
+      "headroom_ms": 1254,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 9,
+      "timecode": "[02:00]",
+      "voice_ms": 13375,
+      "window_ms": 15000,
+      "speed": 0.756,
+      "headroom_ms": 1625,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 10,
+      "timecode": "[02:15]",
+      "voice_ms": 13003,
+      "window_ms": 15000,
+      "speed": 0.766,
+      "headroom_ms": 1997,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 11,
+      "timecode": "[02:30]",
+      "voice_ms": 13142,
+      "window_ms": 15000,
+      "speed": 0.7,
+      "headroom_ms": 1858,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 12,
+      "timecode": "[02:45]",
+      "voice_ms": 12910,
+      "window_ms": 15000,
+      "speed": 0.759,
+      "headroom_ms": 2090,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 13,
+      "timecode": "[03:00]",
+      "voice_ms": 13142,
+      "window_ms": 15000,
+      "speed": 0.7,
+      "headroom_ms": 1858,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 14,
+      "timecode": "[03:15]",
+      "voice_ms": 13096,
+      "window_ms": 15000,
+      "speed": 0.819,
+      "headroom_ms": 1904,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 15,
+      "timecode": "[03:30]",
+      "voice_ms": 13793,
+      "window_ms": 15000,
+      "speed": 0.761,
+      "headroom_ms": 1207,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 16,
+      "timecode": "[03:45]",
+      "voice_ms": 13978,
+      "window_ms": 15000,
+      "speed": 0.898,
+      "headroom_ms": 1022,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 17,
+      "timecode": "[04:00]",
+      "voice_ms": 13189,
+      "window_ms": 15000,
+      "speed": 0.927,
+      "headroom_ms": 1811,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 18,
+      "timecode": "[04:15]",
+      "voice_ms": 13328,
+      "window_ms": 15000,
+      "speed": 0.7,
+      "headroom_ms": 1672,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 19,
+      "timecode": "[04:30]",
+      "voice_ms": 12864,
+      "window_ms": 15000,
+      "speed": 0.816,
+      "headroom_ms": 2136,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 20,
+      "timecode": "[04:45]",
+      "voice_ms": 13468,
+      "window_ms": 15000,
+      "speed": 0.816,
+      "headroom_ms": 1532,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 21,
+      "timecode": "[05:00]",
+      "voice_ms": 13468,
+      "window_ms": 15000,
+      "speed": 0.7,
+      "headroom_ms": 1532,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 22,
+      "timecode": "[05:15]",
+      "voice_ms": 12399,
+      "window_ms": 15000,
+      "speed": 0.891,
+      "headroom_ms": 2601,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 23,
+      "timecode": "[05:30]",
+      "voice_ms": 13700,
+      "window_ms": 15000,
+      "speed": 0.7,
+      "headroom_ms": 1300,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 24,
+      "timecode": "[05:45]",
+      "voice_ms": 13932,
+      "window_ms": 15000,
+      "speed": 0.896,
+      "headroom_ms": 1068,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 25,
+      "timecode": "[06:00]",
+      "voice_ms": 12817,
+      "window_ms": 15000,
+      "speed": 0.891,
+      "headroom_ms": 2183,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 26,
+      "timecode": "[06:15]",
+      "voice_ms": 12632,
+      "window_ms": 15000,
+      "speed": 0.992,
+      "headroom_ms": 2368,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 27,
+      "timecode": "[06:30]",
+      "voice_ms": 12539,
+      "window_ms": 15000,
+      "speed": 0.867,
+      "headroom_ms": 2461,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 28,
+      "timecode": "[06:45]",
+      "voice_ms": 13793,
+      "window_ms": 15000,
+      "speed": 0.7,
+      "headroom_ms": 1207,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 29,
+      "timecode": "[07:00]",
+      "voice_ms": 12167,
+      "window_ms": 15000,
+      "speed": 0.86,
+      "headroom_ms": 2833,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 30,
+      "timecode": "[07:15]",
+      "voice_ms": 12446,
+      "window_ms": 15000,
+      "speed": 0.778,
+      "headroom_ms": 2554,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 31,
+      "timecode": "[07:30]",
+      "voice_ms": 11842,
+      "window_ms": 15000,
+      "speed": 0.97,
+      "headroom_ms": 3158,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 32,
+      "timecode": "[07:45]",
+      "voice_ms": 13189,
+      "window_ms": 15000,
+      "speed": 0.7,
+      "headroom_ms": 1811,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 33,
+      "timecode": "[08:00]",
+      "voice_ms": 13839,
+      "window_ms": 15000,
+      "speed": 0.831,
+      "headroom_ms": 1161,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 34,
+      "timecode": "[08:15]",
+      "voice_ms": 12585,
+      "window_ms": 15000,
+      "speed": 0.925,
+      "headroom_ms": 2415,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 35,
+      "timecode": "[08:30]",
+      "voice_ms": 12910,
+      "window_ms": 15000,
+      "speed": 0.7,
+      "headroom_ms": 2090,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 36,
+      "timecode": "[08:45]",
+      "voice_ms": 14118,
+      "window_ms": 15000,
+      "speed": 0.838,
+      "headroom_ms": 882,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 37,
+      "timecode": "[09:00]",
+      "voice_ms": 14489,
+      "window_ms": 15000,
+      "speed": 0.749,
+      "headroom_ms": 511,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 38,
+      "timecode": "[09:15]",
+      "voice_ms": 13375,
+      "window_ms": 15000,
+      "speed": 0.848,
+      "headroom_ms": 1625,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 39,
+      "timecode": "[09:30]",
+      "voice_ms": 13700,
+      "window_ms": 15000,
+      "speed": 0.7,
+      "headroom_ms": 1300,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    },
+    {
+      "beat": 40,
+      "timecode": "[09:45]",
+      "voice_ms": 18204,
+      "window_ms": 20000,
+      "speed": 0.789,
+      "headroom_ms": 1796,
+      "fits_with_400ms_lead": true,
+      "narration_trimmed": false
+    }
+  ]
+}

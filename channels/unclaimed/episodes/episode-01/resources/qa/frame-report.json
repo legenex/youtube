@@ -1,0 +1,33 @@
+{
+  "loop_c_frames": "NOT_RUN",
+  "loop_d_clips": "NOT_RUN",
+  "blocking_reason": "HIGGSFIELD_MCP_UNREACHABLE",
+  "detail": "No MCP servers are reachable in this session. Tool discovery returns no Higgsfield tools, and the only MCP server configured for this project in ~/.claude.json is 'elevenlabs', whose tools are also not discoverable. models_explore, generate_image and generate_video could not be called, so no image model or image-to-video model was chosen and no frame or clip was generated. The brief specifies no fallback generator for Loops C and D, and no other image generation backend is available in this environment.",
+  "frames_generated": 0,
+  "frames_expected": 40,
+  "clips_generated": 0,
+  "clips_expected": 40,
+  "fallbacks_used": [],
+  "engine_switches": [],
+  "style_string_asserted": true,
+  "style_string_length": 597,
+  "style_string_sha256": "16bab4b1d7b03765d32a2265b7eb1cd3ae8e0fefb9074494e0e4013a2b0fa675",
+  "style_string_source": "channels/unclaimed/brand/02-style-contracts.md Contract A",
+  "note": "Every prompt is fully prepared and reproducible: scenes.json carries the numeral-stripped VISUAL line, the motion verb and the type layer for all 40 beats. Prepending the asserted 597 character ISO string and the no-lettering line reproduces each prompt exactly, with no re-authoring needed.",
+  "reference_assets_excluded": [
+    {
+      "asset": "channels/unclaimed/reference/frames/scene-01.jpg to scene-05.jpg",
+      "reason": "style reference only, 1:1, never enters a 16:9 timeline"
+    },
+    {
+      "asset": "channels/unclaimed/reference/clips/gift-card-strip-depleting.mp4",
+      "reason": "on contract but explicitly not reused; ignored for timeline purposes"
+    }
+  ],
+  "reference_defect_handled": {
+    "asset": "scene-03.jpg",
+    "defect": "raised/recessed states are inverted against the narration",
+    "handling": "Beat 26 VISUAL specifies raised bone cream blocks for states that hold the balance for the owner and recessed pale putty for states that let the issuer keep it, matching the narration rather than the reference."
+  },
+  "off_contract_reference_assets": "none found; no flat vector, gradient background, outline stroke or large expressive hand in the reference set"
+}

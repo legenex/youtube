@@ -1,0 +1,29 @@
+{
+  "loop_g_render": "NOT_RUN",
+  "blocking_reason": "NO_FRAMES_OR_CLIPS",
+  "detail": "index.html was not authored and unclaimed-ep01.mp4 was not rendered. The timeline requires one clip plus one held still per beat from Loop C and Loop D, neither of which produced output. Composing 40 scenes over blank ground would produce a file of the right duration carrying none of the episode's visual content, so it was not produced.",
+  "compositor": "none",
+  "fallback_compositor_used": false,
+  "hyperframes_cli_available": true,
+  "hyperframes_cli_version": "0.7.86",
+  "ffmpeg_available": true,
+  "index_html_sha256": null,
+  "master_mp4": null,
+  "render_checks": {
+    "runtime_within_2s_of_10_05": "NOT_RUN",
+    "av_sync_beats_1_20_40": "NOT_RUN",
+    "no_black_frames": "NOT_RUN",
+    "no_repeated_clips": "NOT_RUN",
+    "numerals_match_spoken_figures": "NOT_RUN",
+    "exactly_one_emerald_beat": "NOT_RUN"
+  },
+  "audio_delivered": {
+    "path": "channels/unclaimed/episodes/episode-01/resources/voice/episode-audio-master.wav",
+    "duration_s": 605.0,
+    "integrated_loudness_lufs": -14.6,
+    "true_peak_dbtp": -1.5,
+    "spec_target": "-14 LUFS, true peak below -1 dBTP",
+    "in_spec": true,
+    "note": "Full programme audio is complete and to spec: 40 measured narration takes on the 15 second grid, music bed ducked under the voice. It is the finished audio bed for the master and needs no rework when frames exist."
+  }
+}
