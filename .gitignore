@@ -45,3 +45,16 @@ channels/unclaimed/episodes/*/resources/finish.log
 # OS / editor noise
 .DS_Store
 Thumbs.db
+
+# Style test intermediates: rebuild with render-assets.py then build.py
+channels/unclaimed/style-tests/work/
+channels/unclaimed/style-tests/assets/shared/board/
+channels/unclaimed/style-tests/assets/s1/
+channels/unclaimed/style-tests/assets/s2/
+channels/unclaimed/style-tests/assets/s3/
+channels/unclaimed/style-tests/assets/s4/
+channels/unclaimed/style-tests/assets/s5/
+
+# Python bytecode
+__pycache__/
+*.pyc

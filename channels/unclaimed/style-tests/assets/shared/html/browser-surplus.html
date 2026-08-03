@@ -1,0 +1,104 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>facsimile</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #d7d7d9; }
+  body { width: 1280px; height: 720px; font-family: Arial, Helvetica, sans-serif; overflow: hidden; }
+
+  /* browser chrome */
+  .chrome { background: #dedee1; border-bottom: 1px solid #c0c0c4; padding: 9px 12px 0; }
+  .tabs { display: flex; align-items: flex-end; gap: 6px; }
+  .tab { background: #f6f6f7; border-radius: 8px 8px 0 0; padding: 9px 16px; font-size: 12.5px; color: #2c2c2e; display: flex; align-items: center; gap: 8px; max-width: 330px; }
+  .tab.dim { background: #cfcfd3; color: #6a6a70; }
+  .fav { width: 13px; height: 13px; border-radius: 2px; background: #2e4a7a; flex: none; }
+  .fav.g { background: #7a7a80; }
+  .bar { background: #f6f6f7; padding: 8px 12px; display: flex; align-items: center; gap: 10px; }
+  .nav { display: flex; gap: 4px; color: #77777d; font-size: 15px; }
+  .nav span { width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+  .url { flex: 1; background: #ffffff; border: 1px solid #ccccd1; border-radius: 15px; padding: 6px 14px; font-size: 13px; color: #2c2c2e; display: flex; align-items: center; gap: 9px; }
+  .lock { color: #4a7a4a; font-size: 12px; }
+  .url .dom { color: #111; }
+  .url .path { color: #6c6c72; }
+  .gov { background: #e8ebf2; color: #2e4a7a; font-size: 10.5px; letter-spacing: .1em; padding: 2px 7px; border-radius: 3px; font-weight: 700; }
+
+  /* page */
+  .page { background: #ffffff; height: 630px; overflow: hidden; }
+  .gband { background: #1b2b4d; color: #cdd6e6; font-size: 11.5px; padding: 6px 40px; letter-spacing: .06em; }
+  .mast { background: #24365e; color: #fff; padding: 17px 40px; display: flex; align-items: center; gap: 16px; }
+  .seal { width: 42px; height: 42px; border: 2px double #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font: 700 7px/1.2 Arial; text-align: center; flex: none; }
+  .mast .t1 { font-size: 19px; font-weight: 700; letter-spacing: .01em; }
+  .mast .t2 { font-size: 11.5px; letter-spacing: .18em; text-transform: uppercase; color: #b8c4dc; margin-top: 2px; }
+  nav { background: #eef0f4; border-bottom: 1px solid #d3d6dd; padding: 0 40px; display: flex; gap: 26px; font-size: 12.5px; color: #37455f; }
+  nav div { padding: 10px 0; }
+  nav .on { border-bottom: 3px solid #24365e; font-weight: 700; color: #16223c; }
+  .body { padding: 24px 40px 0; }
+  h1 { font-size: 24px; color: #16223c; margin: 0 0 6px; }
+  .crumb { font-size: 11.5px; color: #6e7688; margin-bottom: 14px; }
+  .lede { font-size: 13px; color: #3d4455; max-width: 880px; line-height: 1.55; margin-bottom: 14px; }
+  .alert { background: #fdf6e3; border: 1px solid #e0cf9a; border-left: 5px solid #b58a1e; padding: 10px 14px; font-size: 12.5px; color: #4a3d16; margin-bottom: 18px; max-width: 1000px; line-height: 1.5; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #eef0f4; text-align: left; padding: 9px 11px; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: #47506a; border-bottom: 2px solid #c3c8d4; }
+  td { padding: 11px 11px; border-bottom: 1px solid #e4e6eb; color: #22262f; font-variant-numeric: tabular-nums; }
+  tr:nth-child(even) td { background: #fafbfc; }
+  .money { text-align: right; }
+  .red { display: inline-block; background: #22262f; height: 12px; border-radius: 1px; vertical-align: middle; }
+  .w60 { width: 60px; } .w70 { width: 70px; } .w86 { width: 86px; } .w120 { width: 120px; }
+  .unc { color: #8d2013; font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
+  #target td { background: #fff !important; }
+  .link { color: #1a4a8a; text-decoration: underline; }
+</style>
+<div class="chrome">
+  <div class="tabs">
+    <div class="tab"><i class="fav"></i>Tax forfeiture surplus funds &middot; uncl&hellip;</div>
+    <div class="tab dim"><i class="fav g"></i>County Auditor</div>
+    <div class="tab dim"><i class="fav g"></i>New tab</div>
+  </div>
+</div>
+<div class="bar">
+  <div class="nav"><span>&#8592;</span><span>&#8594;</span><span>&#8635;</span></div>
+  <div class="url" data-hl="url"><span class="lock">&#128274;</span><span class="gov">GOV</span><span class="dom">county.example.gov</span><span class="path">/auditor/forfeiture/surplus-funds/unclaimed</span></div>
+</div>
+<div class="page">
+  <div class="gband">An official website of a county government</div>
+  <div class="mast">
+    <div class="seal">OFFICE<br>OF THE<br>AUDITOR</div>
+    <div>
+      <div class="t1">Office of the County Auditor</div>
+      <div class="t2">Property Tax Forfeiture Division</div>
+    </div>
+  </div>
+  <nav><div>Home</div><div>Property tax</div><div class="on">Forfeiture and sale</div><div>Surplus funds</div><div>Forms</div><div>Contact</div></nav>
+  <div class="body">
+    <div class="crumb">Home &rsaquo; Property tax &rsaquo; Forfeiture and sale &rsaquo; Surplus funds</div>
+    <h1 data-hl="title">Unclaimed surplus funds</h1>
+    <div class="lede">Parcels sold at tax forfeiture sale for which proceeds remain on deposit in excess of the tax debt satisfied. Former owners of record, or their heirs, may file a claim. <span class="link">There is no fee to file a claim.</span></div>
+    <div class="alert" data-hl="alert"><b>You do not need to pay anyone to recover these funds.</b> This office does not endorse or share records with any recovery, locator, or finder service.</div>
+    <table>
+      <tr><th>Parcel</th><th>Sale year</th><th class="money">Tax debt</th><th class="money">Sale price</th><th class="money">Surplus held</th><th>Status</th></tr>
+      <tr><td><span class="red w120"></span></td><td><span class="red w60"></span></td><td class="money"><span class="red w70"></span></td><td class="money"><span class="red w86"></span></td><td class="money"><span class="red w86"></span></td><td><span class="unc">Unclaimed</span></td></tr>
+      <tr id="target" data-hl="rowhit"><td><span class="red w120"></span></td><td>2015</td><td class="money" data-hl="debt">$15,000.00</td><td class="money" data-hl="price">$40,000.00</td><td class="money" data-hl="surplus"><b>$25,000.00</b></td><td><span class="unc">Unclaimed</span></td></tr>
+      <tr><td><span class="red w120"></span></td><td><span class="red w60"></span></td><td class="money"><span class="red w70"></span></td><td class="money"><span class="red w86"></span></td><td class="money"><span class="red w86"></span></td><td><span class="unc">Unclaimed</span></td></tr>
+      <tr><td><span class="red w120"></span></td><td><span class="red w60"></span></td><td class="money"><span class="red w70"></span></td><td class="money"><span class="red w86"></span></td><td class="money"><span class="red w86"></span></td><td><span class="unc">Unclaimed</span></td></tr>
+      <tr><td><span class="red w120"></span></td><td><span class="red w60"></span></td><td class="money"><span class="red w70"></span></td><td class="money"><span class="red w86"></span></td><td class="money"><span class="red w86"></span></td><td><span class="unc">Unclaimed</span></td></tr>
+      <tr><td><span class="red w120"></span></td><td><span class="red w60"></span></td><td class="money"><span class="red w70"></span></td><td class="money"><span class="red w86"></span></td><td class="money"><span class="red w86"></span></td><td><span class="unc">Unclaimed</span></td></tr>
+      <tr><td><span class="red w120"></span></td><td><span class="red w60"></span></td><td class="money"><span class="red w70"></span></td><td class="money"><span class="red w86"></span></td><td class="money"><span class="red w86"></span></td><td><span class="unc">Unclaimed</span></td></tr>
+    </table>
+  </div>
+</div>
+
+<script id="__rectdump">
+(function () {
+  var out = {};
+  document.querySelectorAll('[data-hl]').forEach(function (el) {
+    var r = el.getBoundingClientRect();
+    out[el.getAttribute('data-hl')] = [Math.round(r.left), Math.round(r.top + window.scrollY),
+                                       Math.round(r.width), Math.round(r.height)];
+  });
+  var pre = document.createElement('pre');
+  pre.id = '__rects';
+  pre.textContent = 'RECTS=' + JSON.stringify(out);
+  pre.style.display = 'none';
+  document.body.appendChild(pre);
+})();
+</script>

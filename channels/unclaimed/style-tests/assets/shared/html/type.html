@@ -1,0 +1,83 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>type card</title>
+<style>
+  @font-face { font-family: fimpact;    src: url('../../../work/fonts/impact.ttf'); }
+  @font-face { font-family: fcond;      src: url('../../../work/fonts/cond.ttf'); }
+  @font-face { font-family: fnarrow;    src: url('../../../work/fonts/narrow.ttf'); }
+  @font-face { font-family: fblack;     src: url('../../../work/fonts/black.ttf'); }
+  @font-face { font-family: farial;     src: url('../../../work/fonts/arial.ttf'); }
+  @font-face { font-family: fcourier;   src: url('../../../work/fonts/courier.ttf'); }
+  @font-face { font-family: ftimes;     src: url('../../../work/fonts/times.ttf'); }
+  @font-face { font-family: finter;     src: url('../../../work/fonts/inter.ttf'); }
+  @font-face { font-family: fintersemi; src: url('../../../work/fonts/intersemi.ttf'); }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: transparent; }
+  body { width: 1280px; height: 720px; overflow: hidden; }
+  #wrap { position: absolute; }
+  #t { margin: 0; white-space: pre-wrap; }
+  .red { display: inline-block; background: currentColor; border-radius: 2px;
+         vertical-align: baseline; }
+</style>
+<body>
+<div id="wrap"><div id="t"></div></div>
+<script>
+  var p = new URLSearchParams(location.search);
+  var g = function (k, d) { var v = p.get(k); return v === null ? d : v; };
+
+  var wrap = document.getElementById('wrap');
+  var t = document.getElementById('t');
+
+  var fonts = { impact: 'fimpact', cond: 'fcond', narrow: 'fnarrow', black: 'fblack',
+                arial: 'farial', courier: 'fcourier', times: 'ftimes',
+                inter: 'finter', intersemi: 'fintersemi' };
+
+  var text = g('t', '');
+  // {n} marks a redaction block of n characters, used for the digit reveal
+  text = text.replace(/\{(\d+)\}/g, function (m, n) {
+    return '<span class="red" data-n="' + n + '"></span>';
+  });
+  t.innerHTML = text;
+
+  var size = parseFloat(g('s', 64));
+  t.style.fontFamily = fonts[g('f', 'inter')] || 'finter';
+  t.style.fontSize = size + 'px';
+  t.style.lineHeight = g('lh', '1.06');
+  t.style.color = '#' + g('c', 'F5F0E3');
+  t.style.letterSpacing = g('ls', '0') + 'em';
+  t.style.textAlign = g('al', 'center');
+  t.style.textTransform = g('tt', 'none');
+  if (g('sh', '')) t.style.textShadow = g('sh');
+
+  // redaction blocks scale with the type
+  Array.prototype.forEach.call(t.querySelectorAll('.red'), function (el) {
+    var n = parseInt(el.getAttribute('data-n'), 10);
+    el.style.width = (n * size * 0.58) + 'px';
+    el.style.height = (size * 0.70) + 'px';
+    el.style.marginBottom = (-size * 0.04) + 'px';
+  });
+
+  var maxw = g('mw', null);
+  if (maxw) { wrap.style.width = maxw + 'px'; }
+
+  // optional plate behind the type
+  var bg = g('bg', null);
+  if (bg) {
+    var pad = g('pad', '14 22').split(' ');
+    wrap.style.background = '#' + bg;
+    wrap.style.padding = (pad[0] || 14) + 'px ' + (pad[1] || 22) + 'px';
+  }
+  if (g('bd', null)) { wrap.style.border = g('bd'); }
+  if (g('rot', null)) { wrap.style.transform = 'rotate(' + g('rot') + 'deg)'; }
+
+  // position: x is a number or 'c' (centred); y is a number or 'c'
+  var x = g('x', 'c'), y = g('y', 'c');
+  wrap.style.left = '0px';
+  wrap.style.top = '0px';
+  if (!maxw && x === 'c') { wrap.style.width = '1280px'; }
+  document.body.offsetHeight;
+  var bw = wrap.offsetWidth, bh = wrap.offsetHeight;
+  wrap.style.left = (x === 'c' ? Math.round((1280 - bw) / 2) : parseFloat(x)) + 'px';
+  wrap.style.top = (y === 'c' ? Math.round((720 - bh) / 2) : parseFloat(y)) + 'px';
+</script>

@@ -1,0 +1,43 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>annotations</title>
+<style>
+  html, body { margin: 0; padding: 0; background: transparent; }
+  body { width: 1280px; height: 720px; overflow: hidden; }
+  svg { position: absolute; inset: 0; }
+  .s { fill: none; stroke: #3AAE5C; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+  .s2 { stroke-width: 5.5; }
+  .fill { fill: #3AAE5C; stroke: none; }
+</style>
+<body>
+<svg id="stage" width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg"></svg>
+<script>
+  var k = (new URLSearchParams(location.search)).get('k') || 'circle';
+  var svg = document.getElementById('stage');
+  // hand drawn feel: slightly irregular ellipse, over-run at the closing end
+  var art = {
+    circle:
+      '<path class="s" d="M 640 92 C 372 84 96 130 88 214 C 80 300 372 344 646 340 C 918 336 1196 296 1194 210 C 1192 126 926 82 654 90 C 560 92 468 100 392 114"/>',
+    circleWide:
+      '<path class="s" d="M 640 60 C 300 50 40 118 34 260 C 28 404 322 470 648 466 C 972 462 1250 396 1246 254 C 1242 116 960 48 630 58 C 520 61 420 74 336 96"/>',
+    underline:
+      '<path class="s" d="M 60 40 C 300 22 720 30 1100 18"/><path class="s s2" d="M 78 66 C 330 52 700 60 1064 46"/>',
+    arrow:
+      '<path class="s" d="M 40 40 C 240 96 470 210 690 322"/><path class="s" d="M 690 322 L 606 306"/><path class="s" d="M 690 322 L 668 240"/>',
+    arrowUp:
+      '<path class="s" d="M 40 400 C 200 330 440 190 660 46"/><path class="s" d="M 660 46 L 574 62"/><path class="s" d="M 660 46 L 682 130"/>',
+    bracket:
+      '<path class="s" d="M 120 30 C 52 34 44 60 42 130 C 40 210 42 300 42 360 C 42 430 56 456 122 462"/>',
+    box:
+      '<path class="s" d="M 30 34 C 380 22 900 26 1246 20 C 1252 90 1250 168 1248 232 C 900 244 372 240 34 246 C 28 176 30 100 30 34"/>',
+    cursor:
+      '<path d="M 14 8 L 14 120 L 44 92 L 64 140 L 88 130 L 68 82 L 108 78 Z" fill="#f7f7f7" stroke="#141414" stroke-width="6" stroke-linejoin="round"/>',
+    dot:
+      '<circle class="fill" cx="24" cy="24" r="18"/>'
+  };
+  svg.innerHTML = art[k] || art.circle;
+  var w = (new URLSearchParams(location.search)).get('w');
+  var h = (new URLSearchParams(location.search)).get('h');
+  if (w) { svg.setAttribute('width', w); document.body.style.width = w + 'px'; }
+  if (h) { svg.setAttribute('height', h); document.body.style.height = h + 'px'; }
+</script>

@@ -1,0 +1,70 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>facsimile</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #ffffff; }
+  body {
+    width: 1280px;
+    font-family: "Times New Roman", Georgia, serif;
+    color: #14140f;
+    padding: 96px 150px 120px;
+    font-size: 21px;
+    line-height: 1.62;
+  }
+  .fac { position: absolute; top: 14px; right: 18px; font: 400 11px/1 "Courier New", monospace; color: #b9b3a6; letter-spacing: .14em; }
+  .slip { text-align: center; font-size: 15px; letter-spacing: .30em; text-transform: uppercase; color: #6e6a60; margin-bottom: 54px; }
+  h1 { font-size: 27px; letter-spacing: .19em; text-align: center; font-weight: normal; text-transform: uppercase; margin: 0 0 10px; }
+  .rule { border-top: 1.5px solid #14140f; margin: 26px auto 30px; width: 200px; }
+  .caption { text-align: center; margin-bottom: 40px; }
+  .caption .v { font-size: 30px; letter-spacing: .05em; margin: 8px 0; }
+  .caption .sub { font-size: 16px; font-style: italic; color: #45423b; }
+  .docket { text-align: center; font-size: 17px; letter-spacing: .10em; margin: 34px 0 44px; }
+  .red { display: inline-block; background: #14140f; color: #14140f; border-radius: 1px; vertical-align: middle; }
+  .r1 { width: 92px; height: 15px; }
+  .r2 { width: 150px; height: 15px; }
+  .r3 { width: 240px; height: 15px; }
+  h2 { font-size: 19px; letter-spacing: .16em; text-transform: uppercase; font-weight: normal; margin: 46px 0 18px; }
+  p { margin: 0 0 21px; text-align: justify; text-indent: 44px; }
+  p.flush { text-indent: 0; }
+  .hold { border-left: 3px solid #14140f; padding-left: 26px; margin: 34px 0; font-size: 22px; }
+  .vote { text-align: center; font-size: 22px; letter-spacing: .22em; margin: 46px 0 10px; }
+  .vote b { font-size: 46px; letter-spacing: .06em; display: block; margin-top: 12px; font-weight: normal; }
+  .fn { border-top: 1px solid #9c968a; margin-top: 54px; padding-top: 16px; font-size: 15px; color: #4b4841; text-indent: 0; }
+  .num { font-variant-numeric: tabular-nums; }
+</style>
+<div class="fac">FACSIMILE / NOT A REAL RECORD</div>
+<div class="slip">Slip Opinion</div>
+<h1>Supreme Court of the United States</h1>
+<div class="rule"></div>
+<div class="caption">
+  <div class="v" data-hl="caption">TYLER <i>v.</i> HENNEPIN COUNTY</div>
+  <div class="sub">on writ of certiorari</div>
+</div>
+<div class="docket">No. <span class="red r1"></span> &nbsp;&nbsp; Argued <span class="red r2"></span> &nbsp;&nbsp; Decided <span class="num">2023</span></div>
+
+<h2 data-hl="opinion">Opinion of the Court</h2>
+<p>The question presented is whether a county, having seized property to satisfy a debt of property tax, may retain the entire proceeds of the sale of that property, including the portion of those proceeds that exceeds the debt owed.</p>
+<p data-hl="record">The record establishes that a debt of property tax in the amount of <span class="num">$15,000</span> was outstanding against a condominium the owner no longer occupied. The county seized the property and sold it for <span class="num">$40,000</span>. The county retained the whole of that amount.</p>
+<p data-hl="dispute">The county does not dispute that the surplus of <span class="num">$25,000</span> exceeded any obligation the owner bore to it. It contends only that state law extinguished the owner's interest in that surplus at the moment of forfeiture.</p>
+<div class="hold" data-hl="hold">A taxpayer who loses her property to satisfy a debt of tax retains a property interest in the surplus. The county may keep what is owed to it. It may not keep more.</div>
+<p data-hl="uncon">The county's retention of proceeds beyond the debt owed is therefore a taking of property without just compensation, and it is unconstitutional.</p>
+<p class="flush">It is so ordered.</p>
+<div class="vote" data-hl="vote">Judgment for petitioner, unanimous<b>9 &ndash; 0</b></div>
+<p class="fn">This page is a visual facsimile prepared for a style test. Its layout imitates the typography of a published slip opinion. It is not a copy of, and must not be presented as, any filed document. Fields not stated in the narration are redacted rather than invented.</p>
+
+<script id="__rectdump">
+(function () {
+  var out = {};
+  document.querySelectorAll('[data-hl]').forEach(function (el) {
+    var r = el.getBoundingClientRect();
+    out[el.getAttribute('data-hl')] = [Math.round(r.left), Math.round(r.top + window.scrollY),
+                                       Math.round(r.width), Math.round(r.height)];
+  });
+  var pre = document.createElement('pre');
+  pre.id = '__rects';
+  pre.textContent = 'RECTS=' + JSON.stringify(out);
+  pre.style.display = 'none';
+  document.body.appendChild(pre);
+})();
+</script>

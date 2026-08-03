@@ -1,0 +1,86 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>facsimile</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #d7d7d9; }
+  body { width: 1280px; height: 720px; font-family: Arial, Helvetica, sans-serif; overflow: hidden; }
+  .chrome { background: #dedee1; border-bottom: 1px solid #c0c0c4; padding: 9px 12px 0; }
+  .tabs { display: flex; align-items: flex-end; gap: 6px; }
+  .tab { background: #f6f6f7; border-radius: 8px 8px 0 0; padding: 9px 16px; font-size: 12.5px; color: #2c2c2e; display: flex; align-items: center; gap: 8px; max-width: 330px; }
+  .tab.dim { background: #cfcfd3; color: #6a6a70; }
+  .fav { width: 13px; height: 13px; border-radius: 2px; background: #2e4a7a; flex: none; }
+  .fav.g { background: #7a7a80; }
+  .bar { background: #f6f6f7; padding: 8px 12px; display: flex; align-items: center; gap: 10px; }
+  .nav { display: flex; gap: 4px; color: #77777d; font-size: 15px; }
+  .nav span { width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+  .url { flex: 1; background: #fff; border: 1px solid #ccccd1; border-radius: 15px; padding: 6px 14px; font-size: 13px; display: flex; align-items: center; gap: 9px; }
+  .gov { background: #e8ebf2; color: #2e4a7a; font-size: 10.5px; letter-spacing: .1em; padding: 2px 7px; border-radius: 3px; font-weight: 700; }
+  .dom { color: #111; } .path { color: #6c6c72; }
+  .page { background: #fff; height: 630px; overflow: hidden; }
+  .gband { background: #1b2b4d; color: #cdd6e6; font-size: 11.5px; padding: 6px 40px; letter-spacing: .06em; }
+  .mast { background: #24365e; color: #fff; padding: 17px 40px; display: flex; align-items: center; gap: 16px; }
+  .seal { width: 42px; height: 42px; border: 2px double #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font: 700 7px/1.2 Arial; text-align: center; flex: none; }
+  .t1 { font-size: 19px; font-weight: 700; }
+  .t2 { font-size: 11.5px; letter-spacing: .18em; text-transform: uppercase; color: #b8c4dc; margin-top: 2px; }
+  nav { background: #eef0f4; border-bottom: 1px solid #d3d6dd; padding: 0 40px; display: flex; gap: 26px; font-size: 12.5px; color: #37455f; }
+  nav div { padding: 10px 0; }
+  nav .on { border-bottom: 3px solid #24365e; font-weight: 700; color: #16223c; }
+  .body { padding: 30px 40px 0; }
+  h1 { font-size: 27px; color: #16223c; margin: 0 0 8px; }
+  .crumb { font-size: 11.5px; color: #6e7688; margin-bottom: 16px; }
+  .lede { font-size: 13.5px; color: #3d4455; max-width: 860px; line-height: 1.6; margin-bottom: 26px; }
+  .form { border: 1px solid #d3d6dd; background: #fafbfc; padding: 26px 28px; max-width: 900px; }
+  .form h2 { font-size: 15px; color: #16223c; margin: 0 0 18px; letter-spacing: .02em; }
+  label { display: block; font-size: 11.5px; letter-spacing: .09em; text-transform: uppercase; color: #545c70; margin-bottom: 6px; }
+  .field { position: relative; background: #fff; border: 1px solid #b9bec9; height: 42px; display: flex; align-items: center; padding: 0 13px; font-size: 15px; color: #16223c; margin-bottom: 18px; max-width: 620px; }
+  .field.focus { border: 2px solid #2e6ad1; box-shadow: 0 0 0 3px rgba(46,106,209,.16); }
+  .caret { display: inline-block; width: 1.5px; height: 20px; background: #16223c; margin-left: 2px; }
+  .two { display: flex; gap: 18px; }
+  .two > div { flex: 1; max-width: 300px; }
+  .btn { background: #24365e; color: #fff; font-size: 14px; font-weight: 700; padding: 12px 26px; display: inline-block; letter-spacing: .03em; }
+  .btn.ghost { background: #fff; color: #24365e; border: 1px solid #b9bec9; font-weight: 400; margin-left: 10px; }
+  .helper { font-size: 12px; color: #6e7688; margin-top: 16px; line-height: 1.55; max-width: 700px; }
+  .fee { color: #8d2013; font-weight: 700; }
+</style>
+<div class="chrome">
+  <div class="tabs">
+    <div class="tab"><i class="fav"></i>Search surplus funds &middot; County Auditor</div>
+    <div class="tab dim"><i class="fav g"></i>New tab</div>
+  </div>
+</div>
+<div class="bar">
+  <div class="nav"><span>&#8592;</span><span>&#8594;</span><span>&#8635;</span></div>
+  <div class="url"><span>&#128274;</span><span class="gov">GOV</span><span class="dom">county.example.gov</span><span class="path">/auditor/forfeiture/surplus-funds/search</span></div>
+</div>
+<div class="page">
+  <div class="gband">An official website of a county government</div>
+  <div class="mast">
+    <div class="seal">OFFICE<br>OF THE<br>AUDITOR</div>
+    <div><div class="t1">Office of the County Auditor</div><div class="t2">Property Tax Forfeiture Division</div></div>
+  </div>
+  <nav><div>Home</div><div>Property tax</div><div class="on">Forfeiture and sale</div><div>Surplus funds</div><div>Forms</div><div>Contact</div></nav>
+  <div class="body">
+    <div class="crumb">Home &rsaquo; Property tax &rsaquo; Forfeiture and sale &rsaquo; Search surplus funds</div>
+    <h1>Search surplus funds</h1>
+    <div class="lede">Search proceeds held on deposit from tax forfeiture sales. Search by the name of the owner of record at the time of forfeiture, or by parcel identifier.</div>
+    <div class="form">
+      <h2>Owner of record</h2>
+      <label>Last name</label>
+      <div class="field focus" id="f1"><span id="typed"></span><span class="caret"></span></div>
+      <div class="two">
+        <div><label>Sale year from</label><div class="field" id="f2"><span id="y1"></span></div></div>
+        <div><label>Sale year to</label><div class="field" id="f3"><span id="y2"></span></div></div>
+      </div>
+      <div><span class="btn">Search records</span><span class="btn ghost">Clear</span></div>
+      <div class="helper">Records are held by this office. <span class="fee">There is no fee to search these records and no fee to file a claim.</span> This office does not share records with any recovery or locator service.</div>
+    </div>
+  </div>
+</div>
+<script>
+  var p = new URLSearchParams(location.search);
+  document.getElementById('typed').textContent = p.get('q') || '';
+  document.getElementById('y1').textContent = p.get('y1') || '';
+  document.getElementById('y2').textContent = p.get('y2') || '';
+  if (p.get('nofocus')) document.getElementById('f1').classList.remove('focus');
+</script>

@@ -1,0 +1,91 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>facsimile</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #fbfaf5; }
+  body {
+    width: 1280px;
+    font-family: "Courier New", monospace;
+    color: #191713;
+    padding: 70px 90px 100px;
+    font-size: 18px;
+    line-height: 1.7;
+  }
+  .fac { position: absolute; top: 12px; right: 16px; font: 400 11px/1 "Courier New", monospace; color: #aaa49a; letter-spacing: .14em; }
+  .top { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #191713; padding-bottom: 18px; }
+  .from { font-size: 15px; line-height: 1.75; }
+  .from b { font-size: 19px; letter-spacing: .08em; display: block; margin-bottom: 4px; }
+  .barcode { display: flex; gap: 2px; align-items: flex-end; height: 46px; }
+  .barcode i { display: block; background: #191713; width: 3px; height: 100%; }
+  .barcode i:nth-child(3n) { width: 6px; }
+  .barcode i:nth-child(4n) { height: 74%; }
+  h1 { font-family: Arial, Helvetica, sans-serif; font-size: 30px; letter-spacing: .06em; text-transform: uppercase; margin: 46px 0 4px; font-weight: 700; }
+  .sub { font-family: Arial, Helvetica, sans-serif; font-size: 15px; letter-spacing: .22em; text-transform: uppercase; color: #565149; margin-bottom: 38px; }
+  .addr { margin: 30px 0 40px; font-size: 17px; line-height: 1.9; }
+  .red { display: inline-block; background: #191713; height: 15px; border-radius: 1px; vertical-align: middle; }
+  .w70 { width: 70px; } .w120 { width: 120px; } .w200 { width: 200px; } .w280 { width: 280px; } .w340 { width: 340px; }
+  .rows { border: 2px solid #191713; margin: 8px 0 30px; }
+  .row { display: flex; border-bottom: 1px solid #c6c0b4; }
+  .row:last-child { border-bottom: 0; }
+  .row .k { flex: 1; padding: 15px 18px; font-size: 15px; letter-spacing: .05em; text-transform: uppercase; color: #43403a; border-right: 1px solid #c6c0b4; }
+  .row .v { width: 300px; padding: 15px 18px; text-align: right; font-size: 22px; font-variant-numeric: tabular-nums; }
+  .row.big .v { font-size: 30px; font-weight: 700; }
+  .row.big { background: #f0ede4; }
+  p { margin: 0 0 20px; font-size: 17px; max-width: 1010px; }
+  .warn { border: 3px solid #8d2013; color: #8d2013; padding: 16px 20px; font-family: Arial, Helvetica, sans-serif; font-size: 17px; font-weight: 700; letter-spacing: .04em; margin: 34px 0; max-width: 1010px; line-height: 1.5; }
+  .sig { margin-top: 54px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .sigline { border-top: 1.5px solid #191713; width: 380px; padding-top: 8px; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #4a463f; }
+  .stamp { border: 4px double #8d2013; color: #8d2013; font: 700 19px/1.25 Arial; letter-spacing: .16em; padding: 12px 18px; text-align: center; transform: rotate(4deg); }
+  .foot { margin-top: 46px; border-top: 1px solid #c6c0b4; padding-top: 14px; font-size: 12.5px; color: #565149; line-height: 1.6; }
+</style>
+<div class="fac">FACSIMILE / NOT A REAL RECORD</div>
+<div class="top">
+  <div class="from">
+    <b>OFFICE OF THE COUNTY AUDITOR</b>
+    PROPERTY TAX FORFEITURE DIVISION<br>
+    COUNTY OF <span class="red w120"></span><br>
+    <span class="red w200"></span>
+  </div>
+  <div class="barcode">
+    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+  </div>
+</div>
+<h1 data-hl="title">Notice of forfeiture and sale</h1>
+<div class="sub">Delinquent real property tax &middot; statement of account</div>
+<div class="addr">
+  OWNER OF RECORD &nbsp; <span class="red w280"></span><br>
+  PARCEL &nbsp; <span class="red w340"></span><br>
+  PROPERTY &nbsp; <span class="red w340"></span>
+</div>
+<div class="rows">
+  <div class="row" data-hl="year"><div class="k">Tax year of delinquency</div><div class="v">2015</div></div>
+  <div class="row" data-hl="owed"><div class="k">Total tax debt owed to county</div><div class="v">$15,000.00</div></div>
+  <div class="row" data-hl="sold"><div class="k">Property sold at forfeiture sale for</div><div class="v">$40,000.00</div></div>
+  <div class="row"><div class="k">Applied to satisfy tax debt</div><div class="v">$15,000.00</div></div>
+  <div class="row big" data-hl="surplus"><div class="k">Surplus in excess of debt</div><div class="v">$25,000.00</div></div>
+  <div class="row" data-hl="returned"><div class="k">Amount returned to owner of record</div><div class="v">$0.00</div></div>
+</div>
+<p>The above parcel was forfeited to the county for non payment of real property tax and sold at public sale. The proceeds of that sale were retained in full by this office.</p>
+<div class="warn" data-hl="warn">The surplus shown above exceeds the debt owed to this county. Retention of that surplus is unconstitutional. The former owner of record, or an heir, may claim it. Filing a claim directly with this office costs nothing.</div>
+<div class="sig">
+  <div class="sigline">County Auditor</div>
+  <div class="stamp">SURPLUS<br>ON DEPOSIT<br>UNCLAIMED</div>
+</div>
+<div class="foot">This page is a visual facsimile prepared for a style test. Its layout imitates the structure of a county tax forfeiture notice. Every name, parcel identifier, address, and figure not stated in the episode narration is redacted rather than invented. It is not a copy of, and must not be presented as, any real notice issued by any county.</div>
+
+<script id="__rectdump">
+(function () {
+  var out = {};
+  document.querySelectorAll('[data-hl]').forEach(function (el) {
+    var r = el.getBoundingClientRect();
+    out[el.getAttribute('data-hl')] = [Math.round(r.left), Math.round(r.top + window.scrollY),
+                                       Math.round(r.width), Math.round(r.height)];
+  });
+  var pre = document.createElement('pre');
+  pre.id = '__rects';
+  pre.textContent = 'RECTS=' + JSON.stringify(out);
+  pre.style.display = 'none';
+  document.body.appendChild(pre);
+})();
+</script>

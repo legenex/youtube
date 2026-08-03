@@ -1,0 +1,94 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>facsimile</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #f4f2ec; }
+  body {
+    width: 1280px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #1b1b18;
+    padding: 60px 64px 90px;
+    font-size: 16px;
+  }
+  .fac { position: absolute; top: 12px; right: 16px; font: 400 11px/1 "Courier New", monospace; color: #a9a49a; letter-spacing: .14em; }
+  header { border-bottom: 4px solid #1b1b18; padding-bottom: 20px; margin-bottom: 8px; display: flex; align-items: flex-end; justify-content: space-between; }
+  .seal { width: 74px; height: 74px; border: 3px double #1b1b18; border-radius: 50%; display: flex; align-items: center; justify-content: center; font: 700 9px/1.25 Arial; text-align: center; letter-spacing: .06em; color: #1b1b18; }
+  .org { flex: 1; padding-left: 24px; }
+  .org .l1 { font-size: 13px; letter-spacing: .30em; text-transform: uppercase; color: #55524a; }
+  .org .l2 { font-size: 31px; font-weight: 700; letter-spacing: -.01em; margin-top: 4px; }
+  .org .l3 { font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #55524a; margin-top: 5px; }
+  .meta { text-align: right; font-size: 12px; line-height: 1.7; color: #55524a; font-family: "Courier New", monospace; }
+  h1 { font-size: 24px; letter-spacing: .05em; margin: 34px 0 6px; text-transform: uppercase; }
+  .lede { font-size: 15px; color: #3d3a34; max-width: 900px; line-height: 1.6; margin-bottom: 8px; }
+  .note { background: #e6e2d8; border-left: 5px solid #1b1b18; padding: 13px 18px; font-size: 14px; margin: 22px 0 30px; max-width: 980px; line-height: 1.55; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th { text-align: left; background: #1b1b18; color: #f4f2ec; font-size: 11.5px; letter-spacing: .13em; text-transform: uppercase; padding: 11px 12px; font-weight: 700; }
+  td { padding: 13px 12px; border-bottom: 1px solid #cdc8bc; font-variant-numeric: tabular-nums; }
+  tr:nth-child(even) td { background: #eceae2; }
+  .money { text-align: right; }
+  .hit td { background: #ffffff !important; }
+  .hit { outline: 2px solid #1b1b18; }
+  .red { display: inline-block; background: #1b1b18; height: 14px; border-radius: 1px; vertical-align: middle; }
+  .w60 { width: 60px; } .w80 { width: 80px; } .w96 { width: 96px; } .w110 { width: 110px; } .w130 { width: 130px; }
+  .status { font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; }
+  .unc { color: #8a1f12; }
+  .foot { margin-top: 34px; font-size: 12.5px; color: #56534b; line-height: 1.65; max-width: 1000px; border-top: 1px solid #cdc8bc; padding-top: 16px; }
+  .stamp { position: absolute; right: 90px; top: 250px; border: 3px solid #8a1f12; color: #8a1f12; font: 700 20px/1 Arial; letter-spacing: .18em; padding: 10px 16px; transform: rotate(-8deg); opacity: .82; }
+</style>
+<div class="fac">FACSIMILE / NOT A REAL RECORD</div>
+<header>
+  <div class="seal">OFFICE<br>OF THE<br>AUDITOR</div>
+  <div class="org">
+    <div class="l1">County of <span class="red w110"></span></div>
+    <div class="l2">Office of the County Auditor</div>
+    <div class="l3">Property Tax Forfeiture Division</div>
+  </div>
+  <div class="meta">
+    FORM <span class="red w60"></span><br>
+    PAGE 1 OF <span class="red w60"></span><br>
+    REVISED <span class="red w80"></span>
+  </div>
+</header>
+<h1 data-hl="title">Tax forfeiture surplus funds &middot; unclaimed balances</h1>
+<div class="lede">Parcels sold at tax forfeiture sale for which proceeds remain on deposit with this office in excess of the tax debt satisfied. Former owners of record, or their heirs, may claim the surplus. There is no charge to file a claim.</div>
+<div class="note" data-hl="note"><b>You do not need to pay anyone to recover these funds.</b> This office does not endorse, employ, or share records with any recovery, locator, or finder service. A claim filed directly costs nothing.</div>
+<div class="stamp" data-hl="stamp">UNCLAIMED</div>
+<table>
+  <tr>
+    <th>Parcel</th><th>Sale year</th><th class="money">Tax debt</th><th class="money">Sale price</th><th class="money">Surplus held</th><th>Status</th>
+  </tr>
+  <tr><td><span class="red w130"></span></td><td><span class="red w60"></span></td><td class="money"><span class="red w80"></span></td><td class="money"><span class="red w96"></span></td><td class="money"><span class="red w96"></span></td><td><span class="status unc">Unclaimed</span></td></tr>
+  <tr class="hit" data-hl="rowhit">
+    <td><span class="red w130"></span></td>
+    <td>2015</td>
+    <td class="money" data-hl="debt">$15,000.00</td>
+    <td class="money" data-hl="price">$40,000.00</td>
+    <td class="money" data-hl="surplus"><b>$25,000.00</b></td>
+    <td><span class="status unc">Unclaimed</span></td>
+  </tr>
+  <tr><td><span class="red w130"></span></td><td><span class="red w60"></span></td><td class="money"><span class="red w80"></span></td><td class="money"><span class="red w96"></span></td><td class="money"><span class="red w96"></span></td><td><span class="status unc">Unclaimed</span></td></tr>
+  <tr><td><span class="red w130"></span></td><td><span class="red w60"></span></td><td class="money"><span class="red w80"></span></td><td class="money"><span class="red w96"></span></td><td class="money"><span class="red w96"></span></td><td><span class="status unc">Unclaimed</span></td></tr>
+  <tr><td><span class="red w130"></span></td><td><span class="red w60"></span></td><td class="money"><span class="red w80"></span></td><td class="money"><span class="red w96"></span></td><td class="money"><span class="red w96"></span></td><td><span class="status unc">Unclaimed</span></td></tr>
+  <tr><td><span class="red w130"></span></td><td><span class="red w60"></span></td><td class="money"><span class="red w80"></span></td><td class="money"><span class="red w96"></span></td><td class="money"><span class="red w96"></span></td><td><span class="status unc">Unclaimed</span></td></tr>
+  <tr><td><span class="red w130"></span></td><td><span class="red w60"></span></td><td class="money"><span class="red w80"></span></td><td class="money"><span class="red w96"></span></td><td class="money"><span class="red w96"></span></td><td><span class="status unc">Unclaimed</span></td></tr>
+  <tr><td><span class="red w130"></span></td><td><span class="red w60"></span></td><td class="money"><span class="red w80"></span></td><td class="money"><span class="red w96"></span></td><td class="money"><span class="red w96"></span></td><td><span class="status unc">Unclaimed</span></td></tr>
+  <tr><td><span class="red w130"></span></td><td><span class="red w60"></span></td><td class="money"><span class="red w80"></span></td><td class="money"><span class="red w96"></span></td><td class="money"><span class="red w96"></span></td><td><span class="status unc">Unclaimed</span></td></tr>
+</table>
+<div class="foot">This page is a visual facsimile prepared for a style test. Column headings and layout imitate the structure of a county surplus funds listing. All parcel identifiers and every figure not stated in the episode narration are redacted rather than invented. It is not a copy of, and must not be presented as, any real county record.</div>
+
+<script id="__rectdump">
+(function () {
+  var out = {};
+  document.querySelectorAll('[data-hl]').forEach(function (el) {
+    var r = el.getBoundingClientRect();
+    out[el.getAttribute('data-hl')] = [Math.round(r.left), Math.round(r.top + window.scrollY),
+                                       Math.round(r.width), Math.round(r.height)];
+  });
+  var pre = document.createElement('pre');
+  pre.id = '__rects';
+  pre.textContent = 'RECTS=' + JSON.stringify(out);
+  pre.style.display = 'none';
+  document.body.appendChild(pre);
+})();
+</script>

@@ -1,0 +1,146 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>case file board</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #0b0906; }
+  body { width: 1920px; height: 1080px; overflow: hidden; font-family: "Courier New", monospace; }
+
+  .desk { position: absolute; inset: 0;
+    background:
+      radial-gradient(58% 70% at 34% 26%, rgba(255,228,168,.20), rgba(0,0,0,0) 66%),
+      linear-gradient(168deg, #241a10 0%, #17110a 52%, #0b0806 100%);
+  }
+  .grain { position: absolute; inset: -6%; opacity: .30; mix-blend-mode: overlay; }
+  .light { position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(46% 58% at 30% 22%, rgba(255,236,190,.20), rgba(0,0,0,0) 60%),
+                radial-gradient(120% 110% at 52% 50%, rgba(0,0,0,0) 40%, rgba(0,0,0,.72) 100%);
+  }
+
+  .item { position: absolute; box-shadow: 0 26px 52px rgba(0,0,0,.72), 0 3px 9px rgba(0,0,0,.6); }
+  .item img { display: block; width: 100%; height: auto; }
+  .paper { background: #efe9da; padding: 0; overflow: hidden; }
+  .photo { background: #14110c; padding: 12px 12px 44px; }
+  .photo img { filter: saturate(.62) contrast(1.04) brightness(.9); }
+
+  .folder { position: absolute; left: 96px; top: 118px; width: 1030px; height: 800px;
+    background: linear-gradient(158deg, #d3ac66 0%, #c39a55 52%, #ab8544 100%);
+    box-shadow: 0 34px 66px rgba(0,0,0,.78);
+    border-radius: 5px 5px 3px 3px;
+  }
+  .folder::before { content: ''; position: absolute; left: 56%; top: -54px; width: 330px; height: 56px;
+    background: linear-gradient(180deg, #ddb974, #cba05a); border-radius: 8px 8px 0 0;
+    box-shadow: 0 -6px 16px rgba(0,0,0,.45);
+  }
+
+  .tape { position: absolute; width: 168px; height: 46px;
+    background: linear-gradient(180deg, rgba(233,226,200,.60), rgba(206,197,166,.52));
+    border-left: 1px solid rgba(255,255,255,.22); border-right: 1px solid rgba(255,255,255,.22);
+    box-shadow: 0 3px 9px rgba(0,0,0,.42); opacity: .9;
+  }
+  .clip { position: absolute; width: 30px; height: 96px; border: 7px solid #8e9299; border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.6); background: transparent; }
+
+  .label { position: absolute; background: #e9e2cc; color: #17130c;
+    font-size: 30px; letter-spacing: .20em; text-transform: uppercase; font-weight: 700;
+    padding: 12px 22px; box-shadow: 0 14px 30px rgba(0,0,0,.62);
+    border-top: 1px solid #fff8e2;
+  }
+  .label.big { font-size: 54px; padding: 16px 30px; letter-spacing: .14em; }
+  .label.red { color: #8d2013; }
+  .label.em { background: #3AAE5C; color: #07130b; }
+
+  .stamp { position: absolute; border: 6px double #8d2013; color: #8d2013;
+    font-size: 54px; font-weight: 700; letter-spacing: .18em; padding: 18px 34px;
+    background: #e9e2cc; text-transform: uppercase;
+    box-shadow: 0 16px 34px rgba(0,0,0,.66);
+  }
+
+  .thread { position: absolute; inset: 0; pointer-events: none; }
+  .pin { position: absolute; width: 24px; height: 24px; border-radius: 50%;
+    background: radial-gradient(circle at 34% 30%, #ff8272, #a3241a);
+    box-shadow: 0 4px 10px rgba(0,0,0,.7); }
+
+  .hide { display: none; }
+</style>
+<body>
+<div class="desk"></div>
+<svg class="grain" xmlns="http://www.w3.org/2000/svg"><filter id="g"><feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#g)"/></svg>
+
+<div class="folder" id="folder"></div>
+
+<!-- notice document -->
+<div class="item paper" id="i-notice" style="left:150px; top:176px; width:690px; transform: rotate(-2.1deg);">
+  <img src="../docs/doc-notice.png" style="margin-top:-2px">
+</div>
+<div class="tape" id="t-notice" style="left:400px; top:150px; transform: rotate(-3.4deg);"></div>
+
+<!-- opinion document -->
+<div class="item paper" id="i-opinion" style="left:790px; top:262px; width:620px; transform: rotate(3.2deg);">
+  <img src="../docs/doc-opinion.png">
+</div>
+<div class="tape" id="t-opinion" style="left:1010px; top:240px; transform: rotate(2.6deg);"></div>
+
+<!-- surplus listing -->
+<div class="item paper" id="i-surplus" style="left:1130px; top:604px; width:700px; transform: rotate(-1.4deg);">
+  <img src="../docs/doc-surplus.png">
+</div>
+<div class="clip" id="c-surplus" style="left:1420px; top:582px;"></div>
+
+<!-- photographs -->
+<div class="item photo" id="i-photo1" style="left:1246px; top:104px; width:470px; transform: rotate(2.6deg);">
+  <img src="../gen/img-04-condo-exterior.png">
+</div>
+<div class="item photo" id="i-photo2" style="left:210px; top:718px; width:430px; transform: rotate(-3.1deg);">
+  <img src="../gen/img-01-condo-empty.png">
+</div>
+<div class="item photo" id="i-photo3" style="left:672px; top:790px; width:390px; transform: rotate(1.9deg);">
+  <img src="../../../work/img-court.png">
+</div>
+
+<!-- typewriter labels -->
+<div class="label" id="l-case" style="left:560px; top:86px; transform: rotate(-1.6deg);">Case File</div>
+<div class="label big red" id="l-owed" style="left:120px; top:566px; transform: rotate(-2.4deg);">$15,000 owed</div>
+<div class="label big" id="l-sold" style="left:832px; top:150px; transform: rotate(2.2deg);">$40,000 sold</div>
+<div class="label big em" id="l-kept" style="left:640px; top:600px; transform: rotate(-1.2deg);">$25,000 kept</div>
+<div class="stamp" id="l-vote" style="left:1320px; top:452px; transform: rotate(-7deg);">9 &ndash; 0</div>
+<div class="label big em" id="l-sign" style="left:150px; top:452px; width:1160px; font-size:44px; letter-spacing:.06em; line-height:1.35; text-transform:none; transform: rotate(-.6deg);">
+  The money may be unclaimed. It does not have to stay that way.
+</div>
+
+<!-- red thread -->
+<svg class="thread" id="thread" width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+  <path d="M 470 560 C 700 470 900 520 1108 452" stroke="#a3241a" stroke-width="5" fill="none" stroke-linecap="round" opacity=".92"/>
+  <path d="M 1108 452 C 1240 420 1330 470 1392 470" stroke="#a3241a" stroke-width="5" fill="none" stroke-linecap="round" opacity=".92"/>
+</svg>
+<div class="pin" id="p1" style="left:458px; top:548px;"></div>
+<div class="pin" id="p2" style="left:1096px; top:440px;"></div>
+<div class="pin" id="p3" style="left:1380px; top:458px;"></div>
+
+<div class="light"></div>
+
+<script>
+  // progressive states: each state lists the ids that are VISIBLE
+  var states = {
+    1: ['folder', 'l-case'],
+    2: ['folder', 'l-case', 'i-notice', 't-notice'],
+    3: ['folder', 'i-notice', 't-notice', 'l-owed', 'i-photo2'],
+    4: ['folder', 'i-notice', 't-notice', 'l-owed', 'i-photo2', 'i-photo1', 'l-sold'],
+    5: ['folder', 'i-notice', 't-notice', 'i-photo2', 'i-photo1', 'l-sold', 'l-kept'],
+    6: ['folder', 'i-notice', 't-notice', 'i-photo2', 'i-opinion', 't-opinion', 'i-photo3', 'l-vote'],
+    7: ['folder', 'i-notice', 't-notice', 'i-photo2', 'i-opinion', 't-opinion', 'i-photo3', 'l-vote',
+        'thread', 'p1', 'p2', 'p3', 'l-kept'],
+    8: ['folder', 'i-notice', 'i-opinion', 't-opinion', 'i-surplus', 'c-surplus', 'i-photo1', 'i-photo3',
+        'thread', 'p1', 'p2', 'p3'],
+    9: ['folder', 'i-notice', 'i-opinion', 'i-surplus', 'c-surplus', 'i-photo1', 'l-sign']
+  };
+  var all = ['folder','i-notice','t-notice','i-opinion','t-opinion','i-surplus','c-surplus',
+             'i-photo1','i-photo2','i-photo3','l-case','l-owed','l-sold','l-kept','l-vote','l-sign',
+             'thread','p1','p2','p3'];
+  var n = (new URLSearchParams(location.search)).get('n') || '1';
+  var on = states[n] || states[1];
+  all.forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) el.style.display = on.indexOf(id) >= 0 ? '' : 'none';
+  });
+</script>

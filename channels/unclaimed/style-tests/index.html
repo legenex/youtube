@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UNCLAIMED &middot; Episode 5 style test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0B0B0C; --panel:#131417; --panel2:#191A1E; --line:#26282E;
+  --text:#E9E6DF; --dim:#9A968E; --em:#3AAE5C; --tan:#D8B26A; --red:#C0392B;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--ink); color:var(--text);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased; line-height:1.55;
+}
+.wrap{max-width:1360px;margin:0 auto;padding:56px 24px 96px}
+header.top{border-bottom:1px solid var(--line);padding-bottom:28px;margin-bottom:36px}
+.kicker{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--em);
+  font-weight:600;margin-bottom:14px}
+h1{font-size:clamp(28px,4vw,44px);line-height:1.12;margin:0 0 12px;font-weight:800;
+  letter-spacing:-.02em}
+.sub{color:var(--dim);max-width:70ch;font-size:15.5px;margin:0}
+.sub b{color:var(--text);font-weight:600}
+
+.compare{margin:0 0 44px;border:1px solid var(--line);border-radius:12px;
+  background:var(--panel);overflow-x:auto}
+.compare h2{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);
+  margin:0;padding:16px 20px 12px;border-bottom:1px solid var(--line);font-weight:600}
+table.cmp{width:100%;border-collapse:collapse;font-size:14px;min-width:760px}
+table.cmp th{text-align:left;padding:11px 20px;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--dim);font-weight:600;border-bottom:1px solid var(--line)}
+table.cmp td{padding:13px 20px;border-bottom:1px solid #1E2025;font-variant-numeric:tabular-nums}
+table.cmp tr:last-child td{border-bottom:0}
+table.cmp td.name{font-weight:600}
+table.cmp td .n{color:var(--em);font-weight:700}
+table.cmp td .free{color:var(--tan)}
+.bar{display:block;height:7px;background:#22242A;border-radius:4px;position:relative;
+  min-width:110px;width:100%;max-width:190px}
+.bar i{position:absolute;top:0;bottom:0;left:0;background:var(--em);border-radius:4px;
+  display:block}
+
+.grid{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  overflow:hidden;display:flex;flex-direction:column}
+.card video{width:100%;display:block;background:#000;aspect-ratio:16/9}
+.card .body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:12px;flex:1}
+.card .no{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--em);
+  font-weight:700}
+.card h3{margin:0;font-size:19px;font-weight:700;letter-spacing:-.01em}
+.card .desc{margin:0;color:var(--dim);font-size:14px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;margin-top:2px;
+  border-top:1px solid var(--line);padding-top:14px}
+.stat{display:flex;flex-direction:column;gap:2px}
+.stat .k{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#7C7A74}
+.stat .v{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+.stat .v.em{color:var(--em)}
+button.guide{margin-top:auto;background:transparent;color:var(--text);
+  border:1px solid #34373F;border-radius:8px;padding:11px 16px;font:inherit;font-size:14px;
+  font-weight:600;cursor:pointer;transition:.15s}
+button.guide:hover{border-color:var(--em);color:var(--em)}
+
+.modal{position:fixed;inset:0;background:rgba(6,6,7,.82);display:none;z-index:50;
+  padding:32px 18px;overflow-y:auto;backdrop-filter:blur(3px)}
+.modal[open]{display:block}
+.sheet{max-width:760px;margin:0 auto;background:var(--panel2);border:1px solid var(--line);
+  border-radius:14px;padding:12px 0 0}
+.sheet .head{display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:10px 26px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;
+  background:var(--panel2);border-radius:14px 14px 0 0}
+.sheet .head strong{font-size:13px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--dim);font-weight:600}
+.sheet .close{background:transparent;border:1px solid #34373F;color:var(--text);
+  border-radius:7px;width:32px;height:32px;font-size:17px;cursor:pointer;line-height:1}
+.sheet .close:hover{border-color:var(--em);color:var(--em)}
+.doc{padding:6px 26px 30px;font-size:14.5px}
+.doc h1{font-size:24px;margin:18px 0 6px;letter-spacing:-.01em}
+.doc h2{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--em);
+  margin:26px 0 8px;font-weight:700}
+.doc p{margin:0 0 12px;color:#DCD8D0}
+.doc ul,.doc ol{margin:0 0 14px;padding-left:22px;color:#DCD8D0}
+.doc li{margin-bottom:6px}
+.doc code{background:#0E0F12;border:1px solid var(--line);border-radius:4px;
+  padding:1px 6px;font-size:12.5px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  color:var(--tan)}
+.doc table{width:100%;border-collapse:collapse;margin:0 0 16px;font-size:13.5px;
+  display:block;overflow-x:auto}
+.doc th{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);
+  font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--dim)}
+.doc td{padding:9px 10px;border-bottom:1px solid #1E2025;vertical-align:top;color:#DCD8D0}
+footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);
+  color:#77756F;font-size:13px}
+footer code{color:var(--tan)}
+@media (max-width:520px){.stats{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="kicker">Unclaimed &middot; style test</div>
+    <h1>Five visual styles, one script</h1>
+    <p class="sub">Episode 5, <b>Tyler v. Hennepin County</b>. Same narration, same
+    voiceover file, same music bed, same 25 second runtime in all five. Only the grade,
+    the type and the cutting change, so the comparison is fair. Every figure and hold
+    below is <b>measured</b> from the finished file with ffmpeg scene detection at a
+    threshold of 0.1, not estimated. Total generation spend across all five was
+    <b>54 Higgsfield credits</b> for a shared pool of 16 assets.</p>
+  </header>
+
+  <section class="compare">
+    <h2>The tradeoff at a glance</h2>
+    <table class="cmp">
+      <thead><tr>
+        <th>Style</th><th>Shots</th><th>Relative pace</th><th>Longest hold</th>
+        <th>Avg cut</th><th>Generation cost</th><th>File</th>
+      </tr></thead>
+      <tbody><tr><td class="name">1 &middot; Redacted Document</td><td><span class="n">20</span></td><td><span class="bar"><i style="width:30.3%"></i></span></td><td>2.47s</td><td>1.25s</td><td class="free">free</td><td>3.1 MB</td></tr>
+<tr><td class="name">2 &middot; Kinetic Type Over Footage</td><td><span class="n">17</span></td><td><span class="bar"><i style="width:25.8%"></i></span></td><td>1.90s</td><td>1.47s</td><td class="">14 assets</td><td>5.2 MB</td></tr>
+<tr><td class="name">3 &middot; Annotated Screen</td><td><span class="n">20</span></td><td><span class="bar"><i style="width:30.3%"></i></span></td><td>1.93s</td><td>1.25s</td><td class="free">free</td><td>3.8 MB</td></tr>
+<tr><td class="name">4 &middot; High Speed Cut</td><td><span class="n">66</span></td><td><span class="bar"><i style="width:100.0%"></i></span></td><td>0.70s</td><td>0.38s</td><td class="">16 assets</td><td>8.6 MB</td></tr>
+<tr><td class="name">5 &middot; Case File</td><td><span class="n">16</span></td><td><span class="bar"><i style="width:24.2%"></i></span></td><td>2.00s</td><td>1.56s</td><td class="">3 assets</td><td>5.3 MB</td></tr></tbody>
+    </table>
+  </section>
+
+  <div class="grid">
+      <article class="card">
+        <video src="out/style-1.mp4" controls preload="metadata" playsinline></video>
+        <div class="body">
+          <div class="no">Style 1</div>
+          <h3>Redacted Document</h3>
+          <p class="desc">A document fills the frame, dimmed; one line burns emerald as each fact lands.</p>
+          <div class="stats">
+            <div class="stat"><span class="k">Shots</span><span class="v em">20</span></div>
+            <div class="stat"><span class="k">Longest hold</span><span class="v">2.47s</span></div>
+            <div class="stat"><span class="k">Avg cut</span><span class="v">1.25s</span></div>
+            <div class="stat"><span class="k">Asset cost</span><span class="v">Free</span></div>
+          </div>
+          <button class="guide" onclick="openGuide(1)">Style guide</button>
+        </div>
+      </article>
+      <article class="card">
+        <video src="out/style-2.mp4" controls preload="metadata" playsinline></video>
+        <div class="body">
+          <div class="no">Style 2</div>
+          <h3>Kinetic Type Over Footage</h3>
+          <p class="desc">Bold condensed type slams on the beat over heavily graded footage.</p>
+          <div class="stats">
+            <div class="stat"><span class="k">Shots</span><span class="v em">17</span></div>
+            <div class="stat"><span class="k">Longest hold</span><span class="v">1.90s</span></div>
+            <div class="stat"><span class="k">Avg cut</span><span class="v">1.47s</span></div>
+            <div class="stat"><span class="k">Asset cost</span><span class="v">14 gen</span></div>
+          </div>
+          <button class="guide" onclick="openGuide(2)">Style guide</button>
+        </div>
+      </article>
+      <article class="card">
+        <video src="out/style-3.mp4" controls preload="metadata" playsinline></video>
+        <div class="body">
+          <div class="no">Style 3</div>
+          <h3>Annotated Screen</h3>
+          <p class="desc">A real government page marked up live: cursor, circles, arrows, underlines.</p>
+          <div class="stats">
+            <div class="stat"><span class="k">Shots</span><span class="v em">20</span></div>
+            <div class="stat"><span class="k">Longest hold</span><span class="v">1.93s</span></div>
+            <div class="stat"><span class="k">Avg cut</span><span class="v">1.25s</span></div>
+            <div class="stat"><span class="k">Asset cost</span><span class="v">Free</span></div>
+          </div>
+          <button class="guide" onclick="openGuide(3)">Style guide</button>
+        </div>
+      </article>
+      <article class="card">
+        <video src="out/style-4.mp4" controls preload="metadata" playsinline></video>
+        <div class="body">
+          <div class="no">Style 4</div>
+          <h3>High Speed Cut</h3>
+          <p class="desc">A visual change every half second in a serious register. Speed is the effect.</p>
+          <div class="stats">
+            <div class="stat"><span class="k">Shots</span><span class="v em">66</span></div>
+            <div class="stat"><span class="k">Longest hold</span><span class="v">0.70s</span></div>
+            <div class="stat"><span class="k">Avg cut</span><span class="v">0.38s</span></div>
+            <div class="stat"><span class="k">Asset cost</span><span class="v">16 gen</span></div>
+          </div>
+          <button class="guide" onclick="openGuide(4)">Style guide</button>
+        </div>
+      </article>
+      <article class="card">
+        <video src="out/style-5.mp4" controls preload="metadata" playsinline></video>
+        <div class="body">
+          <div class="no">Style 5</div>
+          <h3>Case File</h3>
+          <p class="desc">A manila folder opens and the evidence accumulates under one side light.</p>
+          <div class="stats">
+            <div class="stat"><span class="k">Shots</span><span class="v em">16</span></div>
+            <div class="stat"><span class="k">Longest hold</span><span class="v">2.00s</span></div>
+            <div class="stat"><span class="k">Avg cut</span><span class="v">1.56s</span></div>
+            <div class="stat"><span class="k">Asset cost</span><span class="v">3 gen</span></div>
+          </div>
+          <button class="guide" onclick="openGuide(5)">Style guide</button>
+        </div>
+      </article>
+  </div>
+
+  <footer>
+    Built with one script, <code>build.py</code>, from a shared asset pool. Rhythm
+    measured by <code>measure.py</code>. Documents on screen are facsimiles built in
+    HTML for this test: they imitate the structure of a court filing and a county
+    surplus listing, and every field not stated in the narration is redacted rather
+    than invented. No real record is reproduced and no identifiable person appears.
+  </footer>
+</div>
+
+    <div class="modal" id="m1">
+      <div class="sheet">
+        <div class="head">
+          <strong>Style guide 1</strong>
+          <button class="close" onclick="closeGuide(1)" aria-label="Close">&times;</button>
+        </div>
+        <div class="doc"><h1>Style 1 · Redacted Document</h1>
+<h2>Look in one sentence</h2>
+<p>A real document fills the frame in near darkness, and exactly one line burns emerald while everything around it stays dim.</p>
+<h2>Palette</h2>
+<table><thead><tr><th>Hex</th><th>Role</th></tr></thead><tbody>
+<tr><td><code>#050505</code></td><td>Ground. The paper is inverted, so the page body reads as near black.</td></tr>
+<tr><td><code>#3AAE5C</code></td><td>The lit line. Emerald is reserved for the single fact currently landing, and for money. Nothing else is ever this colour.</td></tr>
+<tr><td><code>#F5F0E3</code></td><td>Second sign-off line only. Bone white closes the film.</td></tr>
+<tr><td><code>#8A8578</code></td><td>Caption grey under a figure. Says what the figure is.</td></tr>
+</tbody></table>
+<p>Dim layer sits between 34 and 80 percent of the inverted page depending on the shot, so consecutive pages differ in tonal mass. Never let two adjacent shots sit at the same dim level.</p>
+<h2>Typography</h2>
+<p>The document supplies its own type: Times New Roman for the court filing, Arial for the county listing, Courier for the notice. Do not add display type except for a figure. Figures are Arial Black, 112 px on a 720 px frame (roughly one sixth of frame height), centred in the lower third on an opaque plate at <code>#050505</code> so they never sit on the lit line. The caption under a figure is Arial Bold, 22 px, letter spaced 0.26 em, upper case.</p>
+<h2>Shot grammar</h2>
+<p>Three framings only, and they alternate:</p>
+<ul>
+<li><strong>Wide</strong>: the page fills the frame, one line lit.</li>
+<li><strong>Mid</strong>: a block of the page, one line lit.</li>
+<li><strong>Close</strong>: the lit line fills the frame, so emerald dominates.</li>
+</ul>
+<p>Each shot is a slow push of 4 to 5 percent. Cuts are hard, with no transition. The rule that carries the style: <strong>never two lit lines at once, and never two consecutive shots from the same document.</strong> Cut wide page, close line, new document, and repeat.</p>
+<h2>Rhythm spec</h2>
+<p>About 48 shots per minute. Maximum static hold 2.5 seconds; measured 2.47. The only pause is the sign-off, which gets three beats over the last 3.5 seconds so it still moves while the voice lands.</p>
+<h2>Asset recipe</h2>
+<p>100 percent document facsimile, screenshotted from hand built HTML at 2x. Zero stock, zero generated imagery, zero screen recording. Type is rendered as transparent PNG. This is the cheapest style in the set by a wide margin.</p>
+<h2>Cost per 10 minute episode</h2>
+<p>Generation calls: 0. Stock clips: 0. Documents: 6 to 10 HTML facsimiles, about 3 hours to build and tag. Editing: about 4 hours, most of it choosing which line lights on which word. Total about 7 hours, no spend.</p>
+<h2>Three rules that must never be broken</h2>
+<ol>
+<li>One lit line at a time. Two is an instant fail.</li>
+<li>Emerald is only ever the lit fact or money. Never decoration.</li>
+<li>Every figure carries a grey caption saying what it is. A number alone on a document invites the viewer to misread which number it is.</li>
+</ul>
+<h2>What this style is bad at</h2>
+<p>Anything physical. It cannot show a house, a person, a place or a feeling. It has no warmth and no faces, so a 10 minute episode in this style alone will feel airless. Use it for the evidence spine and cut away to something with air.</p></div>
+      </div>
+    </div>
+    <div class="modal" id="m2">
+      <div class="sheet">
+        <div class="head">
+          <strong>Style guide 2</strong>
+          <button class="close" onclick="closeGuide(2)" aria-label="Close">&times;</button>
+        </div>
+        <div class="doc"><h1>Style 2 · Kinetic Type Over Footage</h1>
+<h2>Look in one sentence</h2>
+<p>Bold condensed type slams onto the beat while heavily graded footage runs underneath as a texture, never as the subject.</p>
+<h2>Palette</h2>
+<table><thead><tr><th>Hex</th><th>Role</th></tr></thead><tbody>
+<tr><td><code>#0D0D0D</code></td><td>Ground. The grade crushes all footage toward this.</td></tr>
+<tr><td><code>#F5F0E3</code></td><td>Body type. Every statement line.</td></tr>
+<tr><td><code>#3AAE5C</code></td><td>Money and the sign-off payoff. Emerald means a dollar figure or the promise.</td></tr>
+<tr><td><code>#D8B26A</code></td><td>Warm tan for figures that are not the payoff, so 15,000 and 40,000 read differently from 25,000.</td></tr>
+<tr><td><code>#C0392B</code></td><td>The county. Used once, as a block behind &quot;Hennepin County&quot;.</td></tr>
+</tbody></table>
+<p>Footage is graded to saturation 0.14, contrast 1.22, brightness minus 0.22. It should be barely legible as a place.</p>
+<h2>Typography</h2>
+<p>Impact throughout, upper case, no exceptions. Statement lines 56 to 66 px on a 720 px frame. Payoff words 96 to 138 px, about one fifth of frame height. Figures 168 to 190 px, the largest thing that ever appears. Type is centred or flush left at 70 px, never flush right. Letter spacing 0.01 to 0.08 em, opened up as size drops. Every line carries a soft black shadow so it holds over any footage.</p>
+<h2>Shot grammar</h2>
+<p>A shot is one graded plate with one or two type lines. Lines arrive staggered, about 0.22 s apart, each dropping in over three frames from 20 px above its rest position, then locking hard. Colour blocks wipe across in 0.20 s on a new statement. Figures resolve out of redaction blocks: the number arrives as <code>$██,███</code>, then digits fill left to right, then it locks. That reveal invents no intermediate figure, which matters on this channel. Cuts are hard on the voice.</p>
+<h2>Rhythm spec</h2>
+<p>About 41 shots per minute. Maximum static hold 2.5 seconds; measured 1.90. Pauses sit on the two shortest sentences, &quot;Not the debt&quot; and &quot;All of it&quot;, which get their own plates so the silence is visible.</p>
+<h2>Asset recipe</h2>
+<p>About 82 percent generated stills, 18 percent generated clips, zero document, zero screen recording. Any stock library would substitute directly for the generated footage, since the footage only needs to read as a dark texture.</p>
+<h2>Cost per 10 minute episode</h2>
+<p>Generation calls: 0 if stock is available, since this style does not need specific imagery. Otherwise about 20 stills and 6 clips. Stock clips: 20 to 30. Editing: about 6 hours, most of it timing type to the voice track.</p>
+<h2>Three rules that must never be broken</h2>
+<ol>
+<li>Type is the subject. If the footage is competing, grade it down further.</li>
+<li>Emerald only for money and the sign-off. Tan for supporting figures.</li>
+<li>Never render a figure that is not in the script, not even for a frame of a count up. Use the redaction reveal instead.</li>
+</ul>
+<h2>What this style is bad at</h2>
+<p>Nuance and sequence. It states, it does not explain, so it cannot carry a process, a chronology or a caveat. It also gets tiring: past about 90 seconds the slams stop registering.</p></div>
+      </div>
+    </div>
+    <div class="modal" id="m3">
+      <div class="sheet">
+        <div class="head">
+          <strong>Style guide 3</strong>
+          <button class="close" onclick="closeGuide(3)" aria-label="Close">&times;</button>
+        </div>
+        <div class="doc"><h1>Style 3 · Annotated Screen</h1>
+<h2>Look in one sentence</h2>
+<p>A real government page sits on screen in its own browser greys while a hand marks it up in emerald, live, as the narration reaches each fact.</p>
+<h2>Palette</h2>
+<table><thead><tr><th>Hex</th><th>Role</th></tr></thead><tbody>
+<tr><td><code>#FFFFFF</code> and <code>#EEF0F4</code></td><td>The page. Untouched browser white and chrome grey. Never graded.</td></tr>
+<tr><td><code>#24365E</code></td><td>The masthead navy of the official site. Comes from the page, not from us.</td></tr>
+<tr><td><code>#3AAE5C</code></td><td>Every annotation: circles, arrows, underlines, label chips. The only colour we add.</td></tr>
+<tr><td><code>#07130B</code></td><td>Type inside an emerald chip.</td></tr>
+<tr><td><code>#8D2013</code></td><td>Comes from the page only, as the status column. Never used as an annotation.</td></tr>
+</tbody></table>
+<p>The page must look like a real page. Resist the urge to grade or darken it.</p>
+<h2>Typography</h2>
+<p>The page supplies its own type. We add only Inter SemiBold label chips, 32 to 42 px on a 720 px frame, sentence case, on a solid emerald plate with 12 by 20 px padding. Chips are short: two to five words. They name what the mark means, they do not restate the narration.</p>
+<h2>Shot grammar</h2>
+<p>A shot is a framing of the page plus one annotation that draws itself on. The mark is a pre rendered hand drawn stroke revealed left to right over 0.32 s by an animated alpha mask, so it reads as being drawn rather than appearing. An oversized cursor moves between targets on the shots where a click or a field matters. Framing pushes 3 to 15 percent through the shot, and pushes hardest on the payoff, where the circled area fills the frame. Cuts are hard, and each cut either changes the framing scale or changes the page.</p>
+<h2>Rhythm spec</h2>
+<p>About 48 shots per minute. Maximum static hold 2.5 seconds; measured 1.93. Pauses go where the viewer needs to read: the alert box about fees, and the circled surplus figure, both get the longest holds in the film.</p>
+<h2>Asset recipe</h2>
+<p>100 percent screen: browser page facsimiles and document facsimiles built in HTML and screenshotted at 2x. Annotations are seven reusable transparent PNGs. Zero stock, zero generated imagery. Like style 1, this costs nothing per shot.</p>
+<h2>Cost per 10 minute episode</h2>
+<p>Generation calls: 0. Stock clips: 0. Build the page facsimiles once, about 4 hours, then reuse them across the whole series. Annotation set is built once and never rebuilt. Editing: about 5 hours, mostly aligning marks to targets.</p>
+<h2>Three rules that must never be broken</h2>
+<ol>
+<li>The page is never graded, tinted or darkened. Its credibility is the style.</li>
+<li>Emerald is ours, everything else belongs to the page. Never annotate in the page&#x27;s own red.</li>
+<li>Never annotate a field that is not really there. If the page does not show it, do not draw an arrow to it.</li>
+</ul>
+<h2>What this style is bad at</h2>
+<p>Emotion and scale. It is a screen, so it cannot make you feel what losing a house is like, and it cannot show a country. It is also fragile: if the facsimile looks fake, the whole style collapses.</p></div>
+      </div>
+    </div>
+    <div class="modal" id="m4">
+      <div class="sheet">
+        <div class="head">
+          <strong>Style guide 4</strong>
+          <button class="close" onclick="closeGuide(4)" aria-label="Close">&times;</button>
+        </div>
+        <div class="doc"><h1>Style 4 · High Speed Cut</h1>
+<h2>Look in one sentence</h2>
+<p>Something changes every half second in a serious register, so the speed itself becomes the argument that this is urgent.</p>
+<h2>Palette</h2>
+<table><thead><tr><th>Hex</th><th>Role</th></tr></thead><tbody>
+<tr><td><code>#0D0D0D</code></td><td>Ground and the flash colour for neutral beats.</td></tr>
+<tr><td><code>#E8E8E8</code></td><td>Mono type. Every statement.</td></tr>
+<tr><td><code>#3AAE5C</code></td><td>Money, and the emerald two frame flash that punctuates a figure.</td></tr>
+<tr><td><code>#C0392B</code></td><td>The county. One red, used for the actor who took the money, and for one flash.</td></tr>
+</tbody></table>
+<p>Footage grade is lighter than style 2: saturation 0.34, contrast 1.28. The images need to be readable in half a second, so they cannot be crushed.</p>
+<h2>Typography</h2>
+<p>Helvetica Neue Black Condensed, upper case, centred. Statements 52 to 98 px on a 720 px frame. Payoff words 120 to 200 px. One line per shot, never two: at this speed a second line cannot be read. Letter spacing 0.01 to 0.14 em. Text sits at 250 to 330 px from the top, so it never fights the lower edge.</p>
+<h2>Shot grammar</h2>
+<p>A shot is one image, one zoom punch of 8 to 22 percent, and at most one line of type. Every cut is hard. Two frame flashes of solid colour sit between beats that need separation, emerald after a figure, red after the county, ink after a statement. Documents appear as inverted crops so they cut cleanly against photographic frames. The grammar is relentless but not random: images alternate photographic, document, photographic, so the eye keeps re-anchoring.</p>
+<h2>Rhythm spec</h2>
+<p>About 159 shots per minute. Maximum static hold 1 second; measured 0.70. Average interval 0.38 s. There are no pauses. The only concession is the final line, which gets two shots instead of one so the sign-off lands rather than flies past.</p>
+<h2>Asset recipe</h2>
+<p>About 49 percent generated stills, 9 percent generated clips, 21 percent document crops, 21 percent solid colour flashes. The flashes and documents cost nothing, which is why this style is far cheaper than its shot count suggests.</p>
+<h2>Cost per 10 minute episode</h2>
+<p>This is the expensive one. At 159 shots per minute a 10 minute episode needs roughly 1,600 distinct visual beats. Reuse is mandatory: budget about 60 stills and 12 clips, then cut each asset 8 to 12 ways with different crops, zooms and type. Generation calls: about 72. Stock clips: 40 or more if available. Editing: about 14 hours.</p>
+<h2>Three rules that must never be broken</h2>
+<ol>
+<li>No jokes, no memes, no irony. The pacing is borrowed from tech explainers, the register is not.</li>
+<li>One line of type per shot.</li>
+<li>No flash longer than two frames, and never a flash on the sign-off.</li>
+</ul>
+<h2>What this style is bad at</h2>
+<p>Anything that needs to be read or understood. It cannot carry a document, a process, a caveat or a number the viewer has to check. It also cannot breathe, so it is exhausting at length and it fights the calm plain voice this channel uses. Best as a 20 second opening, not a whole episode.</p></div>
+      </div>
+    </div>
+    <div class="modal" id="m5">
+      <div class="sheet">
+        <div class="head">
+          <strong>Style guide 5</strong>
+          <button class="close" onclick="closeGuide(5)" aria-label="Close">&times;</button>
+        </div>
+        <div class="doc"><h1>Style 5 · Case File</h1>
+<h2>Look in one sentence</h2>
+<p>A manila folder opens on a dark desk under one warm side light, and the evidence accumulates: documents taped down, photographs at slight angles, typewriter labels stamped on, red thread connecting two facts.</p>
+<h2>Palette</h2>
+<table><thead><tr><th>Hex</th><th>Role</th></tr></thead><tbody>
+<tr><td><code>#17110A</code> to <code>#0B0806</code></td><td>The desk. A warm near black, lit from upper left only.</td></tr>
+<tr><td><code>#CFA863</code></td><td>The folder. Manila, the one large warm mass in frame.</td></tr>
+<tr><td><code>#EFE9DA</code></td><td>Paper. Documents and typewriter labels.</td></tr>
+<tr><td><code>#3AAE5C</code></td><td>Emerald label, used once, for the surplus that was kept.</td></tr>
+<tr><td><code>#8D2013</code></td><td>Red thread, pins and the vote stamp. Connection and finding.</td></tr>
+</tbody></table>
+<h2>Typography</h2>
+<p>Courier New Bold throughout, because everything is a typed label. Labels 30 px, figure labels 54 px on a 720 px frame, upper case, letter spaced 0.14 to 0.20 em, on paper plates with a hard drop shadow. Labels are rotated 1 to 3 degrees. Nothing is ever perfectly straight in this style.</p>
+<h2>Shot grammar</h2>
+<p>A shot is a framing of the board in one state of accumulation. Between shots the board gains an item, so cutting back wider reveals what arrived. Every shot carries continuous slow motion: a 4 to 32 percent zoom plus a lateral drift of up to 6 percent of frame, with the direction reversed on each cut so the film never settles. Items sit at 1 to 3 degrees of rotation, held by tape or a clip. Red thread arrives late, at the ruling, and connects the notice to the opinion.</p>
+<h2>Rhythm spec</h2>
+<p>About 38 shots per minute, the slowest in the set. Maximum static hold 3 seconds; measured 2.00. There is never a frozen frame, even in a hold. Pauses go on the two beats where an item lands: the surplus label and the vote stamp.</p>
+<h2>Asset recipe</h2>
+<p>100 percent composite: the board is built in HTML from 3 document facsimiles and 3 generated stills, then screenshotted at nine states of accumulation. No shot is a bare stock clip. Generated imagery is only ever a photograph pinned to the board, never a full frame.</p>
+<h2>Cost per 10 minute episode</h2>
+<p>Generation calls: about 12 stills, since each one becomes a pinned photograph and can be reused across states. Stock clips: 0. Board build: about 5 hours for the first episode, then 1 hour per episode to restate. Editing: about 5 hours. Cheap after the first build, and the most reusable style in the set.</p>
+<h2>Three rules that must never be broken</h2>
+<ol>
+<li>Never freeze. If a shot has no drift it has failed, no matter how long it is.</li>
+<li>One emerald item per board. The surplus is the only thing that gets it.</li>
+<li>Nothing is straight and nothing is centred. The moment the board looks designed rather than assembled, the style dies.</li>
+</ul>
+<h2>What this style is bad at</h2>
+<p>Speed and clarity of a single number. It is a slow accumulating look, so it cannot land a fast statistic, and a viewer on a phone will struggle to read any document pinned to the board. Treat pinned documents as texture, and put any figure the viewer must read on a label.</p></div>
+      </div>
+    </div>
+<script>
+function openGuide(n){
+  document.getElementById('m'+n).setAttribute('open','');
+  document.body.style.overflow='hidden';
+}
+function closeGuide(n){
+  document.getElementById('m'+n).removeAttribute('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('click',function(e){
+  if(e.target.classList.contains('modal')){
+    e.target.removeAttribute('open'); document.body.style.overflow='';
+  }
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    document.querySelectorAll('.modal[open]').forEach(function(m){m.removeAttribute('open')});
+    document.body.style.overflow='';
+  }
+});
+</script>
+</body>
+</html>
