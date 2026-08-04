@@ -38,6 +38,12 @@
 <script>
   var p = new URLSearchParams(location.search);
   var g = function (k, d) { var v = p.get(k); return v === null ? d : v; };
+  // The build passes hex without a leading hash, matching type.html's contract.
+  // Without this a colour silently falls back and the red accent disappears.
+  var col = function (k, d) {
+    var v = g(k, d);
+    return (v && /^[0-9a-fA-F]{6}$/.test(v)) ? '#' + v : v;
+  };
   var w = document.getElementById('wrap');
 
   var INK   = '#22201C';   // near black print ink
@@ -63,22 +69,22 @@
 
   if (kind === 'slab') {
     // a solid printed slab with heavy display type, the workhorse element
-    card(g('bg', CREAM),
-      '<div class="head" style="font-size:' + size + 'px;color:' + g('c', INK) + '">' + text + '</div>',
+    card(col('bg', CREAM),
+      '<div class="head" style="font-size:' + size + 'px;color:' + col('c', INK) + '">' + text + '</div>',
       g('torn', '1') === '1');
   }
 
   if (kind === 'strip') {
     // a narrow band with letterspaced mono, used for the kicker line
-    card(g('bg', INK),
-      '<div class="kick" style="color:' + g('c', CREAM) + '">' + text + '</div>',
+    card(col('bg', INK),
+      '<div class="kick" style="color:' + col('c', CREAM) + '">' + text + '</div>',
       false);
   }
 
   if (kind === 'note') {
     // a torn note in serif, for the sign-off and the caveat register
-    card(g('bg', CREAM),
-      '<div class="ser" style="font-size:' + size + 'px;color:' + g('c', INK) + '">' + text + '</div>',
+    card(col('bg', CREAM),
+      '<div class="ser" style="font-size:' + size + 'px;color:' + col('c', INK) + '">' + text + '</div>',
       true);
   }
 
@@ -93,8 +99,8 @@
   }
 
   if (kind === 'osw') {
-    card(g('bg', CREAM),
-      '<div class="osw" style="font-size:' + size + 'px;color:' + g('c', INK) + '">' + text + '</div>',
+    card(col('bg', CREAM),
+      '<div class="osw" style="font-size:' + size + 'px;color:' + col('c', INK) + '">' + text + '</div>',
       g('torn', '1') === '1');
   }
 

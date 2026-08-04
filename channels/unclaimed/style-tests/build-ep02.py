@@ -631,37 +631,47 @@ def style_8():
 
 # ----------------------------------------------------------------------------- style 9
 def style_9():
-    """ARCHIVAL PRINT. Halftone, grain, misregistration, cut paper. Nothing fades."""
+    """ARCHIVAL PRINT. Halftone on cream, cut paper, misregistration. Nothing fades."""
     S = "9"
     CREAM = "EFE7D6"
     RED = "B23A2E"
 
-    def halftone(key, tag, box=None):
-        """A pool photograph reduced to newsprint: desaturated, posterised, dithered."""
-        dst = os.path.join(PLATES, "ht-%s-%s.png" % (key, tag))
+    def halftone(key, tag, size, box=None):
+        """A pool photograph reduced to newsprint.
+
+        Blur slightly, flatten the contrast so midtones survive, then dither to
+        two tones with an ordered Bayer matrix, which is what gives the dot
+        screen. The white tone is keyed out in the shot so the cream stock shows
+        through and the photograph reads as ink printed on the page.
+        """
+        w, h = size
+        dst = os.path.join(PLATES, "ht-%s-%s-%dx%d.png" % (key, tag, w, h))
         if not os.path.exists(dst):
+            gray = dst + ".gray.png"
             vf = ("scale=%d:%d:force_original_aspect_ratio=increase,crop=%d:%d,"
-                  "format=gray,eq=contrast=1.5:brightness=0.06,"
-                  "noise=alls=13:allf=t+u,"
-                  "format=gray" % (CW, CH, CW, CH))
+                  "format=gray,gblur=sigma=0.8,eq=contrast=1.02:brightness=0.14" % (w, h, w, h))
             if box:
-                x, y, w, h = box
-                vf = "crop=%d:%d:%d:%d," % (w, h, x, y) + vf
-            run(["ffmpeg", "-y", "-v", "error", "-i", pool(key), "-vf", vf, dst])
+                x, y, bw, bh = box
+                vf = "crop=%d:%d:%d:%d," % (bw, bh, x, y) + vf
+            run(["ffmpeg", "-y", "-v", "error", "-i", pool(key), "-vf", vf, gray])
+            run(["ffmpeg", "-y", "-v", "error", "-i", gray, "-filter_complex",
+                 "[0:v]palettegen=max_colors=2:reserve_transparent=0[p];"
+                 "[0:v][p]paletteuse=dither=bayer:bayer_scale=5", dst])
+            os.remove(gray)
         return dst
 
-    def shot(dur, plate=None, ground=CREAM, elems=(), z=(1.0, 1.0), dx=0.0, dy=0.0,
-             tint=True, shift=2):
-        inputs = [color_in(ground, dur)]
-        f = ["[0:v]scale=%d:%d[gr]" % (CW, CH)]
+    def shot(dur, photo=None, elems=(), z=(1.0, 1.0), dx=0.0, dy=0.0, shift=2):
+        """photo: (png, x, y). Everything is authored in frame coordinates."""
+        inputs = [color_in(CREAM, dur)]
+        f = ["[0:v]scale=%d:%d[gr]" % (W, H)]
         last = "gr"
-        if plate:
-            inputs.append(img_in(plate, dur))
+        if photo:
+            png, px, py = photo
+            inputs.append(img_in(png, dur))
             n = len(inputs) - 1
-            # newsprint sits as an ink layer on the cream stock, never full bleed
-            f.append("[%d:v]scale=%d:%d,format=gray,format=rgba,"
-                     "colorchannelmixer=aa=0.80[pl]" % (n, CW, CH))
-            f.append("[%s][pl]overlay=x=0:y=0[pv]" % last)
+            # key the paper tone out of the dithered plate so cream shows through
+            f.append("[%d:v]format=rgba,colorkey=0xFFFFFF:0.32:0.0[ph]" % n)
+            f.append("[%s][ph]overlay=x=%d:y=%d[pv]" % (last, px, py))
             last = "pv"
         f.append("[%s]%s[bs]" % (last, drift(z[0], z[1], dur, dx, dy)))
         last = "bs"
@@ -669,43 +679,52 @@ def style_9():
                  for e in elems]
         last = overlay_cards(f, inputs, last, specs, dur)
         # misregistration and paper grain, applied last so they sit over everything
-        f.append("[%s]rgbashift=rh=%d:bv=%d,noise=alls=9:allf=t,"
-                 "eq=saturation=0.86:contrast=1.03,format=yuv420p[v]" % (last, shift, -shift))
+        f.append("[%s]rgbashift=rh=%d:bv=%d,noise=alls=8:allf=t,"
+                 "eq=saturation=0.92:contrast=1.02,format=yuv420p[v]" % (last, shift, -shift))
         return render(S, ";".join(f), dur, inputs, "archival print")
 
-    e_kick = elem("print", k="strip", t="Public notice", x=104, y=96, w=420)
-    e_bill = elem("print", k="figure", t="$70 BILLION", s=112, x=104, y=210, w=760,
+    e_kick = elem("print", k="strip", t="Public notice", x=80, y=118, w=400)
+    e_bill = elem("print", k="figure", t="$70 BILLION", s=96, x=80, y=286, w=680,
                   cap="Held by the states")
-    e_seven = elem("print", k="slab", t="One in seven", s=104, x=104, y=180, w=800,
+    e_bill2 = elem("print", k="figure", t="$70 BILLION", s=122, x=80, y=396, w=820,
+                   cap="Held by the states")
+    e_seven = elem("print", k="slab", t="One in seven", s=92, x=664, y=214, w=560,
                    bg=CREAM, c="22201C")
-    e_amer = elem("print", k="osw", t="Americans", s=76, x=104, y=350, w=560,
+    e_amer = elem("print", k="osw", t="Americans", s=84, x=80, y=300, w=520,
                   bg=RED, c=CREAM, torn="0")
-    e_name = elem("print", k="note", t="Money waiting in their own name.", s=46,
-                  x=104, y=470, w=760)
-    e_uncl = elem("print", k="slab", t="The money may be unclaimed.", s=72,
-                  x=96, y=240, w=880, bg=CREAM, c="22201C")
-    e_sign = elem("print", k="note", t="It does not have to stay that way.", s=52,
-                  x=104, y=300, w=820)
-    e_rule = elem("print", k="strip", t="Unclaimed property", x=104, y=560, w=470)
+    e_name = elem("print", k="note", t="Money waiting in their own name.", s=42,
+                  x=80, y=462, w=640)
+    e_uncl = elem("print", k="slab", t="The money may be unclaimed.", s=76,
+                  x=80, y=150, w=900, bg=CREAM, c="22201C")
+    e_rule = elem("print", k="strip", t="Unclaimed property", x=80, y=340, w=450)
+    e_sign = elem("print", k="note", t="It does not have to stay that way.", s=54,
+                  x=80, y=290, w=880)
+    e_free = elem("print", k="strip", t="Free to search, free to claim", x=80, y=470, w=560)
 
-    ht_vault = halftone("vault", "wide", (0, 0, 900, 500))
-    ht_mail = halftone("mail", "wide")
-    ht_office = halftone("office", "wide")
+    # The photograph is a cut block that moves around the page every shot. On a
+    # cream ground that repositioning is what makes a cut register: holding the
+    # plate still and changing only the type scored below the 0.1 threshold.
+    ht_vault_r = halftone("vault", "right", (600, 340), (0, 0, 900, 500))
+    ht_vault_w = halftone("vault", "band", (1160, 250), (0, 0, 900, 500))
+    ht_office_l = halftone("office", "left", (560, 380))
+    ht_office_s = halftone("office", "small", (440, 250))
+    ht_mail_b = halftone("mail", "band", (1160, 250))
 
     plan = timeline([
-        (0.00, dict(plate=ht_vault, z=(1.02, 1.06),
-                    elems=[(e_kick, 0.04, (-460, 0, 0.24)), (e_bill, 0.30, (0, 420, 0.30))])),
-        (1.56, dict(plate=ht_vault, z=(1.06, 1.09), shift=3,
-                    elems=[(e_bill, 0.0, None)])),
-        (2.25, dict(plate=ht_office, z=(1.01, 1.05),
-                    elems=[(e_seven, 0.06, (-840, 0, 0.26)), (e_amer, 0.46, (600, 0, 0.24))])),
-        (4.20, dict(plate=ht_office, z=(1.05, 1.08),
-                    elems=[(e_seven, 0.0, None), (e_amer, 0.0, None),
-                           (e_name, 0.12, (0, 380, 0.28))])),
-        (6.01, dict(plate=ht_mail, z=(1.02, 1.06), shift=3,
-                    elems=[(e_uncl, 0.06, (0, -420, 0.28)), (e_rule, 0.52, (-500, 0, 0.22))])),
-        (7.78, dict(plate=ht_mail, z=(1.06, 1.10),
-                    elems=[(e_sign, 0.08, (0, 400, 0.30))])),
+        (0.00, dict(photo=(ht_vault_r, 620, 90), z=(1.01, 1.05),
+                    elems=[(e_kick, 0.04, (-460, 0, 0.22)), (e_bill, 0.30, (0, 400, 0.28))])),
+        (1.56, dict(photo=(ht_vault_w, 60, 60), z=(1.02, 1.06), shift=3,
+                    elems=[(e_bill2, 0.0, None)])),
+        (2.25, dict(photo=(ht_office_l, 60, 180), z=(1.01, 1.04),
+                    elems=[(e_seven, 0.06, (620, 0, 0.26))])),
+        (4.20, dict(photo=(ht_office_s, 760, 70), z=(1.02, 1.05),
+                    elems=[(e_amer, 0.08, (-560, 0, 0.24)), (e_name, 0.44, (0, 360, 0.26))])),
+        (6.01, dict(photo=(ht_mail_b, 60, 420), z=(1.01, 1.05), shift=3,
+                    elems=[(e_uncl, 0.06, (0, -400, 0.26)), (e_rule, 0.52, (-480, 0, 0.22))])),
+        # the plate leaves the page entirely for the sign-off, which is the
+        # largest change in the film and lands the final cut
+        (7.78, dict(photo=None, z=(1.02, 1.06),
+                    elems=[(e_sign, 0.08, (0, 380, 0.28)), (e_free, 0.50, (-520, 0, 0.22))])),
     ])
     for _, dur, kw in plan:
         shot(dur, **kw)
