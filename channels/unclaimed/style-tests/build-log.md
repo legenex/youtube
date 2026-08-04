@@ -545,3 +545,66 @@ in any of the five trailers.
   reproduce that site's actual layout.
 - Style 7's desk plate carries an invented case number on a folder tab in the
   Episode 5 source, so it is cropped out before use.
+
+---
+
+## 20. Results, measured not estimated
+
+Every value below comes from `measure-ep02.py`, which runs the scene change
+detector the brief specifies at a threshold of 0.1.
+
+| Style | Matrix position | Shots | Longest hold | Limit | Avg interval | Higgsfield | Envato | Size |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2B | generated footage / near black / type / fast slam | 8 | 1.80s | 2.0s | 1.20s | 0 | 0 | 2.0 MB |
+| 6 | real screen recording / paper white / interface / steady procedural | 7 | 1.77s | 2.5s | 1.37s | 0 | 0 | 1.1 MB |
+| 7 | photographed objects / warm light / physical object / slow reveal | 6 | 2.10s | 2.5s | 1.60s | 0 | 0 | 2.5 MB |
+| 8 | vector data graphics / paper white / chart / medium build | 6 | 1.97s | 2.0s | 1.60s | 0 | 0 | 0.6 MB |
+| 9 | archival collage / mid grey to cream / texture / medium build | 6 | 1.97s | 2.5s | 1.60s | 0 | 0 | 2.4 MB |
+
+All five clear the four change floor and all five sit inside their per style
+maximum static hold. Runtime is 9.60s in every case.
+
+Encode contract verified on every file: 1280x720, 30fps, H.264 High, yuv420p,
+CRF 21, AAC 192k at 48 kHz stereo, faststart confirmed by atom order,
+integrated loudness -14.05 LUFS, true peak ceiling -2.5 dBFS.
+
+### Rhythm failures found and fixed
+
+Three styles failed the rhythm test on their first build, and all three failed
+the same way the Episode 5 log predicted: the edit list said there was a cut and
+the frame did not change enough for one to register.
+
+| Style | First build | Cause | Fix |
+| --- | --- | --- | --- |
+| 6 | 4 changes, 2.83s hold | seven framings hand cropped from one page, three of them out of bounds | framings computed from measured element boxes, zoom capped so a framing cannot slice the element it shows |
+| 8 | 2 changes, 7.33s hold | on a paper white ground two sparse layouts in a row score 0.046 against a 0.1 threshold | every shot reframes as well as relaying out, and the closing grid inverts to solid ink |
+| 9 | 2 changes, 3.77s hold | the plate was held full bleed and only the type changed | the halftone block moves around the page every shot and leaves it entirely for the sign-off |
+
+### Three bugs that were invisible until measured
+
+1. **Chromium clipped the bottom eighth of every page and card.** New headless
+   lays out at the requested window size but paints only the top 633 of 720 CSS
+   pixels. The Style 6 sign-off caption simply did not exist. `shoot()` now asks
+   for an 87px taller window and crops back.
+2. **`drawbox` reads `h=0` as full input height.** The Style 8 bar reveal covered
+   the whole column at the exact frame it finished, so the bar never appeared.
+   The mask now keeps its height and slides off instead.
+3. **`print.html` discarded every colour it was passed.** The build sends hex
+   without a leading hash and the page used the value raw, so Style 9's red
+   accent silently fell back to nothing.
+
+### Spend
+
+| Line | Planned | Actual | Usable |
+| --- | --- | --- | --- |
+| Higgsfield images | up to 8 | 6 | 0, see section 16 |
+| Higgsfield clips | up to 2 | 0 | 0 |
+| Envato assets | up to 10 | 0 | 0, connector is search only |
+| ElevenLabs | 1 | 1 | 1, reused by all five |
+| Music | 1 | 1 synthesised | 1, reused by all five |
+
+Every finished trailer contains zero generated imagery. The four styles that
+were planned to cost nothing did, and Style 7, the one style that needed new
+photography, was rebuilt from the Episode 5 pool after its plates proved
+unreachable.
+

@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
-"""Build style-tests/index.html: five cards, measured stats, guides inlined as modals.
+"""Build style-tests/index.html: two episode tabs, measured stats, guides as modals.
+
+Episode 5 is the original five style test. Episode 2 adds the Style 2B revision
+and four new styles, with the differentiation matrix at the top of its tab.
 
 Self contained. No frameworks, no build step, no CDN except Google Fonts. The
 guide markdown is converted to HTML here, at build time, and inlined, so nothing
-is fetched at runtime.
+is fetched at runtime. Every stat is measured from the finished file, never
+estimated.
 """
 import html
 import os
@@ -15,7 +19,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "out")
 GUIDES = os.path.join(HERE, "guides")
 
-STYLES = [
+EP5_STYLES = [
     (1, "Redacted Document",
      "A document fills the frame, dimmed; one line burns emerald as each fact lands.",
      0, "no generation"),
@@ -31,6 +35,26 @@ STYLES = [
     (5, "Case File",
      "A manila folder opens and the evidence accumulates under one side light.",
      3, "3 of the shared pool"),
+]
+
+# Episode 2. Matrix axes are (A source, B ground, C subject, D tempo); no two
+# styles share more than one axis value, against a limit of two.
+EP2_STYLES = [
+    ("2b", "Kinetic Type, Slam Half",
+     "Style 2 with a second gear. The trailer shows the slam half only.",
+     ("generated footage", "near black", "type", "fast slam"), 0),
+    ("6", "Screen Native",
+     "A facsimile state portal doing a real search: cursor, field, results, one row.",
+     ("real screen recording", "paper white", "interface", "steady procedural"), 0),
+    ("7", "Tabletop Overhead",
+     "Warm light on a desk, every figure arriving on a printed sheet.",
+     ("photographed objects", "warm light", "physical object", "slow reveal"), 0),
+    ("8", "Data First",
+     "The chart is the protagonist: a bar climbs, a dot field resolves.",
+     ("vector data graphics", "paper white", "chart", "medium build"), 0),
+    ("9", "Archival Print",
+     "Halftone photographs cut into cream, heavy type, ink out of register.",
+     ("archival collage", "mid grey to cream", "texture", "medium build"), 0),
 ]
 
 
@@ -221,9 +245,51 @@ footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);
   color:#77756F;font-size:13px}
 footer code{color:var(--tan)}
 @media (max-width:520px){.stats{grid-template-columns:1fr}}
+
+/* episode switcher */
+.tabs{display:flex;gap:8px;margin:0 0 30px;border-bottom:1px solid var(--line);
+  padding-bottom:0}
+.tabs button{background:transparent;border:0;border-bottom:2px solid transparent;
+  color:var(--dim);font:inherit;font-size:14.5px;font-weight:600;cursor:pointer;
+  padding:12px 16px;transition:.15s}
+.tabs button:hover{color:var(--text)}
+.tabs button[aria-selected="true"]{color:var(--em);border-bottom-color:var(--em)}
+.ep{display:none}
+.ep[data-active="1"]{display:block}
+.ep .sub{margin:0 0 30px}
+
+/* differentiation matrix */
+.matrix{margin:0 0 34px;border:1px solid var(--line);border-radius:12px;
+  background:var(--panel);overflow-x:auto}
+.matrix h2{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);
+  margin:0;padding:16px 20px 6px;font-weight:600}
+.matrix p.note{margin:0;padding:0 20px 14px;color:var(--dim);font-size:13.5px;
+  border-bottom:1px solid var(--line);max-width:none}
+table.mx{width:100%;border-collapse:collapse;font-size:13.5px;min-width:820px}
+table.mx th{text-align:left;padding:11px 20px;font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--dim);font-weight:600;border-bottom:1px solid var(--line)}
+table.mx td{padding:12px 20px;border-bottom:1px solid #1E2025;color:#DCD8D0}
+table.mx tr:last-child td{border-bottom:0}
+table.mx td.name{font-weight:600;color:var(--text);white-space:nowrap}
 """
 
 JS = """
+function showEp(id){
+  document.querySelectorAll('.ep').forEach(function(s){
+    s.setAttribute('data-active', s.id === id ? '1' : '0');
+  });
+  document.querySelectorAll('.tabs button').forEach(function(b){
+    b.setAttribute('aria-selected', b.dataset.ep === id ? 'true' : 'false');
+  });
+  document.querySelectorAll('.ep video').forEach(function(v){ v.pause(); });
+  // the hash deliberately does not match a section id: '#ep2' would make the
+  // browser scroll to that element and hide the header on a deep link
+  if (history.replaceState) history.replaceState(null, '', '#tab-' + id);
+}
+window.addEventListener('DOMContentLoaded', function(){
+  var h = (location.hash || '').replace('#tab-','').replace('#','');
+  if (h === 'ep5' || h === 'ep2') showEp(h);
+});
 function openGuide(n){
   document.getElementById('m'+n).setAttribute('open','');
   document.body.style.overflow='hidden';
@@ -246,36 +312,20 @@ document.addEventListener('keydown',function(e){
 """
 
 
-def build():
-    stats = {}
-    for n, _, _, _, _ in STYLES:
-        p = os.path.join(OUT, "style-%d.mp4" % n)
-        stats[n] = measure.stats(p)
+def _stats_for(paths):
+    return {k: measure.stats(p) for k, p in paths.items()}
 
-    max_shots = max(s["shots"] for s in stats.values())
 
-    rows = []
-    for n, name, desc, hf, hf_note in STYLES:
-        s = stats[n]
-        pct = 100.0 * s["shots"] / max_shots
-        cost = "free" if hf == 0 else "%d assets" % hf
-        rows.append(
-            '<tr><td class="name">%d &middot; %s</td>'
-            '<td><span class="n">%d</span></td>'
-            '<td><span class="bar"><i style="width:%.1f%%"></i></span></td>'
-            '<td>%.2fs</td><td>%.2fs</td>'
-            '<td class="%s">%s</td><td>%.1f MB</td></tr>'
-            % (n, html.escape(name), s["shots"], pct, s["longest_hold"],
-               s["avg_interval"], "free" if hf == 0 else "", cost, s["size_mb"]))
-
+def _cards_and_modals(entries, path_for, guide_for, prefix):
+    """One card and one guide modal per style. Stats are measured, never typed."""
     cards, modals = [], []
-    for n, name, desc, hf, hf_note in STYLES:
-        s = stats[n]
+    for key, name, desc, extra, hf in entries:
+        s = measure.stats(path_for(key))
         cards.append("""
       <article class="card">
-        <video src="out/style-%d.mp4" controls preload="metadata" playsinline></video>
+        <video src="%s" controls preload="metadata" playsinline></video>
         <div class="body">
-          <div class="no">Style %d</div>
+          <div class="no">Style %s</div>
           <h3>%s</h3>
           <p class="desc">%s</p>
           <div class="stats">
@@ -284,32 +334,83 @@ def build():
             <div class="stat"><span class="k">Avg cut</span><span class="v">%.2fs</span></div>
             <div class="stat"><span class="k">Asset cost</span><span class="v">%s</span></div>
           </div>
-          <button class="guide" onclick="openGuide(%d)">Style guide</button>
+          <button class="guide" onclick="openGuide('%s%s')">Style guide</button>
         </div>
-      </article>""" % (n, n, html.escape(name), html.escape(desc), s["shots"],
-                       s["longest_hold"], s["avg_interval"],
-                       "Free" if hf == 0 else "%d gen" % hf, n))
-
-        with open(os.path.join(GUIDES, "style-%d.md" % n)) as fh:
+      </article>""" % (path_for(key), html.escape(str(key).upper()), html.escape(name),
+                       html.escape(desc), s["shots"], s["longest_hold"],
+                       s["avg_interval"], "Free" if hf == 0 else "%d gen" % hf,
+                       prefix, key))
+        with open(guide_for(key)) as fh:
             body = md_to_html(fh.read())
         modals.append("""
-    <div class="modal" id="m%d">
+    <div class="modal" id="m%s%s">
       <div class="sheet">
         <div class="head">
-          <strong>Style guide %d</strong>
-          <button class="close" onclick="closeGuide(%d)" aria-label="Close">&times;</button>
+          <strong>Style guide %s</strong>
+          <button class="close" onclick="closeGuide('%s%s')" aria-label="Close">&times;</button>
         </div>
         <div class="doc">%s</div>
       </div>
-    </div>""" % (n, n, n, body))
+    </div>""" % (prefix, key, html.escape(str(key).upper()), prefix, key, body))
+    return cards, modals
 
-    total_hf = 16
+
+def build():
+    # ---------------------------------------------------------------- episode 5
+    ep5_stats = _stats_for({n: os.path.join(OUT, "style-%d.mp4" % n)
+                            for n, _, _, _, _ in EP5_STYLES})
+    max_shots5 = max(s["shots"] for s in ep5_stats.values())
+    rows5 = []
+    for n, name, desc, hf, hf_note in EP5_STYLES:
+        s = ep5_stats[n]
+        rows5.append(
+            '<tr><td class="name">%d &middot; %s</td>'
+            '<td><span class="n">%d</span></td>'
+            '<td><span class="bar"><i style="width:%.1f%%"></i></span></td>'
+            '<td>%.2fs</td><td>%.2fs</td>'
+            '<td class="%s">%s</td><td>%.1f MB</td></tr>'
+            % (n, html.escape(name), s["shots"], 100.0 * s["shots"] / max_shots5,
+               s["longest_hold"], s["avg_interval"], "free" if hf == 0 else "",
+               "free" if hf == 0 else "%d assets" % hf, s["size_mb"]))
+
+    cards5, modals5 = _cards_and_modals(
+        [(n, name, desc, None, hf) for n, name, desc, hf, _ in EP5_STYLES],
+        lambda k: "out/style-%d.mp4" % k,
+        lambda k: os.path.join(GUIDES, "style-%d.md" % k), "")
+
+    # ---------------------------------------------------------------- episode 2
+    ep2_stats = _stats_for({k: os.path.join(OUT, "ep02-style-%s.mp4" % k)
+                            for k, _, _, _, _ in EP2_STYLES})
+    max_shots2 = max(s["shots"] for s in ep2_stats.values())
+    rows2, mrows = [], []
+    for key, name, desc, mx, hf in EP2_STYLES:
+        s = ep2_stats[key]
+        rows2.append(
+            '<tr><td class="name">%s &middot; %s</td>'
+            '<td><span class="n">%d</span></td>'
+            '<td><span class="bar"><i style="width:%.1f%%"></i></span></td>'
+            '<td>%.2fs</td><td>%.2fs</td>'
+            '<td class="free">free</td><td>%.1f MB</td></tr>'
+            % (html.escape(str(key).upper()), html.escape(name), s["shots"],
+               100.0 * s["shots"] / max_shots2, s["longest_hold"],
+               s["avg_interval"], s["size_mb"]))
+        mrows.append(
+            '<tr><td class="name">%s &middot; %s</td><td>%s</td><td>%s</td>'
+            '<td>%s</td><td>%s</td></tr>'
+            % ((html.escape(str(key).upper()), html.escape(name)) +
+               tuple(html.escape(v) for v in mx)))
+
+    cards2, modals2 = _cards_and_modals(
+        EP2_STYLES,
+        lambda k: "out/ep02-style-%s.mp4" % k,
+        lambda k: os.path.join(GUIDES, "style-%s.md" % k), "e2-")
+
     page = """<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>UNCLAIMED &middot; Episode 5 style test</title>
+<title>UNCLAIMED &middot; style tests</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -318,43 +419,90 @@ def build():
 <body>
 <div class="wrap">
   <header class="top">
-    <div class="kicker">Unclaimed &middot; style test</div>
-    <h1>Five visual styles, one script</h1>
-    <p class="sub">Episode 5, <b>Tyler v. Hennepin County</b>. Same narration, same
-    voiceover file, same music bed, same 25 second runtime in all five. Only the grade,
-    the type and the cutting change, so the comparison is fair. Every figure and hold
-    below is <b>measured</b> from the finished file with ffmpeg scene detection at a
-    threshold of 0.1, not estimated. Total generation spend across all five was
-    <b>54 Higgsfield credits</b> for a shared pool of %d assets.</p>
+    <div class="kicker">Unclaimed &middot; style tests</div>
+    <h1>Visual styles, one script each</h1>
+    <p class="sub">Two style tests. Every figure and hold below is <b>measured</b> from
+    the finished file with ffmpeg scene detection at a threshold of 0.1, never
+    estimated. Within an episode the narration, voiceover file, music bed and runtime
+    are identical across styles, so only the grade, the type and the cutting differ.</p>
   </header>
 
-  <section class="compare">
-    <h2>The tradeoff at a glance</h2>
-    <table class="cmp">
-      <thead><tr>
-        <th>Style</th><th>Shots</th><th>Relative pace</th><th>Longest hold</th>
-        <th>Avg cut</th><th>Generation cost</th><th>File</th>
-      </tr></thead>
-      <tbody>%s</tbody>
-    </table>
-  </section>
-
-  <div class="grid">%s
+  <div class="tabs" role="tablist">
+    <button data-ep="ep5" aria-selected="true" onclick="showEp('ep5')">Episode 5 &middot; Home equity</button>
+    <button data-ep="ep2" aria-selected="false" onclick="showEp('ep2')">Episode 2 &middot; Unclaimed property</button>
   </div>
 
+  <section class="ep" id="ep5" data-active="1">
+    <p class="sub">Episode 5, <b>Tyler v. Hennepin County</b>. Same narration, same
+    voiceover file, same music bed, same 25 second runtime in all five. Total
+    generation spend across all five was <b>54 Higgsfield credits</b> for a shared pool
+    of 16 assets.</p>
+
+    <section class="compare">
+      <h2>The tradeoff at a glance</h2>
+      <table class="cmp">
+        <thead><tr>
+          <th>Style</th><th>Shots</th><th>Relative pace</th><th>Longest hold</th>
+          <th>Avg cut</th><th>Generation cost</th><th>File</th>
+        </tr></thead>
+        <tbody>%s</tbody>
+      </table>
+    </section>
+
+    <div class="grid">%s
+    </div>
+  </section>
+
+  <section class="ep" id="ep2" data-active="0">
+    <p class="sub">Episode 2, <b>How to Check if a State Is Holding Money in Your
+    Name</b>. Five trailers at 9.60 seconds, one voiceover generation and one music bed
+    shared by all five. Style 2B is the two mode revision of Style 2, built here to its
+    slam half only because a trailer this short has no room to alternate. Generation
+    spend on the finished films: <b>none</b>.</p>
+
+    <section class="matrix">
+      <h2>Differentiation matrix</h2>
+      <p class="note">Written before the build. The Episode 5 set failed because two
+      styles collapsed into each other, so every style here was assigned four axis
+      values first and the set checked for collisions. No pair shares more than one
+      axis value, against a limit of two.</p>
+      <table class="mx">
+        <thead><tr>
+          <th>Style</th><th>A Source</th><th>B Ground</th><th>C Subject</th><th>D Tempo</th>
+        </tr></thead>
+        <tbody>%s</tbody>
+      </table>
+    </section>
+
+    <section class="compare">
+      <h2>The tradeoff at a glance</h2>
+      <table class="cmp">
+        <thead><tr>
+          <th>Style</th><th>Shots</th><th>Relative pace</th><th>Longest hold</th>
+          <th>Avg cut</th><th>Generation cost</th><th>File</th>
+        </tr></thead>
+        <tbody>%s</tbody>
+      </table>
+    </section>
+
+    <div class="grid">%s
+    </div>
+  </section>
+
   <footer>
-    Built with one script, <code>build.py</code>, from a shared asset pool. Rhythm
-    measured by <code>measure.py</code>. Documents on screen are facsimiles built in
-    HTML for this test: they imitate the structure of a court filing and a county
-    surplus listing, and every field not stated in the narration is redacted rather
-    than invented. No real record is reproduced and no identifiable person appears.
+    Episode 5 built by <code>build.py</code>, Episode 2 by <code>build-ep02.py</code>,
+    each from one shared asset pool. Rhythm measured by <code>measure.py</code> and
+    <code>measure-ep02.py</code>. Documents and web pages on screen are facsimiles built
+    in HTML for these tests. Every field not stated in the narration is redacted rather
+    than invented, no real record is reproduced, and no identifiable person appears.
   </footer>
 </div>
-%s
+%s%s
 <script>%s</script>
 </body>
 </html>
-""" % (CSS, total_hf, "\n".join(rows), "".join(cards), "".join(modals), JS)
+""" % (CSS, "\n".join(rows5), "".join(cards5), "\n".join(mrows),
+       "\n".join(rows2), "".join(cards2), "".join(modals5), "".join(modals2), JS)
 
     dst = os.path.join(HERE, "index.html")
     with open(dst, "w") as fh:

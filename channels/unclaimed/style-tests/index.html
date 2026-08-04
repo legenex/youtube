@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>UNCLAIMED &middot; Episode 5 style test</title>
+<title>UNCLAIMED &middot; style tests</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -97,37 +97,72 @@ footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--line);
   color:#77756F;font-size:13px}
 footer code{color:var(--tan)}
 @media (max-width:520px){.stats{grid-template-columns:1fr}}
+
+/* episode switcher */
+.tabs{display:flex;gap:8px;margin:0 0 30px;border-bottom:1px solid var(--line);
+  padding-bottom:0}
+.tabs button{background:transparent;border:0;border-bottom:2px solid transparent;
+  color:var(--dim);font:inherit;font-size:14.5px;font-weight:600;cursor:pointer;
+  padding:12px 16px;transition:.15s}
+.tabs button:hover{color:var(--text)}
+.tabs button[aria-selected="true"]{color:var(--em);border-bottom-color:var(--em)}
+.ep{display:none}
+.ep[data-active="1"]{display:block}
+.ep .sub{margin:0 0 30px}
+
+/* differentiation matrix */
+.matrix{margin:0 0 34px;border:1px solid var(--line);border-radius:12px;
+  background:var(--panel);overflow-x:auto}
+.matrix h2{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);
+  margin:0;padding:16px 20px 6px;font-weight:600}
+.matrix p.note{margin:0;padding:0 20px 14px;color:var(--dim);font-size:13.5px;
+  border-bottom:1px solid var(--line);max-width:none}
+table.mx{width:100%;border-collapse:collapse;font-size:13.5px;min-width:820px}
+table.mx th{text-align:left;padding:11px 20px;font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--dim);font-weight:600;border-bottom:1px solid var(--line)}
+table.mx td{padding:12px 20px;border-bottom:1px solid #1E2025;color:#DCD8D0}
+table.mx tr:last-child td{border-bottom:0}
+table.mx td.name{font-weight:600;color:var(--text);white-space:nowrap}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="top">
-    <div class="kicker">Unclaimed &middot; style test</div>
-    <h1>Five visual styles, one script</h1>
-    <p class="sub">Episode 5, <b>Tyler v. Hennepin County</b>. Same narration, same
-    voiceover file, same music bed, same 25 second runtime in all five. Only the grade,
-    the type and the cutting change, so the comparison is fair. Every figure and hold
-    below is <b>measured</b> from the finished file with ffmpeg scene detection at a
-    threshold of 0.1, not estimated. Total generation spend across all five was
-    <b>54 Higgsfield credits</b> for a shared pool of 16 assets.</p>
+    <div class="kicker">Unclaimed &middot; style tests</div>
+    <h1>Visual styles, one script each</h1>
+    <p class="sub">Two style tests. Every figure and hold below is <b>measured</b> from
+    the finished file with ffmpeg scene detection at a threshold of 0.1, never
+    estimated. Within an episode the narration, voiceover file, music bed and runtime
+    are identical across styles, so only the grade, the type and the cutting differ.</p>
   </header>
 
-  <section class="compare">
-    <h2>The tradeoff at a glance</h2>
-    <table class="cmp">
-      <thead><tr>
-        <th>Style</th><th>Shots</th><th>Relative pace</th><th>Longest hold</th>
-        <th>Avg cut</th><th>Generation cost</th><th>File</th>
-      </tr></thead>
-      <tbody><tr><td class="name">1 &middot; Redacted Document</td><td><span class="n">20</span></td><td><span class="bar"><i style="width:30.3%"></i></span></td><td>2.47s</td><td>1.25s</td><td class="free">free</td><td>3.1 MB</td></tr>
+  <div class="tabs" role="tablist">
+    <button data-ep="ep5" aria-selected="true" onclick="showEp('ep5')">Episode 5 &middot; Home equity</button>
+    <button data-ep="ep2" aria-selected="false" onclick="showEp('ep2')">Episode 2 &middot; Unclaimed property</button>
+  </div>
+
+  <section class="ep" id="ep5" data-active="1">
+    <p class="sub">Episode 5, <b>Tyler v. Hennepin County</b>. Same narration, same
+    voiceover file, same music bed, same 25 second runtime in all five. Total
+    generation spend across all five was <b>54 Higgsfield credits</b> for a shared pool
+    of 16 assets.</p>
+
+    <section class="compare">
+      <h2>The tradeoff at a glance</h2>
+      <table class="cmp">
+        <thead><tr>
+          <th>Style</th><th>Shots</th><th>Relative pace</th><th>Longest hold</th>
+          <th>Avg cut</th><th>Generation cost</th><th>File</th>
+        </tr></thead>
+        <tbody><tr><td class="name">1 &middot; Redacted Document</td><td><span class="n">20</span></td><td><span class="bar"><i style="width:30.3%"></i></span></td><td>2.47s</td><td>1.25s</td><td class="free">free</td><td>3.1 MB</td></tr>
 <tr><td class="name">2 &middot; Kinetic Type Over Footage</td><td><span class="n">17</span></td><td><span class="bar"><i style="width:25.8%"></i></span></td><td>1.90s</td><td>1.47s</td><td class="">14 assets</td><td>5.2 MB</td></tr>
 <tr><td class="name">3 &middot; Annotated Screen</td><td><span class="n">20</span></td><td><span class="bar"><i style="width:30.3%"></i></span></td><td>1.93s</td><td>1.25s</td><td class="free">free</td><td>3.8 MB</td></tr>
 <tr><td class="name">4 &middot; High Speed Cut</td><td><span class="n">66</span></td><td><span class="bar"><i style="width:100.0%"></i></span></td><td>0.70s</td><td>0.38s</td><td class="">16 assets</td><td>8.6 MB</td></tr>
 <tr><td class="name">5 &middot; Case File</td><td><span class="n">16</span></td><td><span class="bar"><i style="width:24.2%"></i></span></td><td>2.00s</td><td>1.56s</td><td class="">3 assets</td><td>5.3 MB</td></tr></tbody>
-    </table>
-  </section>
+      </table>
+    </section>
 
-  <div class="grid">
+    <div class="grid">
       <article class="card">
         <video src="out/style-1.mp4" controls preload="metadata" playsinline></video>
         <div class="body">
@@ -140,7 +175,7 @@ footer code{color:var(--tan)}
             <div class="stat"><span class="k">Avg cut</span><span class="v">1.25s</span></div>
             <div class="stat"><span class="k">Asset cost</span><span class="v">Free</span></div>
           </div>
-          <button class="guide" onclick="openGuide(1)">Style guide</button>
+          <button class="guide" onclick="openGuide('1')">Style guide</button>
         </div>
       </article>
       <article class="card">
@@ -155,7 +190,7 @@ footer code{color:var(--tan)}
             <div class="stat"><span class="k">Avg cut</span><span class="v">1.47s</span></div>
             <div class="stat"><span class="k">Asset cost</span><span class="v">14 gen</span></div>
           </div>
-          <button class="guide" onclick="openGuide(2)">Style guide</button>
+          <button class="guide" onclick="openGuide('2')">Style guide</button>
         </div>
       </article>
       <article class="card">
@@ -170,7 +205,7 @@ footer code{color:var(--tan)}
             <div class="stat"><span class="k">Avg cut</span><span class="v">1.25s</span></div>
             <div class="stat"><span class="k">Asset cost</span><span class="v">Free</span></div>
           </div>
-          <button class="guide" onclick="openGuide(3)">Style guide</button>
+          <button class="guide" onclick="openGuide('3')">Style guide</button>
         </div>
       </article>
       <article class="card">
@@ -185,7 +220,7 @@ footer code{color:var(--tan)}
             <div class="stat"><span class="k">Avg cut</span><span class="v">0.38s</span></div>
             <div class="stat"><span class="k">Asset cost</span><span class="v">16 gen</span></div>
           </div>
-          <button class="guide" onclick="openGuide(4)">Style guide</button>
+          <button class="guide" onclick="openGuide('4')">Style guide</button>
         </div>
       </article>
       <article class="card">
@@ -200,17 +235,137 @@ footer code{color:var(--tan)}
             <div class="stat"><span class="k">Avg cut</span><span class="v">1.56s</span></div>
             <div class="stat"><span class="k">Asset cost</span><span class="v">3 gen</span></div>
           </div>
-          <button class="guide" onclick="openGuide(5)">Style guide</button>
+          <button class="guide" onclick="openGuide('5')">Style guide</button>
         </div>
       </article>
-  </div>
+    </div>
+  </section>
+
+  <section class="ep" id="ep2" data-active="0">
+    <p class="sub">Episode 2, <b>How to Check if a State Is Holding Money in Your
+    Name</b>. Five trailers at 9.60 seconds, one voiceover generation and one music bed
+    shared by all five. Style 2B is the two mode revision of Style 2, built here to its
+    slam half only because a trailer this short has no room to alternate. Generation
+    spend on the finished films: <b>none</b>.</p>
+
+    <section class="matrix">
+      <h2>Differentiation matrix</h2>
+      <p class="note">Written before the build. The Episode 5 set failed because two
+      styles collapsed into each other, so every style here was assigned four axis
+      values first and the set checked for collisions. No pair shares more than one
+      axis value, against a limit of two.</p>
+      <table class="mx">
+        <thead><tr>
+          <th>Style</th><th>A Source</th><th>B Ground</th><th>C Subject</th><th>D Tempo</th>
+        </tr></thead>
+        <tbody><tr><td class="name">2B &middot; Kinetic Type, Slam Half</td><td>generated footage</td><td>near black</td><td>type</td><td>fast slam</td></tr>
+<tr><td class="name">6 &middot; Screen Native</td><td>real screen recording</td><td>paper white</td><td>interface</td><td>steady procedural</td></tr>
+<tr><td class="name">7 &middot; Tabletop Overhead</td><td>photographed objects</td><td>warm light</td><td>physical object</td><td>slow reveal</td></tr>
+<tr><td class="name">8 &middot; Data First</td><td>vector data graphics</td><td>paper white</td><td>chart</td><td>medium build</td></tr>
+<tr><td class="name">9 &middot; Archival Print</td><td>archival collage</td><td>mid grey to cream</td><td>texture</td><td>medium build</td></tr></tbody>
+      </table>
+    </section>
+
+    <section class="compare">
+      <h2>The tradeoff at a glance</h2>
+      <table class="cmp">
+        <thead><tr>
+          <th>Style</th><th>Shots</th><th>Relative pace</th><th>Longest hold</th>
+          <th>Avg cut</th><th>Generation cost</th><th>File</th>
+        </tr></thead>
+        <tbody><tr><td class="name">2B &middot; Kinetic Type, Slam Half</td><td><span class="n">8</span></td><td><span class="bar"><i style="width:100.0%"></i></span></td><td>1.80s</td><td>1.20s</td><td class="free">free</td><td>2.0 MB</td></tr>
+<tr><td class="name">6 &middot; Screen Native</td><td><span class="n">7</span></td><td><span class="bar"><i style="width:87.5%"></i></span></td><td>1.77s</td><td>1.37s</td><td class="free">free</td><td>1.1 MB</td></tr>
+<tr><td class="name">7 &middot; Tabletop Overhead</td><td><span class="n">6</span></td><td><span class="bar"><i style="width:75.0%"></i></span></td><td>2.10s</td><td>1.60s</td><td class="free">free</td><td>2.5 MB</td></tr>
+<tr><td class="name">8 &middot; Data First</td><td><span class="n">6</span></td><td><span class="bar"><i style="width:75.0%"></i></span></td><td>1.97s</td><td>1.60s</td><td class="free">free</td><td>0.6 MB</td></tr>
+<tr><td class="name">9 &middot; Archival Print</td><td><span class="n">6</span></td><td><span class="bar"><i style="width:75.0%"></i></span></td><td>1.97s</td><td>1.60s</td><td class="free">free</td><td>2.4 MB</td></tr></tbody>
+      </table>
+    </section>
+
+    <div class="grid">
+      <article class="card">
+        <video src="out/ep02-style-2b.mp4" controls preload="metadata" playsinline></video>
+        <div class="body">
+          <div class="no">Style 2B</div>
+          <h3>Kinetic Type, Slam Half</h3>
+          <p class="desc">Style 2 with a second gear. The trailer shows the slam half only.</p>
+          <div class="stats">
+            <div class="stat"><span class="k">Shots</span><span class="v em">8</span></div>
+            <div class="stat"><span class="k">Longest hold</span><span class="v">1.80s</span></div>
+            <div class="stat"><span class="k">Avg cut</span><span class="v">1.20s</span></div>
+            <div class="stat"><span class="k">Asset cost</span><span class="v">Free</span></div>
+          </div>
+          <button class="guide" onclick="openGuide('e2-2b')">Style guide</button>
+        </div>
+      </article>
+      <article class="card">
+        <video src="out/ep02-style-6.mp4" controls preload="metadata" playsinline></video>
+        <div class="body">
+          <div class="no">Style 6</div>
+          <h3>Screen Native</h3>
+          <p class="desc">A facsimile state portal doing a real search: cursor, field, results, one row.</p>
+          <div class="stats">
+            <div class="stat"><span class="k">Shots</span><span class="v em">7</span></div>
+            <div class="stat"><span class="k">Longest hold</span><span class="v">1.77s</span></div>
+            <div class="stat"><span class="k">Avg cut</span><span class="v">1.37s</span></div>
+            <div class="stat"><span class="k">Asset cost</span><span class="v">Free</span></div>
+          </div>
+          <button class="guide" onclick="openGuide('e2-6')">Style guide</button>
+        </div>
+      </article>
+      <article class="card">
+        <video src="out/ep02-style-7.mp4" controls preload="metadata" playsinline></video>
+        <div class="body">
+          <div class="no">Style 7</div>
+          <h3>Tabletop Overhead</h3>
+          <p class="desc">Warm light on a desk, every figure arriving on a printed sheet.</p>
+          <div class="stats">
+            <div class="stat"><span class="k">Shots</span><span class="v em">6</span></div>
+            <div class="stat"><span class="k">Longest hold</span><span class="v">2.10s</span></div>
+            <div class="stat"><span class="k">Avg cut</span><span class="v">1.60s</span></div>
+            <div class="stat"><span class="k">Asset cost</span><span class="v">Free</span></div>
+          </div>
+          <button class="guide" onclick="openGuide('e2-7')">Style guide</button>
+        </div>
+      </article>
+      <article class="card">
+        <video src="out/ep02-style-8.mp4" controls preload="metadata" playsinline></video>
+        <div class="body">
+          <div class="no">Style 8</div>
+          <h3>Data First</h3>
+          <p class="desc">The chart is the protagonist: a bar climbs, a dot field resolves.</p>
+          <div class="stats">
+            <div class="stat"><span class="k">Shots</span><span class="v em">6</span></div>
+            <div class="stat"><span class="k">Longest hold</span><span class="v">1.97s</span></div>
+            <div class="stat"><span class="k">Avg cut</span><span class="v">1.60s</span></div>
+            <div class="stat"><span class="k">Asset cost</span><span class="v">Free</span></div>
+          </div>
+          <button class="guide" onclick="openGuide('e2-8')">Style guide</button>
+        </div>
+      </article>
+      <article class="card">
+        <video src="out/ep02-style-9.mp4" controls preload="metadata" playsinline></video>
+        <div class="body">
+          <div class="no">Style 9</div>
+          <h3>Archival Print</h3>
+          <p class="desc">Halftone photographs cut into cream, heavy type, ink out of register.</p>
+          <div class="stats">
+            <div class="stat"><span class="k">Shots</span><span class="v em">6</span></div>
+            <div class="stat"><span class="k">Longest hold</span><span class="v">1.97s</span></div>
+            <div class="stat"><span class="k">Avg cut</span><span class="v">1.60s</span></div>
+            <div class="stat"><span class="k">Asset cost</span><span class="v">Free</span></div>
+          </div>
+          <button class="guide" onclick="openGuide('e2-9')">Style guide</button>
+        </div>
+      </article>
+    </div>
+  </section>
 
   <footer>
-    Built with one script, <code>build.py</code>, from a shared asset pool. Rhythm
-    measured by <code>measure.py</code>. Documents on screen are facsimiles built in
-    HTML for this test: they imitate the structure of a court filing and a county
-    surplus listing, and every field not stated in the narration is redacted rather
-    than invented. No real record is reproduced and no identifiable person appears.
+    Episode 5 built by <code>build.py</code>, Episode 2 by <code>build-ep02.py</code>,
+    each from one shared asset pool. Rhythm measured by <code>measure.py</code> and
+    <code>measure-ep02.py</code>. Documents and web pages on screen are facsimiles built
+    in HTML for these tests. Every field not stated in the narration is redacted rather
+    than invented, no real record is reproduced, and no identifiable person appears.
   </footer>
 </div>
 
@@ -218,7 +373,7 @@ footer code{color:var(--tan)}
       <div class="sheet">
         <div class="head">
           <strong>Style guide 1</strong>
-          <button class="close" onclick="closeGuide(1)" aria-label="Close">&times;</button>
+          <button class="close" onclick="closeGuide('1')" aria-label="Close">&times;</button>
         </div>
         <div class="doc"><h1>Style 1 · Redacted Document</h1>
 <h2>Look in one sentence</h2>
@@ -261,7 +416,7 @@ footer code{color:var(--tan)}
       <div class="sheet">
         <div class="head">
           <strong>Style guide 2</strong>
-          <button class="close" onclick="closeGuide(2)" aria-label="Close">&times;</button>
+          <button class="close" onclick="closeGuide('2')" aria-label="Close">&times;</button>
         </div>
         <div class="doc"><h1>Style 2 · Kinetic Type Over Footage</h1>
 <h2>Look in one sentence</h2>
@@ -299,7 +454,7 @@ footer code{color:var(--tan)}
       <div class="sheet">
         <div class="head">
           <strong>Style guide 3</strong>
-          <button class="close" onclick="closeGuide(3)" aria-label="Close">&times;</button>
+          <button class="close" onclick="closeGuide('3')" aria-label="Close">&times;</button>
         </div>
         <div class="doc"><h1>Style 3 · Annotated Screen</h1>
 <h2>Look in one sentence</h2>
@@ -337,7 +492,7 @@ footer code{color:var(--tan)}
       <div class="sheet">
         <div class="head">
           <strong>Style guide 4</strong>
-          <button class="close" onclick="closeGuide(4)" aria-label="Close">&times;</button>
+          <button class="close" onclick="closeGuide('4')" aria-label="Close">&times;</button>
         </div>
         <div class="doc"><h1>Style 4 · High Speed Cut</h1>
 <h2>Look in one sentence</h2>
@@ -374,7 +529,7 @@ footer code{color:var(--tan)}
       <div class="sheet">
         <div class="head">
           <strong>Style guide 5</strong>
-          <button class="close" onclick="closeGuide(5)" aria-label="Close">&times;</button>
+          <button class="close" onclick="closeGuide('5')" aria-label="Close">&times;</button>
         </div>
         <div class="doc"><h1>Style 5 · Case File</h1>
 <h2>Look in one sentence</h2>
@@ -407,7 +562,218 @@ footer code{color:var(--tan)}
 <p>Speed and clarity of a single number. It is a slow accumulating look, so it cannot land a fast statistic, and a viewer on a phone will struggle to read any document pinned to the board. Treat pinned documents as texture, and put any figure the viewer must read on a label.</p></div>
       </div>
     </div>
+    <div class="modal" id="me2-2b">
+      <div class="sheet">
+        <div class="head">
+          <strong>Style guide 2B</strong>
+          <button class="close" onclick="closeGuide('e2-2b')" aria-label="Close">&times;</button>
+        </div>
+        <div class="doc"><h1>Style 2B · Kinetic Type, Two Modes</h1>
+<p><strong>Matrix (slam):</strong> generated footage / near black / type / fast slam. <strong>Matrix (sustain):</strong> generated footage / near black / type over legible plate / steady procedural.</p>
+<h2>Look in one sentence</h2>
+<p>Style 2&#x27;s type with two gears: it slams, then drops into a register where the footage becomes the subject, and keeps trading.</p>
+<h2>Palette</h2>
+<table><thead><tr><th>Hex</th><th>Role</th></tr></thead><tbody>
+<tr><td><code>#0D0D0D</code></td><td>Ground. Slam crushes footage toward this.</td></tr>
+<tr><td><code>#F5F0E3</code></td><td>Body type, both modes.</td></tr>
+<tr><td><code>#3AAE5C</code></td><td>Money and the sign-off. In sustain, one thing only: a live figure in the rail, or one underline under the field being pointed at.</td></tr>
+<tr><td><code>#D8B26A</code></td><td>Supporting figures, so a second number reads differently.</td></tr>
+</tbody></table>
+<p>Slam grade: saturation 0.14, contrast 1.22, brightness minus 0.22. Sustain: 0.55, 1.05, minus 0.05, because there you are meant to read the plate.</p>
+<h2>Typography</h2>
+<p>Impact, upper case. Slam as Style 2 specifies: statements 56 to 66 px, payoffs 96 to 138 px, figures 168 to 190 px. Sustain drops to 32 to 40 px in a lower third or left rail, sentence case allowed for a URL.</p>
+<h2>Shot grammar</h2>
+<p><strong>Slam.</strong> Exactly Style 2. Lines stagger 0.22 s apart, drop from 20 px above, lock hard. Figures resolve out of redaction blocks. Carries statements, figures and turns. About 25 percent.</p>
+<p><strong>Sustain.</strong> Type sits in the rail while the plate plays. Screen recordings and documents live here. Carries process, sequence, caveats and instructions. About 75 percent.</p>
+<p><strong>Alternation rule.</strong> Never more than 20 seconds of slam without dropping to sustain, never more than 40 seconds of sustain without a slam. The change is a hard cut, never a fade, and the grade shifts on that cut. This is what lets the style run 10 minutes.</p>
+<p><strong>A resource name</strong> is a sustain moment: the URL holds in the rail while the real page plays full frame. Never slam a URL; a viewer copying it down needs it still.</p>
+<p><strong>The one common mistake</strong> is a slam: it is a statement, so it takes the centre, upper case, full size, on a crushed plate.</p>
+<h2>Rhythm spec</h2>
+<p>Slam about 41 shots per minute, maximum hold 2.5 s. Sustain 15 to 20, cuts of 3 to 4 s.</p>
+<h2>Asset recipe</h2>
+<p>Slam: generated or stock footage as texture. Sustain: screen recordings and document facsimiles, which cost nothing.</p>
+<h2>Cost per 10 minute episode</h2>
+<p>About 8 stills, 3 clips, 6 to 10 screen recordings, 7 hours edit.</p>
+<h2>Three rules that must never be broken</h2>
+<ol>
+<li>Obey the alternation rule. One gear is what broke Style 2.</li>
+<li>Mode changes are hard cuts, and the grade moves on the cut.</li>
+<li>Never render a figure not in the script. Use the redaction reveal.</li>
+</ul>
+<h2>What this style is bad at</h2>
+<p>Warmth and place. The palette stays cold in both modes, so it cannot carry a human story. Sustain needs real screen recordings; without them it collapses back into Style 2.</p>
+<h2>Note on the Episode 2 trailer</h2>
+<p><code>out/ep02-style-2b.mp4</code> is the <strong>slam half only</strong>: at this length there is no room to alternate.</p></div>
+      </div>
+    </div>
+    <div class="modal" id="me2-6">
+      <div class="sheet">
+        <div class="head">
+          <strong>Style guide 6</strong>
+          <button class="close" onclick="closeGuide('e2-6')" aria-label="Close">&times;</button>
+        </div>
+        <div class="doc"><h1>Style 6 · Screen Native</h1>
+<p><strong>Matrix:</strong> real screen recording / paper white / interface / steady procedural.</p>
+<h2>Look in one sentence</h2>
+<p>A real interface doing a real thing in light greys and whites, the tension coming from watching a search run rather than from the cut.</p>
+<h2>Palette</h2>
+<table><thead><tr><th>Hex</th><th>Role</th></tr></thead><tbody>
+<tr><td><code>#FFFFFF</code></td><td>Page ground. The film is bright, which no other style in the set is.</td></tr>
+<tr><td><code>#162E51</code></td><td>Masthead navy. Government furniture, never decoration.</td></tr>
+<tr><td><code>#1A4480</code></td><td>The stat band that carries a figure.</td></tr>
+<tr><td><code>#1B1B1B</code></td><td>Body copy, and the redaction block over every owner name.</td></tr>
+<tr><td><code>#FFBE2E</code></td><td>The one highlight, used on exactly one result row.</td></tr>
+</tbody></table>
+<h2>Typography</h2>
+<p>Public Sans throughout, the face the US Web Design System actually uses, because the facsimile has to survive a viewer who knows these sites. Nothing is set larger than the interface would set it. The only type this style adds is one caption at 27 px on an ink plate.</p>
+<h2>Shot grammar</h2>
+<p>Each shot is a different framing of the same page, computed from the measured element box rather than a hand cropped region: stat band, whole page, field, button, results, one row, footer. States advance in the order a real search advances and the cursor travels between framings. State changes are hard swaps. Never dissolve an interface.</p>
+<h2>Rhythm spec</h2>
+<p>About 44 shots per minute. Maximum static hold 2.5 s; measured 1.77. The pace comes from the process, so the cut can only go as fast as the search does.</p>
+<h2>Asset recipe</h2>
+<p>100 percent hand built HTML, screenshotted per state. Zero stock, zero generation, zero footage. The cheapest style in the set alongside Style 8.</p>
+<h2>Cost per 10 minute episode</h2>
+<p>Generation calls: 0. About 4 hours for a convincing page, 20 minutes per extra state, 5 hours edit.</p>
+<h2>Three rules that must never be broken</h2>
+<ol>
+<li>No real person&#x27;s result. Every owner cell is a redaction block.</li>
+<li>No amount column. The only figures on screen are the ones in the script.</li>
+<li>The facsimile must be generic. No state seal, no agency name, no borrowed layout from a real portal.</li>
+</ul>
+<h2>What this style is bad at</h2>
+<p>Feeling. It has no place, no object and no weight, so it cannot carry a stake or a consequence. It also cannot cover history: an interface can only show now.</p></div>
+      </div>
+    </div>
+    <div class="modal" id="me2-7">
+      <div class="sheet">
+        <div class="head">
+          <strong>Style guide 7</strong>
+          <button class="close" onclick="closeGuide('e2-7')" aria-label="Close">&times;</button>
+        </div>
+        <div class="doc"><h1>Style 7 · Tabletop Overhead</h1>
+<p><strong>Matrix:</strong> photographed objects / warm light / physical object / slow reveal.</p>
+<h2>Look in one sentence</h2>
+<p>A camera above a desk in warm daylight, where every figure arrives as a printed sheet slid into frame and something is always moving.</p>
+<h2>Palette</h2>
+<table><thead><tr><th>Hex</th><th>Role</th></tr></thead><tbody>
+<tr><td><code>#F4EDDF</code></td><td>Paper stock. Every sheet is this, never white.</td></tr>
+<tr><td><code>#2A2118</code></td><td>Printed type. Warm black, never neutral black.</td></tr>
+<tr><td><code>#8A7A5E</code></td><td>The mono kicker above a figure, saying what it is.</td></tr>
+<tr><td><code>#9A3F30</code></td><td>The stamp. One per sheet at most, and only on a status.</td></tr>
+</tbody></table>
+<p>Plates are graded to contrast 1.04, brightness plus 0.10, saturation 1.16, gamma 1.18, warmed on red, which lifts a tungsten plate toward window light.</p>
+<h2>Typography</h2>
+<p>Public Sans Bold for a figure, Source Serif for a sentence, IBM Plex Mono for the kicker. All of it is printed, so it carries a soft shadow and sits on stock. If type is on screen, it is on paper.</p>
+<h2>Shot grammar</h2>
+<p>A shot is one plate plus one sheet. The sheet travels in from an edge over 0.36 to 0.42 s, linearly, and stops. It never fades, never scales and never rotates on entry. Plate identity alternates on every cut, because at this pace two consecutive shots of the same surface do not read as a cut at all.</p>
+<h2>Rhythm spec</h2>
+<p>About 31 shots per minute. Maximum static hold 2.5 s; measured 2.10. The slowest style in the set, and the only one that can hold a beat without dying.</p>
+<h2>Asset recipe</h2>
+<p>Photographic plates plus HTML printed sheets. The sheets cost nothing. The plates are the only real spend in the style.</p>
+<h2>Cost per 10 minute episode</h2>
+<p>About 10 to 14 overhead stills and 3 clips, or a half day of real photography, which is cheaper and better. Editing about 6 hours.</p>
+<h2>Three rules that must never be broken</h2>
+<ol>
+<li>Figures arrive on paper. A number that appears as a screen graphic is a bug.</li>
+<li>Something enters or leaves every shot. A still tabletop is a dead frame.</li>
+<li>No printed sheet may carry a figure, name or date the script does not state.</li>
+</ul>
+<h2>What this style is bad at</h2>
+<p>Scale and abstraction. It cannot show a system, a country or a total, only one desk. Pace is its other limit: it cannot be cut fast without looking frantic.</p></div>
+      </div>
+    </div>
+    <div class="modal" id="me2-8">
+      <div class="sheet">
+        <div class="head">
+          <strong>Style guide 8</strong>
+          <button class="close" onclick="closeGuide('e2-8')" aria-label="Close">&times;</button>
+        </div>
+        <div class="doc"><h1>Style 8 · Data First</h1>
+<p><strong>Matrix:</strong> vector data graphics / paper white / chart / medium build.</p>
+<h2>Look in one sentence</h2>
+<p>The chart is the protagonist: a bar climbs, a dot field resolves, and the type stays small enough that the shape carries it.</p>
+<h2>Palette</h2>
+<table><thead><tr><th>Hex</th><th>Role</th></tr></thead><tbody>
+<tr><td><code>#F7F5F0</code></td><td>Paper. Warm white, never pure white, so ink reads as ink.</td></tr>
+<tr><td><code>#14161A</code></td><td>Ink. Bars, dots, rules and type.</td></tr>
+<tr><td><code>#D5D2CA</code></td><td>The unmarked dot. Present but quiet.</td></tr>
+<tr><td><code>#3AAE5C</code></td><td>The marked dot and one accent rule. Emerald means the thing being counted.</td></tr>
+<tr><td><code>#6B6F76</code></td><td>Mono kicker and caption grey.</td></tr>
+</tbody></table>
+<h2>Typography</h2>
+<p>Public Sans only, and small. Kickers 13 px mono at 0.20 em, captions 15 px, figures 74 to 150 px. A figure is the only large thing, and never sits inside the chart it describes.</p>
+<h2>Shot grammar</h2>
+<p>One chart per shot, and every shot reframes as well as relaying out. A bar climbs by a paper coloured box sliding up off it, and the figure locks only once the bar has arrived. A dot field is seven across so the ratio is countable. No scale ticks, ever: a tick value is a figure the script did not state.</p>
+<h2>Rhythm spec</h2>
+<p>About 37 shots per minute. Maximum static hold 2.0 s; measured 1.97. The build is medium: each chart needs a beat to be read before it is cut.</p>
+<h2>Asset recipe</h2>
+<p>100 percent hand built HTML and SVG. Zero stock, zero generation, zero footage.</p>
+<h2>Cost per 10 minute episode</h2>
+<p>Generation calls: 0. About 5 hours to build the chart system, 20 minutes per chart, 5 hours edit.</p>
+<h2>Three rules that must never be broken</h2>
+<ol>
+<li>No intermediate figure. The bar may climb; the number resolves from redaction and never counts up.</li>
+<li>No axis values, no ticks, no gridlines carrying numbers.</li>
+<li>Emerald marks the counted thing and nothing else.</li>
+</ul>
+<h2>What this style is bad at</h2>
+<p>Everything a chart cannot say. It has no place, no object, no person and no texture, so it cannot open an episode or carry a stake. On a paper white ground it is also the hardest style in the set to cut: two sparse layouts in a row do not register as a cut, so composition has to change, not just content.</p></div>
+      </div>
+    </div>
+    <div class="modal" id="me2-9">
+      <div class="sheet">
+        <div class="head">
+          <strong>Style guide 9</strong>
+          <button class="close" onclick="closeGuide('e2-9')" aria-label="Close">&times;</button>
+        </div>
+        <div class="doc"><h1>Style 9 · Archival Print</h1>
+<p><strong>Matrix:</strong> archival collage / mid grey to cream / texture / medium build.</p>
+<h2>Look in one sentence</h2>
+<p>A mid century public information sheet: halftone photographs cut into cream, heavy type on torn slabs, the ink slightly out of register.</p>
+<h2>Palette</h2>
+<table><thead><tr><th>Hex</th><th>Role</th></tr></thead><tbody>
+<tr><td><code>#EFE7D6</code></td><td>Cream stock. The ground, and the tone keyed out of every photograph.</td></tr>
+<tr><td><code>#22201C</code></td><td>Print ink. Warm near black, never neutral.</td></tr>
+<tr><td><code>#B23A2E</code></td><td>The one saturated ink, reserved for money and nothing else.</td></tr>
+<tr><td><code>#8C8578</code></td><td>Caption grey under a figure.</td></tr>
+</tbody></table>
+<h2>Typography</h2>
+<p>Anton for display slabs, Oswald for a second voice, Source Serif for notes, IBM Plex Mono at 0.22 em for kicker strips. Four faces is correct here: a period sheet was set from whatever the shop had.</p>
+<h2>Shot grammar</h2>
+<p>Every photograph is a cut block with a position on the page, and it moves on every shot: right panel, full width band, left panel, small top corner, bottom band, then gone. Elements slide in from an edge over 0.22 to 0.30 s, or stamp in place. Nothing fades, ever. Misregistration is a 2 to 3 px channel shift applied last, over everything, with paper grain on top.</p>
+<h2>Rhythm spec</h2>
+<p>About 37 shots per minute. Maximum static hold 2.5 s; measured 1.97.</p>
+<h2>Asset recipe</h2>
+<p>Photographs reduced to newsprint plus HTML cut paper. The halftone is real: blur slightly, flatten contrast so midtones survive, dither to two tones with an ordered Bayer matrix, then key the paper tone out so the stock shows through. Any photograph works, which makes this the most tolerant style in the set.</p>
+<h2>Cost per 10 minute episode</h2>
+<p>Generation calls: 0 if any photo library is available. About 4 hours to build the element system, 6 hours edit.</p>
+<h2>Three rules that must never be broken</h2>
+<ol>
+<li>Nothing fades. Elements slide or stamp.</li>
+<li>Red is money. Never a heading, never a rule, never decoration.</li>
+<li>The photograph must move on the page every shot. A held plate under changing type does not read as a cut.</li>
+</ul>
+<h2>What this style is bad at</h2>
+<p>Anything current. The register says archive, so it undercuts a claim that something is true right now, and it cannot carry an interface or a process at all. Fine detail dies in the halftone, so faces and small print are unusable.</p></div>
+      </div>
+    </div>
 <script>
+function showEp(id){
+  document.querySelectorAll('.ep').forEach(function(s){
+    s.setAttribute('data-active', s.id === id ? '1' : '0');
+  });
+  document.querySelectorAll('.tabs button').forEach(function(b){
+    b.setAttribute('aria-selected', b.dataset.ep === id ? 'true' : 'false');
+  });
+  document.querySelectorAll('.ep video').forEach(function(v){ v.pause(); });
+  // the hash deliberately does not match a section id: '#ep2' would make the
+  // browser scroll to that element and hide the header on a deep link
+  if (history.replaceState) history.replaceState(null, '', '#tab-' + id);
+}
+window.addEventListener('DOMContentLoaded', function(){
+  var h = (location.hash || '').replace('#tab-','').replace('#','');
+  if (h === 'ep5' || h === 'ep2') showEp(h);
+});
 function openGuide(n){
   document.getElementById('m'+n).setAttribute('open','');
   document.body.style.overflow='hidden';
