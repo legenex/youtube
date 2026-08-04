@@ -527,18 +527,23 @@ def style_7():
     s_sign = elem("paper", k="body", t="It does not have to stay that way.", s=40, w=720,
                   x=280, y=248, kick="")
 
-    # the pool plate carries an invented case number on a folder tab; crop it out
-    desk = cropped("folders", (250, 60, 1130, 636), "nolabel")
+    # img-07-desk-folders carries "CASE NO. 402" on four folder tabs, which is an
+    # invented reference the narration never states, and no crop of it keeps a
+    # usable frame while losing all four. The desk clip has no such text, so the
+    # trailer alternates that clip with the top down envelope plate instead.
+    # Alternating plate identity every shot is also what keeps the cuts visible.
+    desk = pool_clip("desk")
 
     plan = timeline([
-        (0.00, dict(src=desk, z=(1.03, 1.09), sheets=[(s_bill, 0.06, (0, 470, 0.42))])),
+        (0.00, dict(src=desk, ss=0.15, z=(1.03, 1.09),
+                    sheets=[(s_bill, 0.06, (0, 470, 0.42))])),
         (2.10, dict(src=pool("mail"), z=(1.04, 1.10), dy=0.02,
                     sheets=[(s_seven, 0.10, (-560, 0, 0.40))])),
-        (4.20, dict(src=pool_clip("desk"), ss=1.2, z=(1.02, 1.08),
+        (4.20, dict(src=desk, ss=2.40, z=(1.02, 1.08), dx=0.03,
                     sheets=[(s_name, 0.10, (0, 430, 0.38))])),
-        (6.01, dict(src=desk, z=(1.05, 1.11), dx=-0.02,
+        (6.01, dict(src=pool("mail"), z=(1.16, 1.22), dx=-0.03, dy=-0.02,
                     sheets=[(s_uncl, 0.08, (620, 0, 0.36))])),
-        (7.78, dict(src=pool_clip("desk"), ss=3.4, z=(1.03, 1.09),
+        (7.78, dict(src=desk, ss=4.00, z=(1.04, 1.10),
                     sheets=[(s_sign, 0.10, (0, 460, 0.40))])),
     ])
     for _, dur, kw in plan:
