@@ -557,16 +557,24 @@ def style_8():
     PAPER = "F7F5F0"
 
     def shot(dur, base, wipe=None, cards=(), z=(1.0, 1.0), dx=0.0, dy=0.0):
-        """wipe: (x, y, w, h, t0, dur, direction) reveals the bar by uncovering it."""
+        """wipe: (x, y, w, h, t0, dur) reveals the bar by uncovering it.
+
+        The chart page is exactly one frame, so it scales to W x H and the wipe
+        coordinates are page coordinates. Any headroom upscale here would put
+        the wipe box somewhere other than on top of the bar.
+        """
         inputs = [img_in(base, dur)]
-        f = ["[0:v]scale=%d:%d,%s[bg]" % (CW, CH, drift(z[0], z[1], dur, dx, dy))]
+        f = ["[0:v]scale=%d:%d,%s[bg]" % (W, H, drift(z[0], z[1], dur, dx, dy))]
         last = "bg"
         if wipe:
             x, y, w, h, t0, wd = wipe
-            # a paper coloured box shrinks upward off the bar: the bar appears to climb
-            f.append("[%s]drawbox=x=%d:y=%d:w=%d:"
-                     "h='%d*(1-min(1\\,max(0\\,(t-%.3f)/%.3f)))':color=0x%s:t=fill[wp]"
-                     % (last, x, y, w, h, t0, wd, PAPER))
+            # A paper coloured box the size of the bar slides up and off it, so the
+            # bar appears to climb from its baseline. The box keeps its height and
+            # moves, because drawbox reads h=0 as "full input height" and a
+            # shrinking height would cover the whole column once it reached zero.
+            f.append("[%s]drawbox=x=%d:w=%d:h=%d:"
+                     "y='%d-%d*min(1\\,max(0\\,(t-%.3f)/%.3f))':color=0x%s:t=fill[wp]"
+                     % (last, x, w, h, y, h, t0, wd, PAPER))
             last = "wp"
         specs = [{"png": c[0], "t0": c[1], **({"enable": c[2]} if len(c) > 2 else {})}
                  for c in cards]
@@ -574,38 +582,48 @@ def style_8():
         f.append("[%s]format=yuv420p[v]" % last)
         return render(S, ";".join(f), dur, inputs, "data first")
 
-    bar = page("chart", scene="bar", h="384")
-    grid_on = page("chart", scene="grid", acc="0")
-    grid_acc = page("chart", scene="grid", acc="1")
-    plain = page("chart", scene="plain", k="Waiting to be claimed")
+    bar = page("chart", scene="bar")
+    barclose = page("chart", scene="barclose")
+    grid_on = page("chart", scene="grid")
+    grid_mark = page("chart", scene="gridmark")
+    # the grid close-up reframes onto the marked column, so the cut off the wide
+    # grid is a change of composition and not only a change of dot colour
+    grid_close = page("chart", scene="gridmark", zoom="1.70", sx="150", sy="120",
+                      nonote="1")
+    st_uncl = page("chart", scene="statement", k="Status", f="Unclaimed property")
+    # The film ends back on the data. A sparse statement page followed by another
+    # sparse statement page scores 0.046 and reads as no cut at all; returning the
+    # dot field puts real ink back in the frame and the cut lands at 0.1 or better.
+    st_sign = page("chart", scene="gridsolid")
 
-    # the figure resolves out of redaction, so no intermediate number is drawn
-    bill = reveal_cards(billion_stages(), 0.62, 0.08, f="publicb", s=76, c="14161A",
-                        x=372, y=196, al="left")
-    seven = reveal_cards(one_in_seven_stages(), 0.30, 0.09, f="publicb", s=150,
-                         c="14161A", x=792, y=474, al="left")
+    # the figures resolve out of redaction, so no intermediate number is drawn
+    bill = reveal_cards(billion_stages(), 0.66, 0.08, f="publicb", s=74, c="14161A",
+                        x=320, y=250, al="left")
+    # the close-up fills screen x 0..683 with dots, so the figure sits clear of them
+    seven = reveal_cards(one_in_seven_stages(), 0.34, 0.09, f="publicb", s=142,
+                         c="14161A", x=724, y=248, al="left")
 
-    c_uncl = card(t="The money may be unclaimed.", f="public", s=44, c="14161A",
-                  x=150, y=300, al="left")
-    c_rule = card(t=" ", f="public", s=10, c=PAPER, x=150, y=250, bg="14161A",
-                  pad="1 490")
-    c_sign = card(t="It does not have to stay that way.", f="publicb", s=46,
-                  c="14161A", x=150, y=300, al="left")
-    c_acc = card(t=" ", f="public", s=10, c=EMERALD, x=150, y=372, bg=EMERALD,
-                 pad="2 210")
+    c_bill_lock = card(t="$70 BILLION", f="publicb", s=104, c="14161A", x=430, y=230, al="left")
+    c_uncl = card(t="The money may be unclaimed.", f="public", s=46, c="14161A",
+                  x=110, y=300, al="left")
+    c_sign = card(t="It does not have<br>to stay that way.", f="publicb", s=50,
+                  c="14161A", x=636, y=250, al="left", lh="1.18")
+    c_acc = card(t=" ", f="public", s=10, c=EMERALD, x=636, y=406, bg=EMERALD, pad="3 150")
 
+    # The bar sits on a baseline at y=596 in page space. The wipe is a paper
+    # coloured box over the bar that shrinks upward, so the bar appears to climb.
     plan = timeline([
-        # bar climbs; the label locks only once the bar has arrived
-        (0.00, dict(base=bar, wipe=(150, 204, 176, 384, 0.10, 0.62),
-                    cards=[(c[  "png"], c["t0"], c["enable"]) for c in bill])),
-        (1.56, dict(base=bar, z=(1.0, 1.04),
-                    cards=[(bill[-1]["png"], 0.0)])),
-        # dot grid, one in seven marked
+        # bar climbs, then the figure locks once it has arrived
+        (0.00, dict(base=bar, wipe=(110, 224, 150, 372, 0.12, 0.66),
+                    cards=[(c["png"], c["t0"], c["enable"]) for c in bill])),
+        # reframed: a wider bar and a much larger figure, a different composition
+        (1.56, dict(base=barclose, z=(1.0, 1.04), cards=[(c_bill_lock, 0.0)])),
+        # dot grid: the tonal mass moves from one column to a field
         (2.25, dict(base=grid_on, z=(1.0, 1.03))),
-        (4.20, dict(base=grid_acc, z=(1.0, 1.04),
+        (4.20, dict(base=grid_close, z=(1.0, 1.04),
                     cards=[(c["png"], c["t0"], c["enable"]) for c in seven])),
-        (6.01, dict(base=plain, cards=[(c_rule, 0.0), (c_uncl, 0.10)])),
-        (7.78, dict(base=plain, cards=[(c_rule, 0.0), (c_sign, 0.12), (c_acc, 0.42)])),
+        (6.01, dict(base=st_uncl, cards=[(c_uncl, 0.10)])),
+        (7.78, dict(base=st_sign, z=(1.0, 1.03), cards=[(c_sign, 0.12), (c_acc, 0.44)])),
     ])
     for _, dur, kw in plan:
         shot(dur, **kw)

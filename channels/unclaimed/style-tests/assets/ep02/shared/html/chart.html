@@ -3,37 +3,36 @@
 <title>style 8 vector data graphics</title>
 <!--
   Editorial vector data graphics on paper white. Every composition is rendered
-  in its finished state; the reveal is done in ffmpeg with a wipe, so no
-  intermediate figure is ever printed. The bar carries no scale ticks, because
-  any tick value would be a figure the narration never states.
+  in its finished state; the bar is revealed in ffmpeg with a wipe and the
+  figures resolve from redaction, so no intermediate number is ever printed.
+  The bar carries no scale ticks, because any tick value would be a figure the
+  narration never states.
+
+  Layouts are laid out on an explicit grid and never overlap the space the build
+  reserves for an overlay figure: the bar column stops at x=280, the figure sits
+  from x=320.
 -->
 <style>
   @font-face { font-family: fpublic;  src: url('../../../../work-ep02/fonts/publicsans.ttf'); }
   @font-face { font-family: fpublicb; src: url('../../../../work-ep02/fonts/publicsans-bold.ttf'); }
   @font-face { font-family: fmono;    src: url('../../../../work-ep02/fonts/plexmono.ttf'); }
-  @font-face { font-family: fanton;   src: url('../../../../work-ep02/fonts/anton.ttf'); }
 
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
   body { width: 1280px; height: 720px; overflow: hidden; background: #F7F5F0;
          font-family: fpublic, sans-serif; color: #14161A; }
-  #stage { position: absolute; inset: 0; }
+  /* On a paper white ground the ink covers so little of the frame that a cut
+     between two similar layouts scores below the 0.1 scene threshold. Each shot
+     therefore reframes the page as well as changing its content. */
+  #stage { position: absolute; inset: 0; transform-origin: 0 0; }
 
-  .kicker { font-family: fmono; font-size: 12px; letter-spacing: .20em;
-            text-transform: uppercase; color: #6B6F76; }
-  .rule { background: #14161A; height: 1px; }
-  .hair { background: #C9C6BE; height: 1px; }
-
-  /* bar scene */
-  #bar { position: absolute; left: 150px; bottom: 132px; width: 176px; background: #14161A; }
-  #barcap { position: absolute; left: 150px; width: 176px; }
-  .note { font-size: 13.5px; color: #4A4E55; line-height: 1.45; }
-
-  /* dot grid */
-  #grid { position: absolute; display: grid; gap: 13px; }
-  .dot { width: 20px; height: 20px; border-radius: 50%; background: #D5D2CA; }
-  .dot.on { background: #14161A; }
-  .dot.acc { background: #3AAE5C; }
+  .kicker { font-family: fmono; font-size: 13px; letter-spacing: .20em;
+            text-transform: uppercase; color: #6B6F76; position: absolute; }
+  .rule { background: #14161A; position: absolute; }
+  .hair { background: #C9C6BE; position: absolute; }
+  .note { font-size: 15px; color: #4A4E55; line-height: 1.5; position: absolute; }
+  .bar  { background: #14161A; position: absolute; }
+  .dot  { border-radius: 50%; }
 </style>
 <body>
 <div id="stage"></div>
@@ -41,56 +40,92 @@
   var p = new URLSearchParams(location.search);
   var g = function (k, d) { var v = p.get(k); return v === null ? d : v; };
   var st = document.getElementById('stage');
-  var scene = g('scene', 'bar');
 
-  function el(tag, css, html) {
-    var e = document.createElement(tag);
+  function add(cls, css, html) {
+    var e = document.createElement('div');
+    e.className = cls || '';
     e.style.cssText = css;
     if (html !== undefined) e.innerHTML = html;
     st.appendChild(e);
     return e;
   }
 
-  if (scene === 'bar') {
-    el('div', 'position:absolute;left:150px;top:74px', '<span class="kicker">Held by the states</span>');
-    el('div', 'position:absolute;left:150px;top:100px;width:980px', '').className = 'rule';
-    // the bar itself: full height here, revealed by an ffmpeg wipe
-    var h = parseFloat(g('h', '384'));
-    var b = document.createElement('div');
-    b.id = 'bar'; b.style.height = h + 'px';
-    st.appendChild(b);
-    // caption sits beside the bar, never inside it
-    el('div', 'position:absolute;left:372px;bottom:' + (132 + h - 96) + 'px;width:420px',
-       '<div class="kicker" style="margin-bottom:9px">Total on file</div>' +
-       '<div class="note">Reported to state administrators by banks, insurers and employers' +
-       ' after a dormancy period, and held in the owner&rsquo;s name.</div>');
-    el('div', 'position:absolute;left:150px;bottom:118px;width:980px', '').className = 'hair';
-    el('div', 'position:absolute;left:150px;bottom:88px',
-       '<span class="kicker">Waiting to be claimed</span>');
+  function head(text) {
+    add('kicker', 'left:110px;top:82px', text);
+    add('rule', 'left:110px;top:110px;width:1060px;height:1px');
   }
 
-  if (scene === 'grid') {
-    el('div', 'position:absolute;left:150px;top:74px', '<span class="kicker">Americans with property on file</span>');
-    el('div', 'position:absolute;left:150px;top:100px;width:980px', '').className = 'rule';
-    var cols = 14, rows = 7, n = cols * rows;
-    var acc = g('acc', '1') === '1';
-    var gd = document.createElement('div');
-    gd.id = 'grid';
-    gd.style.left = '150px'; gd.style.top = '176px';
-    gd.style.gridTemplateColumns = 'repeat(' + cols + ', 20px)';
-    for (var i = 0; i < n; i++) {
-      var d = document.createElement('div');
-      // every seventh dot is marked: one in seven, laid out so the ratio is countable
-      d.className = 'dot' + (i % 7 === 3 ? (acc ? ' acc' : ' on') : '');
-      gd.appendChild(d);
+  function foot(text) {
+    add('hair', 'left:110px;top:626px;width:1060px;height:1px');
+    add('kicker', 'left:110px;top:646px', text);
+  }
+
+  var scene = g('scene', 'bar');
+
+  if (scene === 'bar' || scene === 'barclose') {
+    head('Held by the states');
+    var close = scene === 'barclose';
+    var bw = close ? 250 : 150;
+    var bh = parseFloat(g('h', close ? 430 : 372));
+    var base = 596;                         // baseline every bar sits on
+    add('bar', 'left:110px;width:' + bw + 'px;top:' + (base - bh) + 'px;height:' + bh + 'px');
+    add('hair', 'left:110px;top:' + base + 'px;width:1060px;height:1px');
+    // the figure overlay lands beside the bar; nothing is drawn into that column
+    add('note', 'left:' + (close ? 430 : 320) + 'px;top:' + (close ? 404 : 372) + 'px;width:430px',
+        'Reported to state administrators by banks, insurers and employers after a '
+        + 'dormancy period, and held in the owner&rsquo;s name.');
+    foot('Waiting to be claimed');
+  }
+
+  // gridsolid inverts the field to ink so the closing cut carries real luma
+  // weight: light grey dots on cream differ too little for a cut to register.
+  if (scene === 'grid' || scene === 'gridmark' || scene === 'gridsolid') {
+    head('Americans with property on file');
+    var mark = scene !== 'grid';
+    var solid = scene === 'gridsolid';
+    var cols = 7, rows = 7, d = 46, gap = 20;
+    var gx = 110, gy = 168;
+    for (var r = 0; r < rows; r++) {
+      for (var c = 0; c < cols; c++) {
+        // one marked dot per row of seven, so the ratio is countable on screen
+        var on = c === 3;
+        var col = on ? (mark ? '#3AAE5C' : '#14161A')
+                     : (solid ? '#14161A' : '#D5D2CA');
+        add('dot', 'position:absolute;left:' + (gx + c * (d + gap)) + 'px;top:'
+            + (gy + r * (d + gap)) + 'px;width:' + d + 'px;height:' + d + 'px;background:' + col);
+      }
     }
-    st.appendChild(gd);
-    el('div', 'position:absolute;left:150px;bottom:96px;width:620px',
-       '<div class="note">Every marked dot is one person with property reported in their name.</div>');
+    // a close-up crops the caption in half, so the wide shots carry it instead
+    if (g('nonote', '0') !== '1') {
+      add('note', 'left:' + (gx + cols * (d + gap) + 74) + 'px;top:430px;width:340px',
+          'Every marked dot is one person with property reported in their name.');
+    }
+    foot('Free to search, free to claim');
   }
 
-  if (scene === 'plain') {
-    el('div', 'position:absolute;left:150px;top:74px', '<span class="kicker">' + g('k', '') + '</span>');
-    el('div', 'position:absolute;left:150px;top:100px;width:980px', '').className = 'rule';
+  if (scene === 'statement') {
+    add('rule', 'left:110px;top:250px;width:1060px;height:6px');
+    add('kicker', 'left:110px;top:82px', g('k', ''));
+    add('hair', 'left:110px;top:110px;width:1060px;height:1px');
+    foot(g('f', 'Unclaimed property'));
+  }
+
+  // sign-off layout: the rule moves under the type and the measure narrows, so
+  // the ink sits somewhere else in the frame than on the statement page
+  if (scene === 'signoff') {
+    add('kicker', 'left:110px;top:82px', g('k', ''));
+    add('hair', 'left:110px;top:110px;width:1060px;height:1px');
+    add('rule', 'left:110px;top:432px;width:700px;height:10px');
+    add('note', 'left:110px;top:470px;width:560px',
+        'Searching a state register is free, and property stays on file in the '
+        + 'owner&rsquo;s name until it is claimed.');
+    foot(g('f', 'Free to search, free to claim'));
+  }
+
+  var zoom = parseFloat(g('zoom', '1'));
+  var sx = parseFloat(g('sx', '0')), sy = parseFloat(g('sy', '0'));
+  if (zoom !== 1 || sx || sy) {
+    st.style.transform = 'translate(' + (-sx * zoom) + 'px,' + (-sy * zoom)
+                       + 'px) scale(' + zoom + ')';
   }
 </script>
