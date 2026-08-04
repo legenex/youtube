@@ -350,3 +350,198 @@ The rhythm failures are the useful finding. A dark, low contrast style can hold
 a viewer's eye for four seconds without a single perceptible change even when
 the edit list says there were four cuts. Alternating the document is not
 enough; the tonal mass has to change too.
+
+---
+---
+
+# Build log: Episode 2 style trailers and the Style 2B revision
+
+Date: 2026-08-04
+Branch: `channel/unclaimed`
+Scope: five 5 to 10 second trailers for Episode 2, "How to Check if a State Is
+Holding Money in Your Name", plus a two mode revision of Style 2. Style test
+only, not a production run.
+
+This run happened in a Linux container, not on the machine that built the
+Episode 5 set, so section 15 records what had to be rebuilt before anything
+could be made at all.
+
+---
+
+## 14. The differentiation matrix, written before building
+
+The Episode 5 set failed because two styles collapsed into each other: both
+were dark, graphic and type led. Every style in this run was assigned four axis
+values first, and the set was checked for collisions before a single shot was
+rendered.
+
+| Style | A Source | B Ground | C Subject | D Tempo |
+| --- | --- | --- | --- | --- |
+| 2B | generated footage | near black | type | fast slam |
+| 6 | real screen recording | paper white | interface | steady procedural |
+| 7 | photographed objects | warm light | physical object | slow reveal |
+| 8 | vector data graphics | paper white | chart | medium build |
+| 9 | archival collage | mid grey to cream | texture | medium build |
+
+Pairwise shared axis values, counted across all ten pairs:
+
+| Pair | Shared | Which |
+| --- | --- | --- |
+| 2B and 6 | 0 | |
+| 2B and 7 | 0 | |
+| 2B and 8 | 0 | |
+| 2B and 9 | 0 | |
+| 6 and 7 | 0 | |
+| 6 and 8 | 1 | B paper white |
+| 6 and 9 | 0 | |
+| 7 and 8 | 0 | |
+| 7 and 9 | 0 | |
+| 8 and 9 | 1 | D medium build |
+
+Maximum shared value for any pair is 1, against a limit of 2. The Episode 5
+collision cannot recur in this set.
+
+Two axis labels need honest qualification.
+
+**Style 6, "real screen recording".** No live site is recorded. The pages are
+hand built facsimiles in the US Web Design System register, screenshotted in
+seven states and cut together, which is what the brief asks for when it says
+the facsimile must look like real government web design. The axis value
+describes the visual register, which is screen native, not the provenance.
+
+**Style 7, "photographed objects".** Every plate is photographic, but see
+section 16: the intended overhead photography could not be generated in this
+container, so the plates come from the Episode 5 pool and are not true locked
+overheads.
+
+---
+
+## 15. What had to be rebuilt before anything could be made
+
+The Episode 5 scripts assume macOS: `build.py` points `CHROME` at
+`/Applications/Google Chrome.app` and reads nine fonts out of
+`/System/Library/Fonts/Supplemental` and `~/Library/Fonts`. None of that exists
+here. The container also shipped no usable ffmpeg: the only binary present was
+Playwright's, built `--disable-everything` with no H.264, no AAC, no `zoompan`
+and no `loudnorm`.
+
+| Need | Resolution |
+| --- | --- |
+| ffmpeg | `apt-get install ffmpeg` after `apt-get update`, giving 6.1.1 with libx264, AAC, zoompan, loudnorm, geq, noise, rgbashift |
+| Chrome | Playwright's Chromium at `/opt/pw-browsers/chromium`, run with `--no-sandbox` |
+| Fonts | 14 faces fetched from Google Fonts into `work-ep02/fonts` by `fetch-fonts.sh` |
+
+Anton stands in for Impact, Public Sans is the real US Web Design System face,
+IBM Plex Mono and Source Serif carry the archival register. `build-ep02.py` is a
+separate script from `build.py` for this reason: the Episode 5 script still
+encodes the macOS paths that produced the Episode 5 files, and rewriting it
+would have made those five videos unreproducible.
+
+---
+
+## 16. Sourcing: what was available and what was not
+
+**Envato produced nothing.** The connector in this session exposes fourteen
+`search_*` tools and no download, license or fetch tool. A search returns
+titles and `elements.envato.com` links only. Nothing can reach the container,
+so the planned allowance of up to 10 Envato AI generations went unused, and the
+music bed is synthesised locally exactly as in the Episode 5 run.
+
+**Higgsfield generated six images that could not be retrieved.** Six overhead
+tabletop plates were generated for Style 7 with `recraft_v4_1` at 2k, 16:9, and
+all six completed. Their result URLs are on `d8j0ntlcm91z4.cloudfront.net`,
+which this session's egress policy refuses at CONNECT with a 403. The proxy
+README is explicit that a policy denial must be reported rather than routed
+around, so it was. The spend is real and the output is unusable.
+
+| Prompt | Job | Outcome |
+| --- | --- | --- |
+| overhead empty oak desk | `e4580997` | completed, unreachable |
+| overhead blank envelopes | `ba9cfea2` | completed, unreachable |
+| overhead closed passbook | `7bdef02e` | completed, unreachable |
+| overhead manila folder | `f94ae9aa` | completed, unreachable |
+| overhead hands placing envelope | `79159a06` | completed, unreachable |
+| overhead blank cheque | `6fbab2ac` | completed, unreachable |
+
+Higgsfield spend: 6 images, 0 clips, against a budget of 8 images and 2 clips.
+Usable output from that spend: none.
+
+**So Style 7 was rebuilt from the Episode 5 pool.** `img-07-desk-folders.png` is
+a warm lit desk of folders and papers, `clip-4-desk-papers.mp4` is a moving shot
+across folders on a wood desk, and `img-03-envelope-mat.png` is a genuine
+top down envelope. All three are photographic, so axis A holds. Two deviations
+follow and neither is hidden:
+
+1. **Not a locked overhead.** The desk plates are raking three quarter views.
+   They are cropped tight to suppress perspective cues, but Style 7 as specified
+   wants a camera directly above, and this trailer does not have one.
+2. **No hands.** The brief for Style 7 says hands enter and move things. The
+   Episode 5 build carries the channel rule that no shot may depict a person,
+   which is why its vault plate is cropped to remove a gloved hand. With the
+   generated hand plate unreachable, the conflict resolved itself in favour of
+   the channel rule: in this trailer the paper slides in and out of frame under
+   its own motion and no hand appears. If the owner wants hands, that is a
+   deliberate exception to the channel rule and needs to be granted explicitly.
+
+**Styles 6 and 8 cost zero, as planned.** Both are entirely hand built HTML,
+screenshotted and cut. Style 9 also cost zero: its photographs are Episode 5
+pool plates reduced to newsprint with ffmpeg.
+
+---
+
+## 17. Voiceover: one generation, reused five times
+
+| Item | Detail |
+| --- | --- |
+| Source | ElevenLabs `text_to_speech`, one call only |
+| Voice id | `SAz9YHcvj6GT2YYXdXww` |
+| Model | `eleven_multilingual_v2` |
+| Raw file | `assets/ep02/shared/vo-raw.mp3`, 9.51s, 165 KB |
+| Working file | `assets/ep02/shared/vo.wav`, 9.47s |
+| Cost | 1 generation, about 150 characters |
+
+The read landed at 9.51s against a 5 to 10 second window, so unlike the Episode
+5 run it needed no time compression. Conditioning was a high pass at 85 Hz, a
+3:1 compressor and a limiter. No word was cut, moved or re-paced.
+
+Phrase boundaries were extracted from the finished wav with `silencedetect`
+rather than guessed, and every cut in all five trailers is placed against this
+table:
+
+| Time | Phrase |
+| --- | --- |
+| 0.00 to 1.57 | Seventy billion dollars. |
+| 2.25 to 5.20 | One in seven Americans has money waiting in their own name. |
+| 6.01 to 7.34 | The money may be unclaimed. |
+| 7.78 to 9.08 | It does not have to stay that way. |
+
+Runtime for all five is 9.60s.
+
+---
+
+## 18. Music: one bed, reused five times
+
+Synthesised locally with ffmpeg, cost 0, for the reason in section 16. Three
+sine drones at 55, 82.5 and 110 Hz with independent slow tremolo, brown noise
+air low passed at 1.6 kHz, a slow echo and 2.6s fades. Mixed under the voice at
+0.15 with a 70 Hz high pass and a 2.4 kHz low pass.
+
+---
+
+## 19. Fact discipline
+
+The narration is the entire factual surface. Nothing else is asserted on screen
+in any of the five trailers.
+
+- The only figures rendered anywhere are `$70 BILLION` and `1 IN 7`.
+- Both arrive through the redaction reveal, so no intermediate figure is ever
+  drawn. Style 8's bar climbs, but its label resolves from `${2} {7}` to
+  `$70 BILLION` without passing through a wrong number.
+- Style 6's results table has no amount column at all, and every owner cell is
+  a redaction block. No name is rendered, so no real person's result is shown.
+  The typed query is the literal string `YOUR NAME`.
+- The URL bar reads `missingmoney.com`, which is one of the two official routes
+  named in the brief. The page behind it is a generic facsimile and does not
+  reproduce that site's actual layout.
+- Style 7's desk plate carries an invented case number on a folder tab in the
+  Episode 5 source, so it is cropped out before use.

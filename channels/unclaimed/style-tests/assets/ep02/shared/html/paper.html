@@ -1,0 +1,77 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>style 7 printed paper elements</title>
+<!--
+  Printed paper that slides onto the desk. These are real print objects, not
+  screen graphics: warm stock, a letterpress bite on the type, a soft drop
+  shadow so the sheet sits above the wood. Figures arrive on paper, never as
+  an overlay.
+-->
+<style>
+  @font-face { font-family: fpublicb; src: url('../../../../work-ep02/fonts/publicsans-bold.ttf'); }
+  @font-face { font-family: fpublic;  src: url('../../../../work-ep02/fonts/publicsans.ttf'); }
+  @font-face { font-family: fmono;    src: url('../../../../work-ep02/fonts/plexmono.ttf'); }
+  @font-face { font-family: fmonob;   src: url('../../../../work-ep02/fonts/plexmono-bold.ttf'); }
+  @font-face { font-family: fserif;   src: url('../../../../work-ep02/fonts/sourceserif.ttf'); }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: transparent; }
+  body { width: 1280px; height: 720px; overflow: hidden; }
+  #sheet { position: absolute; background: #F4EDDF;
+           box-shadow: 0 18px 34px rgba(40,28,12,.42), 0 3px 8px rgba(40,28,12,.30);
+           padding: 30px 38px 32px 38px; }
+  #sheet:after { content: ''; position: absolute; inset: 0;
+                 background: linear-gradient(102deg, rgba(255,255,255,.34), rgba(120,92,50,.10));
+                 pointer-events: none; }
+  .kick { font-family: fmono; font-size: 13px; letter-spacing: .22em;
+          text-transform: uppercase; color: #8A7A5E; }
+  .fig  { font-family: fpublicb; letter-spacing: -.01em; color: #2A2118; line-height: .98; }
+  .body { font-family: fserif; color: #2A2118; line-height: 1.32; }
+  .rule { height: 2px; background: #2A2118; }
+  .hair { height: 1px; background: #B9A883; }
+  .stamp { position: absolute; right: 34px; top: 26px; border: 3px solid #9A3F30;
+           color: #9A3F30; font-family: fmonob; font-size: 15px; letter-spacing: .16em;
+           padding: 7px 13px; transform: rotate(-7deg); opacity: .88; }
+</style>
+<body>
+<div id="sheet"></div>
+<script>
+  var p = new URLSearchParams(location.search);
+  var g = function (k, d) { var v = p.get(k); return v === null ? d : v; };
+  var s = document.getElementById('sheet');
+
+  var w = parseFloat(g('w', 620));
+  s.style.width = w + 'px';
+
+  var kind = g('k', 'fig');
+  var t = g('t', '');
+  var size = parseFloat(g('s', 120));
+  var html = '';
+
+  if (kind === 'fig') {
+    html = '<div class="kick">' + g('kick', '') + '</div>' +
+           '<div class="rule" style="margin:14px 0 20px 0"></div>' +
+           '<div class="fig" style="font-size:' + size + 'px">' + t + '</div>' +
+           '<div class="hair" style="margin-top:22px"></div>' +
+           '<div class="kick" style="margin-top:12px;color:#A08C6A">' + g('cap', '') + '</div>';
+  }
+  if (kind === 'body') {
+    html = '<div class="kick">' + g('kick', '') + '</div>' +
+           '<div class="hair" style="margin:12px 0 16px 0"></div>' +
+           '<div class="body" style="font-size:' + size + 'px">' + t + '</div>';
+  }
+  if (kind === 'slip') {
+    html = '<div class="kick">' + g('kick', '') + '</div>' +
+           '<div class="rule" style="margin:12px 0 18px 0"></div>' +
+           '<div class="body" style="font-size:' + size + 'px">' + t + '</div>';
+    if (g('stamp', '')) html += '<div class="stamp">' + g('stamp') + '</div>';
+  }
+  s.innerHTML = html;
+
+  document.body.offsetHeight;
+  var x = g('x', 'c'), y = g('y', 'c');
+  var bw = s.offsetWidth, bh = s.offsetHeight;
+  s.style.left = (x === 'c' ? Math.round((1280 - bw) / 2) : parseFloat(x)) + 'px';
+  s.style.top  = (y === 'c' ? Math.round((720 - bh) / 2) : parseFloat(y)) + 'px';
+  if (g('rot', null)) s.style.transform = 'rotate(' + g('rot') + 'deg)';
+</script>

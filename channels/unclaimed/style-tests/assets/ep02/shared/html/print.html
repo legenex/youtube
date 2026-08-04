@@ -1,0 +1,108 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>style 9 archival print elements</title>
+<!--
+  Mid century public information print. Everything here is a cut paper element
+  on transparent ground: the build slides and stamps them over a cream plate.
+  Torn edges are SVG clip paths, halftone comes from ffmpeg, misregistration is
+  an rgbashift in the build. Nothing fades.
+-->
+<style>
+  @font-face { font-family: fanton;   src: url('../../../../work-ep02/fonts/anton.ttf'); }
+  @font-face { font-family: foswald;  src: url('../../../../work-ep02/fonts/oswald-bold.ttf'); }
+  @font-face { font-family: fserif;   src: url('../../../../work-ep02/fonts/sourceserif.ttf'); }
+  @font-face { font-family: fdisplay; src: url('../../../../work-ep02/fonts/dmserif.ttf'); }
+  @font-face { font-family: fmono;    src: url('../../../../work-ep02/fonts/plexmono.ttf'); }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: transparent; }
+  body { width: 1280px; height: 720px; overflow: hidden; }
+  #wrap { position: absolute; }
+
+  .card { padding: 26px 34px 30px 34px; position: relative; }
+  .torn { -webkit-clip-path: polygon(
+      0% 2%, 6% 0.4%, 13% 2.2%, 21% 0.6%, 29% 2.4%, 37% 0.8%, 46% 2.6%, 55% 0.7%,
+      64% 2.3%, 73% 0.9%, 82% 2.5%, 91% 0.8%, 100% 2.2%,
+      100% 97.6%, 93% 99.4%, 85% 97.4%, 76% 99.3%, 67% 97.5%, 58% 99.2%, 48% 97.4%,
+      39% 99.3%, 30% 97.6%, 21% 99.1%, 12% 97.5%, 5% 99.2%, 0% 97.6%); }
+  .kick { font-family: fmono; font-size: 13px; letter-spacing: .22em; text-transform: uppercase; }
+  .head { font-family: fanton; text-transform: uppercase; line-height: .92; letter-spacing: .01em; }
+  .osw  { font-family: foswald; text-transform: uppercase; line-height: 1.0; letter-spacing: .02em; }
+  .ser  { font-family: fserif; line-height: 1.3; }
+  .disp { font-family: fdisplay; line-height: 1.0; }
+  .rule { height: 4px; }
+  .thin { height: 1.5px; }
+</style>
+<body>
+<div id="wrap"></div>
+<script>
+  var p = new URLSearchParams(location.search);
+  var g = function (k, d) { var v = p.get(k); return v === null ? d : v; };
+  var w = document.getElementById('wrap');
+
+  var INK   = '#22201C';   // near black print ink
+  var RED   = '#B23A2E';   // the one saturated accent, reserved for money
+  var CREAM = '#EFE7D6';
+  var GREY  = '#8C8578';
+
+  var kind = g('k', 'slab');
+  var text = g('t', '');
+  var size = parseFloat(g('s', 96));
+  var pw   = g('w', null);
+
+  if (pw) w.style.width = pw + 'px';
+
+  function card(bg, inner, torn) {
+    var c = document.createElement('div');
+    c.className = 'card' + (torn ? ' torn' : '');
+    c.style.background = bg;
+    c.innerHTML = inner;
+    w.appendChild(c);
+    return c;
+  }
+
+  if (kind === 'slab') {
+    // a solid printed slab with heavy display type, the workhorse element
+    card(g('bg', CREAM),
+      '<div class="head" style="font-size:' + size + 'px;color:' + g('c', INK) + '">' + text + '</div>',
+      g('torn', '1') === '1');
+  }
+
+  if (kind === 'strip') {
+    // a narrow band with letterspaced mono, used for the kicker line
+    card(g('bg', INK),
+      '<div class="kick" style="color:' + g('c', CREAM) + '">' + text + '</div>',
+      false);
+  }
+
+  if (kind === 'note') {
+    // a torn note in serif, for the sign-off and the caveat register
+    card(g('bg', CREAM),
+      '<div class="ser" style="font-size:' + size + 'px;color:' + g('c', INK) + '">' + text + '</div>',
+      true);
+  }
+
+  if (kind === 'figure') {
+    // the money element: red ink on cream, with rules above and below
+    card(CREAM,
+      '<div class="rule" style="background:' + RED + ';margin-bottom:16px"></div>' +
+      '<div class="disp" style="font-size:' + size + 'px;color:' + RED + '">' + text + '</div>' +
+      '<div class="kick" style="color:' + GREY + ';margin-top:14px">' + g('cap', '') + '</div>' +
+      '<div class="thin" style="background:' + GREY + ';margin-top:12px"></div>',
+      true);
+  }
+
+  if (kind === 'osw') {
+    card(g('bg', CREAM),
+      '<div class="osw" style="font-size:' + size + 'px;color:' + g('c', INK) + '">' + text + '</div>',
+      g('torn', '1') === '1');
+  }
+
+  // position
+  document.body.offsetHeight;
+  var x = g('x', 'c'), y = g('y', 'c');
+  var bw = w.offsetWidth, bh = w.offsetHeight;
+  w.style.left = (x === 'c' ? Math.round((1280 - bw) / 2) : parseFloat(x)) + 'px';
+  w.style.top  = (y === 'c' ? Math.round((720 - bh) / 2) : parseFloat(y)) + 'px';
+  if (g('rot', null)) w.style.transform = 'rotate(' + g('rot') + 'deg)';
+</script>

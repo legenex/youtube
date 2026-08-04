@@ -1,0 +1,89 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>type card ep02</title>
+<style>
+  @font-face { font-family: fanton;     src: url('../../../../work-ep02/fonts/anton.ttf'); }
+  @font-face { font-family: fblack;     src: url('../../../../work-ep02/fonts/archivoblack.ttf'); }
+  @font-face { font-family: foswald;    src: url('../../../../work-ep02/fonts/oswald-bold.ttf'); }
+  @font-face { font-family: fcond;      src: url('../../../../work-ep02/fonts/barlowcond.ttf'); }
+  @font-face { font-family: finter;     src: url('../../../../work-ep02/fonts/inter-regular.ttf'); }
+  @font-face { font-family: fintersemi; src: url('../../../../work-ep02/fonts/inter-semibold.ttf'); }
+  @font-face { font-family: finterbold; src: url('../../../../work-ep02/fonts/inter-bold.ttf'); }
+  @font-face { font-family: fpublic;    src: url('../../../../work-ep02/fonts/publicsans.ttf'); }
+  @font-face { font-family: fpublicb;   src: url('../../../../work-ep02/fonts/publicsans-bold.ttf'); }
+  @font-face { font-family: fmono;      src: url('../../../../work-ep02/fonts/plexmono.ttf'); }
+  @font-face { font-family: fmonob;     src: url('../../../../work-ep02/fonts/plexmono-bold.ttf'); }
+  @font-face { font-family: fserif;     src: url('../../../../work-ep02/fonts/sourceserif.ttf'); }
+  @font-face { font-family: fdisplay;   src: url('../../../../work-ep02/fonts/dmserif.ttf'); }
+  @font-face { font-family: fspace;     src: url('../../../../work-ep02/fonts/spacemono-bold.ttf'); }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: transparent; }
+  body { width: 1280px; height: 720px; overflow: hidden; }
+  #wrap { position: absolute; }
+  #t { margin: 0; white-space: pre-wrap; }
+  .red { display: inline-block; background: currentColor; border-radius: 2px;
+         vertical-align: baseline; }
+</style>
+<body>
+<div id="wrap"><div id="t"></div></div>
+<script>
+  var p = new URLSearchParams(location.search);
+  var g = function (k, d) { var v = p.get(k); return v === null ? d : v; };
+
+  var wrap = document.getElementById('wrap');
+  var t = document.getElementById('t');
+
+  var fonts = { anton: 'fanton', black: 'fblack', oswald: 'foswald', cond: 'fcond',
+                inter: 'finter', intersemi: 'fintersemi', interbold: 'finterbold',
+                public: 'fpublic', publicb: 'fpublicb', mono: 'fmono', monob: 'fmonob',
+                serif: 'fserif', display: 'fdisplay', space: 'fspace' };
+
+  var text = g('t', '');
+  // {n} marks a redaction block of n characters, used for the digit reveal
+  text = text.replace(/\{(\d+)\}/g, function (m, n) {
+    return '<span class="red" data-n="' + n + '"></span>';
+  });
+  t.innerHTML = text;
+
+  var size = parseFloat(g('s', 64));
+  t.style.fontFamily = fonts[g('f', 'inter')] || 'finter';
+  t.style.fontSize = size + 'px';
+  t.style.lineHeight = g('lh', '1.06');
+  t.style.color = '#' + g('c', 'F5F0E3');
+  t.style.letterSpacing = g('ls', '0') + 'em';
+  t.style.textAlign = g('al', 'center');
+  t.style.textTransform = g('tt', 'none');
+  if (g('sh', '')) t.style.textShadow = g('sh');
+
+  // redaction blocks scale with the type
+  Array.prototype.forEach.call(t.querySelectorAll('.red'), function (el) {
+    var n = parseInt(el.getAttribute('data-n'), 10);
+    el.style.width = (n * size * 0.58) + 'px';
+    el.style.height = (size * 0.70) + 'px';
+    el.style.marginBottom = (-size * 0.04) + 'px';
+  });
+
+  var maxw = g('mw', null);
+  if (maxw) { wrap.style.width = maxw + 'px'; }
+
+  // optional plate behind the type
+  var bg = g('bg', null);
+  if (bg) {
+    var pad = g('pad', '14 22').split(' ');
+    wrap.style.background = '#' + bg;
+    wrap.style.padding = (pad[0] || 14) + 'px ' + (pad[1] || 22) + 'px';
+  }
+  if (g('bd', null)) { wrap.style.border = g('bd'); }
+  if (g('rot', null)) { wrap.style.transform = 'rotate(' + g('rot') + 'deg)'; }
+
+  // position: x is a number or 'c' (centred); y is a number or 'c'
+  var x = g('x', 'c'), y = g('y', 'c');
+  wrap.style.left = '0px';
+  wrap.style.top = '0px';
+  if (!maxw && x === 'c') { wrap.style.width = '1280px'; }
+  document.body.offsetHeight;
+  var bw = wrap.offsetWidth, bh = wrap.offsetHeight;
+  wrap.style.left = (x === 'c' ? Math.round((1280 - bw) / 2) : parseFloat(x)) + 'px';
+  wrap.style.top = (y === 'c' ? Math.round((720 - bh) / 2) : parseFloat(y)) + 'px';
+</script>

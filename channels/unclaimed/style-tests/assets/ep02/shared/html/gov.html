@@ -1,0 +1,163 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>state unclaimed property search facsimile</title>
+<!--
+  A clean facsimile of the US Web Design System register, which is what a real
+  state unclaimed property portal looks like. It is deliberately generic:
+  no state seal, no agency name, and every result row keeps its owner column
+  redacted, so no real person's result is ever depicted. No dollar figure is
+  printed anywhere, because the only figures this episode may show are the two
+  in the narration.
+-->
+<style>
+  @font-face { font-family: fpublic;  src: url('../../../../work-ep02/fonts/publicsans.ttf'); }
+  @font-face { font-family: fpublicb; src: url('../../../../work-ep02/fonts/publicsans-bold.ttf'); }
+  @font-face { font-family: fmono;    src: url('../../../../work-ep02/fonts/plexmono.ttf'); }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { width: 1280px; height: 720px; overflow: hidden;
+         font-family: fpublic, sans-serif; background: #ffffff; color: #1b1b1b; }
+
+  /* browser chrome */
+  #chrome { height: 74px; background: #dfe1e2; border-bottom: 1px solid #c6cace; }
+  #tabs { height: 36px; padding: 6px 10px 0 10px; }
+  .tab { display: inline-block; height: 30px; background: #f0f0f0; border-radius: 8px 8px 0 0;
+         padding: 7px 16px; font-size: 12.5px; color: #3d4551; min-width: 210px;
+         border: 1px solid #c6cace; border-bottom: none; }
+  #bar { height: 38px; padding: 4px 10px; display: flex; align-items: center; gap: 10px; }
+  .nav { width: 15px; height: 15px; border-left: 2px solid #71767a; border-bottom: 2px solid #71767a;
+         transform: rotate(45deg); margin-left: 4px; }
+  .nav.fwd { transform: rotate(-135deg); opacity: .35; }
+  #url { flex: 1; height: 28px; background: #fff; border: 1px solid #c6cace; border-radius: 14px;
+         font-size: 13px; color: #1b1b1b; padding: 5px 14px; display: flex; align-items: center; gap: 8px; }
+  #lock { width: 9px; height: 8px; border: 1.6px solid #4d8055; border-radius: 1px; position: relative; }
+  #lock:before { content:''; position:absolute; left:1.5px; top:-4px; width:4px; height:4px;
+                 border:1.6px solid #4d8055; border-bottom:none; border-radius:3px 3px 0 0; }
+
+  /* official banner */
+  #gov { background: #f0f0f0; font-size: 11.5px; color: #3d4551; padding: 6px 46px;
+         border-bottom: 1px solid #dfe1e2; }
+  #masthead { background: #162e51; color: #fff; padding: 15px 46px 14px 46px; }
+  #masthead h1 { margin: 0; font-family: fpublicb; font-size: 19px; letter-spacing: .01em; }
+  #masthead p { margin: 3px 0 0 0; font-size: 12.5px; color: #c9d2e0; }
+
+  /* stat strip: the only two figures the narration states */
+  #stats { display: flex; background: #1a4480; color: #fff; }
+  #stats div { padding: 11px 46px; font-size: 12.5px; color: #d3e0f5; }
+  #stats b { font-family: fpublicb; font-size: 20px; color: #fff; display: block; letter-spacing: .01em; }
+
+  #main { padding: 22px 46px 0 46px; }
+  #lede { font-family: fpublicb; font-size: 15.5px; margin: 0 0 12px 0; color: #1b1b1b; }
+
+  /* search form */
+  #form { display: flex; gap: 0; max-width: 720px; }
+  #field { flex: 1; height: 44px; border: 2px solid #565c65; border-right: none; background: #fff;
+           font-size: 16px; padding: 10px 13px; display: flex; align-items: center; }
+  #field.focus { outline: 4px solid #2491ff; outline-offset: 0; border-color: #1b1b1b; }
+  #caret { display: inline-block; width: 1.5px; height: 20px; background: #1b1b1b; margin-left: 1px; }
+  #ph { color: #757575; }
+  #go { height: 44px; background: #005ea2; color: #fff; font-family: fpublicb; font-size: 15px;
+        padding: 10px 26px; display: flex; align-items: center; }
+
+  /* results */
+  #res { margin-top: 20px; }
+  #count { font-size: 12.5px; color: #565c65; margin-bottom: 9px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; font-family: fpublicb; font-size: 11px; letter-spacing: .07em;
+       text-transform: uppercase; color: #565c65; padding: 0 0 7px 0; border-bottom: 2px solid #565c65; }
+  td { padding: 11px 0; border-bottom: 1px solid #dfe1e2; vertical-align: middle; }
+  .redact { display: inline-block; height: 13px; background: #1b1b1b; border-radius: 2px;
+            vertical-align: middle; }
+  .skel { display: inline-block; height: 13px; background: #e6e6e6; border-radius: 2px;
+          vertical-align: middle; }
+  .tag { font-family: fpublicb; font-size: 10.5px; letter-spacing: .08em; color: #2e5c26;
+         background: #ecf3ec; border: 1px solid #b7d0b0; padding: 3px 9px; border-radius: 2px; }
+  tr.hl td { background: #faf3d1; }
+  tr.hl td:first-child { box-shadow: inset 4px 0 0 #ffbe2e; }
+  .mono { font-family: fmono; font-size: 12px; color: #565c65; }
+</style>
+<body>
+<div id="chrome">
+  <div id="tabs"><div class="tab">Unclaimed property search</div></div>
+  <div id="bar">
+    <div class="nav"></div><div class="nav fwd"></div>
+    <div id="url"><span id="lock"></span><span id="urltext"></span></div>
+  </div>
+</div>
+
+<div id="gov">An official search service of the state unclaimed property administrators</div>
+
+<div id="masthead">
+  <h1>Unclaimed Property Search</h1>
+  <p>Search property reported to the state and held in the owner's name</p>
+</div>
+
+<div id="stats">
+  <div>Currently held nationwide<b>$70 BILLION</b></div>
+  <div>Americans with property on file<b>1 IN 7</b></div>
+</div>
+
+<div id="main">
+  <p id="lede">Search by last name</p>
+  <div id="form">
+    <div id="field"><span id="typed"></span><span id="ph">Last name</span><span id="caret"></span></div>
+    <div id="go">Search</div>
+  </div>
+  <div id="res"></div>
+</div>
+
+<script>
+  var p = new URLSearchParams(location.search);
+  var g = function (k, d) { var v = p.get(k); return v === null ? d : v; };
+
+  document.getElementById('urltext').textContent = g('url', 'missingmoney.com');
+
+  var q = g('q', '');
+  document.getElementById('typed').textContent = q;
+  document.getElementById('ph').style.display = q ? 'none' : 'inline';
+  var focused = g('focus', '0') === '1';
+  if (focused) document.getElementById('field').classList.add('focus');
+  document.getElementById('caret').style.display = focused ? 'inline-block' : 'none';
+
+  var state = g('state', 'empty');   // empty | loading | results
+  var hl = parseInt(g('hl', '0'), 10);
+  var res = document.getElementById('res');
+
+  // Owner names are never rendered. Each row's owner cell is a redaction block,
+  // sized deterministically per row so the table reads as real data without
+  // inventing a person. No amount column exists.
+  var widths = [148, 196, 122, 173, 138];
+  var holders = ['Bank deposit account', 'Uncashed cheque', 'Utility deposit',
+                 'Insurance payment', 'Payroll'];
+
+  function rows(skeleton) {
+    var h = '';
+    for (var i = 0; i < 5; i++) {
+      var cls = (!skeleton && hl === i + 1) ? ' class="hl"' : '';
+      var cell = skeleton
+        ? '<span class="skel" style="width:' + widths[i] + 'px"></span>'
+        : '<span class="redact" style="width:' + widths[i] + 'px"></span>';
+      var holder = skeleton
+        ? '<span class="skel" style="width:130px"></span>'
+        : holders[i];
+      var tag = skeleton
+        ? '<span class="skel" style="width:74px"></span>'
+        : '<span class="tag">UNCLAIMED</span>';
+      var st = skeleton
+        ? '<span class="skel" style="width:52px"></span>'
+        : '<span class="mono">ON FILE</span>';
+      h += '<tr' + cls + '><td>' + cell + '</td><td>' + holder + '</td><td>' + st +
+           '</td><td>' + tag + '</td></tr>';
+    }
+    return h;
+  }
+
+  if (state !== 'empty') {
+    var loading = state === 'loading';
+    res.innerHTML =
+      '<div id="count">' + (loading ? 'Searching&hellip;' : 'Showing 5 of 5 matching records') + '</div>' +
+      '<table><thead><tr><th>Owner on record</th><th>Property type</th>' +
+      '<th>Status</th><th></th></tr></thead><tbody>' + rows(loading) + '</tbody></table>';
+  }
+</script>
