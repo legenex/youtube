@@ -75,21 +75,33 @@ def run(args):
     return p
 
 
+# Chromium's new headless mode subtracts the window chrome from the painted
+# viewport: --window-size=1280,720 lays out at 1280x720 but only paints the top
+# 633 CSS pixels, leaving the bottom 87 blank while the PNG is still full size.
+# Anything in the lower eighth of the frame silently disappears. Ask for a
+# window that much taller and crop back, so a card at y=628 actually renders.
+CHROME_CHROME_H = 87
+
+
 def shoot(dst, url, size=(W, H), scale=2, transparent=False):
     """Screenshot a local page with headless Chrome. Cached by destination path."""
     if os.path.exists(dst):
         return dst
     os.makedirs(os.path.dirname(dst), exist_ok=True)
+    raw = dst + ".raw.png"
     args = [CHROME, "--headless", "--no-sandbox", "--disable-gpu", "--hide-scrollbars",
             "--force-device-scale-factor=%s" % scale,
-            "--window-size=%d,%d" % size, "--virtual-time-budget=2500",
-            "--screenshot=" + dst, url]
+            "--window-size=%d,%d" % (size[0], size[1] + CHROME_CHROME_H),
+            "--virtual-time-budget=2500", "--screenshot=" + raw, url]
     if transparent:
         args.insert(5, "--default-background-color=00000000")
     p = subprocess.run(args, capture_output=True, text=True)
-    if not os.path.exists(dst):
+    if not os.path.exists(raw):
         sys.stderr.write("screenshot failed: %s\n%s\n" % (dst, p.stderr[-900:]))
         raise SystemExit(1)
+    run(["ffmpeg", "-y", "-v", "error", "-i", raw,
+         "-vf", "crop=%d:%d:0:0" % (size[0] * scale, size[1] * scale), dst])
+    os.remove(raw)
     return dst
 
 
@@ -375,28 +387,25 @@ def style_6():
     S = "6"
     CURSOR = os.path.join(OVL5, "an-cursor.png")
 
-    def shot(dur, states, crop=None, z=(1.0, 1.0), dx=0.0, dy=0.0, cursor=None, cap=None):
-        """states: list of (png, enable_expr or None). First is the base plate."""
+    def shot(dur, states, z=(1.0, 1.0), dx=0.0, dy=0.0, cursor=None, cap=None):
+        """states: list of (png, enable_expr or None). First is the base plate.
+
+        Each plate is already framed by the page itself, so there is no crop
+        here and nothing can land out of bounds.
+        """
+        # The plate is already exactly one frame, so it is scaled to W x H and
+        # zoompan starts at z=1.0, which means "the whole frame". Any headroom
+        # upscale here would silently crop the framing the page just computed.
         inputs = [img_in(states[0][0], dur)]
-        pre = "[0:v]"
-        if crop:
-            x, y, w, h = crop
-            pre += "crop=%d:%d:%d:%d,scale=%d:%d," % (w, h, x, y, CW, CH)
-        else:
-            pre += "%s," % fill()
-        f = ["%s%s[bg]" % (pre, drift(z[0], z[1], dur, dx, dy))]
+        f = ["[0:v]scale=%d:%d,%s[bg]" % (W, H, drift(z[0], z[1], dur, dx, dy))]
         last = "bg"
         # later page states swap in on top, hard, never crossfaded
         for i, (png, en) in enumerate(states[1:]):
             inputs.append(img_in(png, dur))
             n = len(inputs) - 1
             t = "st%d" % i
-            if crop:
-                x, y, w, h = crop
-                f.append("[%d:v]crop=%d:%d:%d:%d,scale=%d:%d,%s[%s]"
-                         % (n, w, h, x, y, CW, CH, drift(z[0], z[1], dur, dx, dy), t))
-            else:
-                f.append("[%d:v]%s,%s[%s]" % (n, fill(), drift(z[0], z[1], dur, dx, dy), t))
+            f.append("[%d:v]scale=%d:%d,%s[%s]"
+                     % (n, W, H, drift(z[0], z[1], dur, dx, dy), t))
             nxt = "sw%d" % i
             f.append("[%s][%s]overlay=x=0:y=0:enable='%s'[%s]" % (last, t, en, nxt))
             last = nxt
@@ -419,39 +428,68 @@ def style_6():
         f.append("[%s]format=yuv420p[v]" % last)
         return render(S, ";".join(f), dur, inputs, "screen native")
 
-    # page states, each a cached screenshot of the facsimile
-    p_empty = page("gov", state="empty")
-    p_focus = page("gov", state="empty", focus="1")
-    p_typ1 = page("gov", state="empty", focus="1", q="YOUR")
-    p_typ2 = page("gov", state="empty", focus="1", q="YOUR NAME")
-    p_load = page("gov", state="loading", q="YOUR NAME")
-    p_res = page("gov", state="results", q="YOUR NAME")
-    p_hl = page("gov", state="results", q="YOUR NAME", hl="2")
+    # Element boxes measured from the rendered page, so a framing is expressed as
+    # "centre on this element at this zoom" instead of a hand-guessed crop.
+    BOX = {"stats": (0, 167, 1280, 59), "form": (46, 278, 720, 44),
+           "go": (673, 278, 93, 44), "table": (46, 365, 1188, 216),
+           "hl": (46, 425, 1188, 39), "foot": (0, 607, 1280, 86),
+           "page": (0, 0, 1280, 720)}
 
-    # crops are in 2x screenshot space (2560x1440)
-    C_WIDE = (0, 0, 2560, 1440)
-    C_STATS = (60, 300, 1900, 1069)
-    C_FIELD = (60, 470, 1720, 968)
-    C_RES = (60, 660, 2440, 1373)
-    C_ROW = (60, 800, 1900, 1069)
+    def framing(key, zoom, cx=None, cy=None, fit=True, margin=34):
+        """Centre the frame on an element. `fit` caps the zoom so the element
+        plus a margin still fits, which is what stops a framing from slicing
+        through the thing it is meant to be showing."""
+        x, y, w, h = BOX[key]
+        if fit:
+            zoom = min(zoom, 1280.0 / (w + 2 * margin), 720.0 / (h + 2 * margin))
+        zoom = max(zoom, 1.0)
+        cx = x + w / 2.0 if cx is None else cx
+        cy = y + h / 2.0 if cy is None else cy
+        vw, vh = 1280.0 / zoom, 720.0 / zoom
+        sx = min(max(cx - vw / 2.0, 0.0), max(0.0, 1280.0 - vw))
+        sy = min(max(cy - vh / 2.0, 0.0), max(0.0, 760.0 - vh))
+        return {"zoom": "%.4f" % zoom, "sx": "%.1f" % sx, "sy": "%.1f" % sy}
+
+    F_WIDE = framing("page", 1.0)
+    # a full width band, so fit would cap the zoom to 1.0 and this framing
+    # would become identical to F_WIDE; zoom into its centre instead
+    F_STATS = framing("stats", 1.55, fit=False)
+    F_FORM = framing("form", 1.85)
+    # framed so the end of the typed query and the button are both in shot
+    F_GO = framing("go", 1.75, cx=410, fit=False)
+    F_TABLE = framing("table", 1.50)
+    # the row close-up sits on the redacted owner cell and the property type,
+    # which is the part of the row that carries meaning
+    F_ROW = framing("hl", 2.10, cx=430, fit=False)
+    F_FOOT = framing("foot", 1.28)
+
+    # page states, each a cached screenshot of the facsimile at a given framing
+    p_stats = page("gov", state="empty", **F_STATS)
+    p_focus = page("gov", state="empty", focus="1", **F_WIDE)
+    p_typ1 = page("gov", state="empty", focus="1", q="YOUR", **F_FORM)
+    p_typ2 = page("gov", state="empty", focus="1", q="YOUR NAME", **F_FORM)
+    p_go = page("gov", state="empty", q="YOUR NAME", **F_GO)
+    p_load = page("gov", state="loading", q="YOUR NAME", **F_TABLE)
+    p_res = page("gov", state="results", q="YOUR NAME", **F_TABLE)
+    p_row = page("gov", state="results", q="YOUR NAME", hl="2", **F_ROW)
+    p_foot = page("gov", state="results", q="YOUR NAME", hl="2", **F_FOOT)
 
     plan = timeline([
         # "Seventy billion dollars." the stat strip carries both figures
-        (0.00, dict(states=[(p_empty, None)], crop=C_STATS, z=(1.00, 1.06),
-                    cursor=(1180, 690, 700, 330, 1.30))),
-        (1.56, dict(states=[(p_focus, None)], crop=C_FIELD, z=(1.02, 1.07),
-                    cursor=(640, 300, 470, 250, 0.45))),
+        (0.00, dict(states=[(p_stats, None)], z=(1.00, 1.05),
+                    cursor=(1210, 690, 690, 300, 1.30))),
+        (1.56, dict(states=[(p_focus, None)], z=(1.01, 1.05),
+                    cursor=(690, 300, 300, 300, 0.52))),
         # "One in seven Americans has money waiting in their own name."
-        (2.25, dict(states=[(p_typ1, None), (p_typ2, "gte(t,0.52)")], crop=C_FIELD,
-                    z=(1.03, 1.08), cursor=(470, 250, 455, 246, 0.4))),
-        (3.30, dict(states=[(p_typ2, None)], crop=C_FIELD, z=(1.05, 1.12), dx=0.03,
-                    cursor=(455, 246, 905, 250, 0.62))),
-        (4.35, dict(states=[(p_load, None), (p_res, "gte(t,0.92)")], crop=C_RES,
-                    z=(1.00, 1.05))),
+        (2.25, dict(states=[(p_typ1, None), (p_typ2, "gte(t,0.50)")],
+                    z=(1.02, 1.06), cursor=(300, 300, 250, 292, 0.40))),
+        (3.30, dict(states=[(p_go, None)], z=(1.03, 1.08),
+                    cursor=(240, 292, 690, 356, 0.66))),
+        (4.35, dict(states=[(p_load, None), (p_res, "gte(t,0.90)")], z=(1.00, 1.04))),
         # "The money may be unclaimed."
-        (6.01, dict(states=[(p_hl, None)], crop=C_ROW, z=(1.02, 1.10), dy=0.02)),
+        (6.01, dict(states=[(p_row, None)], z=(1.01, 1.07), dy=0.015)),
         # "It does not have to stay that way." small caption, never a slam
-        (7.78, dict(states=[(p_hl, None)], crop=C_RES, z=(1.06, 1.00),
+        (7.78, dict(states=[(p_foot, None)], z=(1.04, 1.00),
                     cap=("It does not have to stay that way.", 0.16))),
     ])
     for _, dur, kw in plan:
